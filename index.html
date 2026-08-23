@@ -464,6 +464,34 @@
       margin-bottom: 10px;
     }
 
+    /* Section headers for category grouping */
+    .vm-section {
+      margin-bottom: 20px;
+    }
+    .vm-section-h {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--verde3);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      border-bottom: 2px solid var(--verde);
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .vm-section-count {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .vm-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
     /* Full verb view */
     .vm-verb-header {
       margin-bottom: 20px;
@@ -1037,17 +1065,45 @@
       )
     ].join('');
 
-    const cardsHtml = filtered.map(v => {
-      const catLabel = (VERB_CATEGORIES_PT.find(c => c.key === v.category) || {}).label || v.category;
-      return `
-        <button class="vm-card" data-verb-inf="${v.infinitive.replace(/"/g, '&quot;')}">
-          <div class="vm-card-left">
-            <span class="vm-card-inf">${v.infinitive}</span>
-            <span class="vm-card-en">${v.en}</span>
-          </div>
-          <span class="vm-card-cat">${catLabel}</span>
-        </button>`;
-    }).join('');
+    // Build cards HTML with optional category grouping
+    let cardsHtml = '';
+
+    if (!cat) {
+      // Group by category when "Todos" is selected
+      VERB_CATEGORIES_PT.forEach(catDef => {
+        const catVerbs = filtered.filter(v => v.category === catDef.key);
+        if (catVerbs.length > 0) {
+          cardsHtml += `<div class="vm-section">`;
+          cardsHtml += `<h3 class="vm-section-h">${catDef.label} <span class="vm-section-count">(${catVerbs.length})</span></h3>`;
+          cardsHtml += `<div class="vm-grid">`;
+          cardsHtml += catVerbs.map(v => {
+            const catLabel = (VERB_CATEGORIES_PT.find(c => c.key === v.category) || {}).label || v.category;
+            return `
+              <button class="vm-card" data-verb-inf="${v.infinitive.replace(/"/g, '&quot;')}">
+                <div class="vm-card-left">
+                  <span class="vm-card-inf">${v.infinitive}</span>
+                  <span class="vm-card-en">${v.en}</span>
+                </div>
+                <span class="vm-card-cat">${catLabel}</span>
+              </button>`;
+          }).join('');
+          cardsHtml += `</div></div>`;
+        }
+      });
+    } else {
+      // Flat list when a specific category is selected
+      cardsHtml = filtered.map(v => {
+        const catLabel = (VERB_CATEGORIES_PT.find(c => c.key === v.category) || {}).label || v.category;
+        return `
+          <button class="vm-card" data-verb-inf="${v.infinitive.replace(/"/g, '&quot;')}">
+            <div class="vm-card-left">
+              <span class="vm-card-inf">${v.infinitive}</span>
+              <span class="vm-card-en">${v.en}</span>
+            </div>
+            <span class="vm-card-cat">${catLabel}</span>
+          </button>`;
+      }).join('');
+    }
 
     const t = document.getElementById('tool');
     t.innerHTML = `
