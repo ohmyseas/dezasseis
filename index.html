@@ -659,11 +659,836 @@
     speak('os pães são bons');
   };
 
+  /* ────────────────────────────────────────────────────────────
+     VERBS — 182 pt-PT verbs × 9 tenses × 6 person-forms
+     Generated per Task 1.3 (Option C hybrid: 146 mirror from
+     Dieciséis + 36 pt-PT-life additions).
+     ──────────────────────────────────────────────────────────── */
+
+  const PRONOUNS_PT = ['eu','tu','ele/ela/você','nós','vós','eles/elas/vocês'];
+
+  const TENSE_META = {
+    presente:          { label: 'Presente',                    drilled: true  },
+    pret_perf_simples: { label: 'Pretérito Perfeito Simples',  drilled: true  },
+    pret_imperfeito:   { label: 'Pretérito Imperfeito',        drilled: true  },
+    futuro_perifr:     { label: 'Futuro Perifrástico',         drilled: true  },
+    futuro_simples:    { label: 'Futuro Simples',              drilled: false },
+    condicional:       { label: 'Condicional',                 drilled: false },
+    pres_conjuntivo:   { label: 'Presente do Conjuntivo',      drilled: false },
+    fut_conjuntivo:    { label: 'Futuro do Conjuntivo',        drilled: false },
+    inf_pessoal:       { label: 'Infinitivo Pessoal',          drilled: false },
+  };
+
+  /* ── Auxiliary "ir" for Futuro Perifrástico (hand-set since ir is irregular) ── */
+  const IR_AUX = ['vou','vais','vai','vamos','ides','vão'];
+
+  /* ── Regular-conjugation engine ── */
+  function conjRegular(inf) {
+    const stem = inf.slice(0, -2);
+    const fam = inf.slice(-2); // 'ar' | 'er' | 'ir'
+
+    // Preterite 1sg orthographic mutations for -ar family
+    let stem1sgPret = stem;
+    if (fam === 'ar') {
+      if (stem.endsWith('c')) stem1sgPret = stem.slice(0, -1) + 'qu';   // ficar → fiquei
+      else if (stem.endsWith('g')) stem1sgPret = stem + 'u';             // pagar → paguei
+      else if (stem.endsWith('ç')) stem1sgPret = stem.slice(0, -1) + 'c';// começar → comecei
+    }
+    // Presente 1sg orthographic mutations for -er/-ir families
+    // (before 'o': c→ç, g→j)
+    let stem1sgPres = stem;
+    if (fam === 'er' || fam === 'ir') {
+      if (stem.endsWith('c')) stem1sgPres = stem.slice(0, -1) + 'ç';   // vencer → venço
+      else if (stem.endsWith('g')) stem1sgPres = stem.slice(0, -1) + 'j'; // erguer → ergo (rare) ; proteger → protejo
+    }
+    // Presente do Conjuntivo stem — from present 1sg minus final 'o'
+    // For -ar: base stem + subj endings starting with -e
+    // For -er/-ir: stem1sgPres + subj endings starting with -a
+    // Additional orthographic mutation for -ar subj (before 'e'):
+    //   c → qu, g → gu, ç → c
+    let stemSubj = stem;
+    if (fam === 'ar') {
+      if (stem.endsWith('c')) stemSubj = stem.slice(0, -1) + 'qu';
+      else if (stem.endsWith('g')) stemSubj = stem + 'u';
+      else if (stem.endsWith('ç')) stemSubj = stem.slice(0, -1) + 'c';
+    } else {
+      stemSubj = stem1sgPres;
+    }
+
+    // --- Presente ---
+    let presente;
+    if (fam === 'ar') {
+      presente = [stem+'o', stem+'as', stem+'a', stem+'amos', stem+'ais', stem+'am'];
+    } else if (fam === 'er') {
+      presente = [stem1sgPres+'o', stem+'es', stem+'e', stem+'emos', stem+'eis', stem+'em'];
+    } else {
+      presente = [stem1sgPres+'o', stem+'es', stem+'e', stem+'imos', stem+'is', stem+'em'];
+    }
+
+    // --- Pretérito Perfeito Simples ---
+    // pt-PT: -ar family carries acute on 1pl (falámos, not falamos)
+    let pret;
+    if (fam === 'ar') {
+      pret = [stem1sgPret+'ei', stem+'aste', stem+'ou', stem+'ámos', stem+'astes', stem+'aram'];
+    } else if (fam === 'er') {
+      pret = [stem+'i', stem+'este', stem+'eu', stem+'emos', stem+'estes', stem+'eram'];
+    } else {
+      pret = [stem+'i', stem+'iste', stem+'iu', stem+'imos', stem+'istes', stem+'iram'];
+    }
+
+    // --- Pretérito Imperfeito ---
+    let imperf;
+    if (fam === 'ar') {
+      imperf = [stem+'ava', stem+'avas', stem+'ava', stem+'ávamos', stem+'áveis', stem+'avam'];
+    } else {
+      // -er and -ir share
+      imperf = [stem+'ia', stem+'ias', stem+'ia', stem+'íamos', stem+'íeis', stem+'iam'];
+    }
+
+    // --- Futuro Perifrástico: ir + infinitive ---
+    const futPerifr = IR_AUX.map(a => a + ' ' + inf);
+
+    // --- Futuro Simples: infinitive + endings ---
+    const futSimp = [inf+'ei', inf+'ás', inf+'á', inf+'emos', inf+'eis', inf+'ão'];
+
+    // --- Condicional: infinitive + endings ---
+    const cond = [inf+'ia', inf+'ias', inf+'ia', inf+'íamos', inf+'íeis', inf+'iam'];
+
+    // --- Presente do Conjuntivo ---
+    let presConj;
+    if (fam === 'ar') {
+      presConj = [stemSubj+'e', stemSubj+'es', stemSubj+'e', stemSubj+'emos', stemSubj+'eis', stemSubj+'em'];
+    } else {
+      // -er / -ir share endings -a/-as/-a/-amos/-ais/-am; use 1sg-present stem
+      presConj = [stemSubj+'a', stemSubj+'as', stemSubj+'a', stemSubj+'amos', stemSubj+'ais', stemSubj+'am'];
+    }
+
+    // --- Futuro do Conjuntivo (regular = infinitive-based) ---
+    const futConj = [inf, inf+'es', inf, inf+'mos', inf+'des', inf+'em'];
+
+    // --- Infinitivo Pessoal ---
+    const infPess = [inf, inf+'es', inf, inf+'mos', inf+'des', inf+'em'];
+
+    return {
+      presente,
+      pret_perf_simples: pret,
+      pret_imperfeito: imperf,
+      futuro_perifr: futPerifr,
+      futuro_simples: futSimp,
+      condicional: cond,
+      pres_conjuntivo: presConj,
+      fut_conjuntivo: futConj,
+      inf_pessoal: infPess,
+    };
+  }
+
+  /* ── VERB_META (English gloss + Portuguese category) ── */
+  const VERB_CATEGORIES_PT = [
+    { key:'essenciais',   label:'Essenciais',        desc:'Verbos de todo o dia' },
+    { key:'comunicacao',  label:'Comunicação',       desc:'Falar, escrever, ligar' },
+    { key:'movimento',    label:'Movimento',         desc:'Ir, vir, viajar' },
+    { key:'comida',       label:'Comida e Bebida',   desc:'Comer, cozinhar, servir' },
+    { key:'quotidiano',   label:'Quotidiano',        desc:'Dormir, lavar, vestir' },
+    { key:'trabalho',     label:'Trabalho e Estudo', desc:'Aprender, construir, usar' },
+    { key:'mente',        label:'Mente e Sentir',    desc:'Pensar, decidir, sentir' },
+    { key:'dinheiro',     label:'Dinheiro',          desc:'Comprar, vender, pagar' },
+    { key:'vida',         label:'Vida e Ser',        desc:'Viver, nascer, parecer' },
+    { key:'accoes',       label:'Acções',            desc:'Fazer, dar, pôr, trazer' },
+    { key:'percepcao',    label:'Percepção',         desc:'Ver, olhar, cheirar' },
+    { key:'criativo',     label:'Criativo',          desc:'Cantar, jogar, sorrir' },
+    { key:'meteo',        label:'Meteorologia',      desc:'Chover, ventar' },
+    { key:'casa',         label:'Casa e Utilitário', desc:'Arranjar, estacionar, ligar' },
+  ];
+
+  const VERB_META = {
+    // essentials
+    ser:{en:'to be (identity)',cat:'essenciais'}, estar:{en:'to be (state/place)',cat:'essenciais'},
+    ter:{en:'to have',cat:'essenciais'}, haver:{en:'to have (auxiliary)',cat:'essenciais'},
+    fazer:{en:'to do / to make',cat:'essenciais'}, ir:{en:'to go',cat:'essenciais'},
+    poder:{en:'can / to be able',cat:'essenciais'}, dever:{en:'must / to owe',cat:'essenciais'},
+    querer:{en:'to want / to love',cat:'essenciais'}, saber:{en:'to know (facts)',cat:'essenciais'},
+    conhecer:{en:'to know (people/places)',cat:'essenciais'}, dizer:{en:'to say / to tell',cat:'essenciais'},
+    precisar:{en:'to need',cat:'essenciais'}, gostar:{en:'to like',cat:'essenciais'},
+    achar:{en:'to think / to find',cat:'essenciais'}, ficar:{en:'to stay / to become',cat:'essenciais'},
+
+    // comunicação
+    falar:{en:'to speak',cat:'comunicacao'}, perguntar:{en:'to ask',cat:'comunicacao'},
+    responder:{en:'to answer',cat:'comunicacao'}, escutar:{en:'to listen',cat:'comunicacao'},
+    chamar:{en:'to call / to name',cat:'comunicacao'}, mandar:{en:'to send / to order',cat:'comunicacao'},
+    escrever:{en:'to write',cat:'comunicacao'}, ler:{en:'to read',cat:'comunicacao'},
+    prometer:{en:'to promise',cat:'comunicacao'}, descrever:{en:'to describe',cat:'comunicacao'},
+    traduzir:{en:'to translate',cat:'comunicacao'}, corrigir:{en:'to correct',cat:'comunicacao'},
+    agradecer:{en:'to thank',cat:'comunicacao'}, repetir:{en:'to repeat',cat:'comunicacao'},
+    sugerir:{en:'to suggest',cat:'comunicacao'}, mentir:{en:'to lie',cat:'comunicacao'},
+    recomendar:{en:'to recommend',cat:'comunicacao'}, despedir:{en:'to say goodbye / to fire',cat:'comunicacao'},
+    ligar:{en:'to call / to turn on',cat:'comunicacao'}, desligar:{en:'to hang up / to turn off',cat:'comunicacao'},
+    atender:{en:'to answer (phone/customer)',cat:'comunicacao'},
+
+    // movimento
+    caminhar:{en:'to walk',cat:'movimento'}, correr:{en:'to run',cat:'movimento'},
+    andar:{en:'to walk / to go',cat:'movimento'}, viajar:{en:'to travel',cat:'movimento'},
+    vir:{en:'to come',cat:'movimento'}, sair:{en:'to leave / to go out',cat:'movimento'},
+    entrar:{en:'to enter',cat:'movimento'}, subir:{en:'to go up / to climb',cat:'movimento'},
+    voltar:{en:'to return / to come back',cat:'movimento'}, passar:{en:'to pass / to spend time',cat:'movimento'},
+    conduzir:{en:'to drive',cat:'movimento'}, fugir:{en:'to flee',cat:'movimento'},
+    seguir:{en:'to follow / to continue',cat:'movimento'}, voar:{en:'to fly',cat:'movimento'},
+    mover:{en:'to move',cat:'movimento'}, cair:{en:'to fall',cat:'movimento'},
+    nadar:{en:'to swim',cat:'movimento'}, dançar:{en:'to dance',cat:'movimento'},
+    visitar:{en:'to visit',cat:'movimento'}, chegar:{en:'to arrive',cat:'movimento'},
+    passear:{en:'to stroll',cat:'movimento'}, apanhar:{en:'to catch / to take',cat:'movimento'},
+
+    // comida
+    comer:{en:'to eat',cat:'comida'}, beber:{en:'to drink',cat:'comida'},
+    cozinhar:{en:'to cook',cat:'comida'}, tomar:{en:'to take / to have (drink)',cat:'comida'},
+    almoçar:{en:'to have lunch',cat:'comida'}, servir:{en:'to serve',cat:'comida'},
+    preferir:{en:'to prefer',cat:'comida'}, fritar:{en:'to fry',cat:'comida'},
+    morder:{en:'to bite',cat:'comida'}, experimentar:{en:'to try / to taste',cat:'comida'},
+
+    // quotidiano
+    dormir:{en:'to sleep',cat:'quotidiano'}, despertar:{en:'to wake up',cat:'quotidiano'},
+    acordar:{en:'to wake up',cat:'quotidiano'},
+    deitar:{en:'to lay down / to throw away / to pour',cat:'quotidiano'},
+    sentar:{en:'to seat',cat:'quotidiano'}, vestir:{en:'to dress',cat:'quotidiano'},
+    lavar:{en:'to wash',cat:'quotidiano'}, limpar:{en:'to clean',cat:'quotidiano'},
+    abrir:{en:'to open',cat:'quotidiano'}, fechar:{en:'to close',cat:'quotidiano'},
+    pendurar:{en:'to hang',cat:'quotidiano'}, acender:{en:'to light / to turn on',cat:'quotidiano'},
+    levantar:{en:'to lift / to get up',cat:'quotidiano'}, arrumar:{en:'to tidy up',cat:'quotidiano'},
+
+    // trabalho
+    trabalhar:{en:'to work',cat:'trabalho'}, estudar:{en:'to study',cat:'trabalho'},
+    aprender:{en:'to learn',cat:'trabalho'}, ajudar:{en:'to help',cat:'trabalho'},
+    esperar:{en:'to wait / to hope',cat:'trabalho'}, usar:{en:'to use',cat:'trabalho'},
+    assistir:{en:'to attend',cat:'trabalho'}, produzir:{en:'to produce',cat:'trabalho'},
+    construir:{en:'to build',cat:'trabalho'}, destruir:{en:'to destroy',cat:'trabalho'},
+    estabelecer:{en:'to establish',cat:'trabalho'}, contribuir:{en:'to contribute',cat:'trabalho'},
+    influenciar:{en:'to influence',cat:'trabalho'}, incluir:{en:'to include',cat:'trabalho'},
+    concluir:{en:'to conclude',cat:'trabalho'}, obter:{en:'to obtain',cat:'trabalho'},
+    manter:{en:'to maintain',cat:'trabalho'}, medir:{en:'to measure',cat:'trabalho'},
+    marcar:{en:'to book / to schedule / to mark',cat:'trabalho'},
+    iniciar:{en:'to start / to initiate',cat:'trabalho'},
+    entregar:{en:'to deliver',cat:'trabalho'},
+
+    // mente
+    pensar:{en:'to think',cat:'mente'}, crer:{en:'to believe',cat:'mente'},
+    compreender:{en:'to comprehend',cat:'mente'}, entender:{en:'to understand',cat:'mente'},
+    decidir:{en:'to decide',cat:'mente'}, recordar:{en:'to remember',cat:'mente'},
+    esquecer:{en:'to forget',cat:'mente'}, sentir:{en:'to feel',cat:'mente'},
+    temer:{en:'to fear',cat:'mente'}, doer:{en:'to hurt',cat:'mente'},
+    lembrar:{en:'to remember',cat:'mente'}, adorar:{en:'to adore / to love',cat:'mente'},
+    desejar:{en:'to wish / to desire',cat:'mente'},
+
+    // dinheiro
+    comprar:{en:'to buy',cat:'dinheiro'}, vender:{en:'to sell',cat:'dinheiro'},
+    custar:{en:'to cost',cat:'dinheiro'}, valer:{en:'to be worth',cat:'dinheiro'},
+    ganhar:{en:'to win / to earn',cat:'dinheiro'}, necessitar:{en:'to need',cat:'dinheiro'},
+    pagar:{en:'to pay',cat:'dinheiro'}, poupar:{en:'to save (money) / to spare',cat:'dinheiro'},
+
+    // vida
+    viver:{en:'to live',cat:'vida'}, morrer:{en:'to die',cat:'vida'},
+    nascer:{en:'to be born',cat:'vida'}, crescer:{en:'to grow',cat:'vida'},
+    aparecer:{en:'to appear',cat:'vida'}, desaparecer:{en:'to disappear',cat:'vida'},
+    parecer:{en:'to seem',cat:'vida'}, oferecer:{en:'to offer',cat:'vida'},
+    merecer:{en:'to deserve',cat:'vida'},
+    morar:{en:'to live / to reside',cat:'vida'},
+
+    // acções
+    pôr:{en:'to put / to place',cat:'accoes'}, dar:{en:'to give',cat:'accoes'},
+    trazer:{en:'to bring',cat:'accoes'}, levar:{en:'to carry / to wear',cat:'accoes'},
+    deixar:{en:'to leave / to let',cat:'accoes'}, terminar:{en:'to finish',cat:'accoes'},
+    começar:{en:'to begin',cat:'accoes'}, permitir:{en:'to permit',cat:'accoes'},
+    obedecer:{en:'to obey',cat:'accoes'}, eleger:{en:'to choose / to elect',cat:'accoes'},
+    pedir:{en:'to ask for / to order',cat:'accoes'}, conseguir:{en:'to get / to achieve',cat:'accoes'},
+    encontrar:{en:'to find',cat:'accoes'}, perder:{en:'to lose',cat:'accoes'},
+    mostrar:{en:'to show',cat:'accoes'}, compartilhar:{en:'to share',cat:'accoes'},
+    receber:{en:'to receive',cat:'accoes'}, defender:{en:'to defend',cat:'accoes'},
+    negar:{en:'to deny',cat:'accoes'}, contar:{en:'to count / to tell',cat:'accoes'},
+    caber:{en:'to fit',cat:'accoes'}, resolver:{en:'to solve',cat:'accoes'},
+    devolver:{en:'to give back',cat:'accoes'}, costumar:{en:'to usually do',cat:'accoes'},
+    acabar:{en:'to finish / to end',cat:'accoes'}, arranjar:{en:'to fix / to arrange / to get',cat:'accoes'},
+    procurar:{en:'to look for',cat:'accoes'}, tocar:{en:'to touch / to play (instrument)',cat:'accoes'},
+    trocar:{en:'to change / to exchange',cat:'accoes'}, pousar:{en:'to put down / to land',cat:'accoes'},
+    calhar:{en:'to happen to / to turn out',cat:'accoes'},
+    desenrascar:{en:'to figure out / to sort out',cat:'accoes'},
+    descobrir:{en:'to discover',cat:'accoes'}, cobrir:{en:'to cover',cat:'accoes'},
+    rir:{en:'to laugh',cat:'accoes'}, sorrir:{en:'to smile',cat:'accoes'},
+    ouvir:{en:'to hear',cat:'accoes'},
+
+    // percepção
+    ver:{en:'to see',cat:'percepcao'}, olhar:{en:'to look at',cat:'percepcao'},
+    cheirar:{en:'to smell',cat:'percepcao'},
+
+    // criativo
+    cantar:{en:'to sing',cat:'criativo'}, jogar:{en:'to play (games)',cat:'criativo'},
+    brincar:{en:'to play / to joke',cat:'criativo'},
+
+    // meteo
+    chover:{en:'to rain',cat:'meteo'},
+
+    // casa
+    carregar:{en:'to charge / to carry / to press',cat:'casa'},
+    estacionar:{en:'to park',cat:'casa'},
+    estragar:{en:'to break / to spoil',cat:'casa'},
+  };
+
+  /* ── IRREGULAR_OVERRIDES — hand-authored full tables for 40 top irregulars ── */
+  const IRREGULAR_OVERRIDES = {
+
+    ser: {
+      presente:          ['sou','és','é','somos','sois','são'],
+      pret_perf_simples: ['fui','foste','foi','fomos','fostes','foram'],
+      pret_imperfeito:   ['era','eras','era','éramos','éreis','eram'],
+      futuro_perifr:     ['vou ser','vais ser','vai ser','vamos ser','ides ser','vão ser'],
+      futuro_simples:    ['serei','serás','será','seremos','sereis','serão'],
+      condicional:       ['seria','serias','seria','seríamos','seríeis','seriam'],
+      pres_conjuntivo:   ['seja','sejas','seja','sejamos','sejais','sejam'],
+      fut_conjuntivo:    ['for','fores','for','formos','fordes','forem'],
+      inf_pessoal:       ['ser','seres','ser','sermos','serdes','serem'],
+    },
+
+    estar: {
+      presente:          ['estou','estás','está','estamos','estais','estão'],
+      pret_perf_simples: ['estive','estiveste','esteve','estivemos','estivestes','estiveram'],
+      pret_imperfeito:   ['estava','estavas','estava','estávamos','estáveis','estavam'],
+      futuro_perifr:     ['vou estar','vais estar','vai estar','vamos estar','ides estar','vão estar'],
+      futuro_simples:    ['estarei','estarás','estará','estaremos','estareis','estarão'],
+      condicional:       ['estaria','estarias','estaria','estaríamos','estaríeis','estariam'],
+      pres_conjuntivo:   ['esteja','estejas','esteja','estejamos','estejais','estejam'],
+      fut_conjuntivo:    ['estiver','estiveres','estiver','estivermos','estiverdes','estiverem'],
+      inf_pessoal:       ['estar','estares','estar','estarmos','estardes','estarem'],
+    },
+
+    ter: {
+      presente:          ['tenho','tens','tem','temos','tendes','têm'],
+      pret_perf_simples: ['tive','tiveste','teve','tivemos','tivestes','tiveram'],
+      pret_imperfeito:   ['tinha','tinhas','tinha','tínhamos','tínheis','tinham'],
+      futuro_perifr:     ['vou ter','vais ter','vai ter','vamos ter','ides ter','vão ter'],
+      futuro_simples:    ['terei','terás','terá','teremos','tereis','terão'],
+      condicional:       ['teria','terias','teria','teríamos','teríeis','teriam'],
+      pres_conjuntivo:   ['tenha','tenhas','tenha','tenhamos','tenhais','tenham'],
+      fut_conjuntivo:    ['tiver','tiveres','tiver','tivermos','tiverdes','tiverem'],
+      inf_pessoal:       ['ter','teres','ter','termos','terdes','terem'],
+    },
+
+    haver: {
+      presente:          ['hei','hás','há','havemos','haveis','hão'],
+      pret_perf_simples: ['houve','houveste','houve','houvemos','houvestes','houveram'],
+      pret_imperfeito:   ['havia','havias','havia','havíamos','havíeis','haviam'],
+      futuro_perifr:     ['vou haver','vais haver','vai haver','vamos haver','ides haver','vão haver'],
+      futuro_simples:    ['haverei','haverás','haverá','haveremos','havereis','haverão'],
+      condicional:       ['haveria','haverias','haveria','haveríamos','haveríeis','haveriam'],
+      pres_conjuntivo:   ['haja','hajas','haja','hajamos','hajais','hajam'],
+      fut_conjuntivo:    ['houver','houveres','houver','houvermos','houverdes','houverem'],
+      inf_pessoal:       ['haver','haveres','haver','havermos','haverdes','haverem'],
+    },
+
+    ir: {
+      presente:          ['vou','vais','vai','vamos','ides','vão'],
+      pret_perf_simples: ['fui','foste','foi','fomos','fostes','foram'],
+      pret_imperfeito:   ['ia','ias','ia','íamos','íeis','iam'],
+      futuro_perifr:     ['vou ir','vais ir','vai ir','vamos ir','ides ir','vão ir'],
+      futuro_simples:    ['irei','irás','irá','iremos','ireis','irão'],
+      condicional:       ['iria','irias','iria','iríamos','iríeis','iriam'],
+      pres_conjuntivo:   ['vá','vás','vá','vamos','vades','vão'],
+      fut_conjuntivo:    ['for','fores','for','formos','fordes','forem'],
+      inf_pessoal:       ['ir','ires','ir','irmos','irdes','irem'],
+    },
+
+    vir: {
+      presente:          ['venho','vens','vem','vimos','vindes','vêm'],
+      pret_perf_simples: ['vim','vieste','veio','viemos','viestes','vieram'],
+      pret_imperfeito:   ['vinha','vinhas','vinha','vínhamos','vínheis','vinham'],
+      futuro_perifr:     ['vou vir','vais vir','vai vir','vamos vir','ides vir','vão vir'],
+      futuro_simples:    ['virei','virás','virá','viremos','vireis','virão'],
+      condicional:       ['viria','virias','viria','viríamos','viríeis','viriam'],
+      pres_conjuntivo:   ['venha','venhas','venha','venhamos','venhais','venham'],
+      fut_conjuntivo:    ['vier','vieres','vier','viermos','vierdes','vierem'],
+      inf_pessoal:       ['vir','vires','vir','virmos','virdes','virem'],
+    },
+
+    fazer: {
+      presente:          ['faço','fazes','faz','fazemos','fazeis','fazem'],
+      pret_perf_simples: ['fiz','fizeste','fez','fizemos','fizestes','fizeram'],
+      pret_imperfeito:   ['fazia','fazias','fazia','fazíamos','fazíeis','faziam'],
+      futuro_perifr:     ['vou fazer','vais fazer','vai fazer','vamos fazer','ides fazer','vão fazer'],
+      futuro_simples:    ['farei','farás','fará','faremos','fareis','farão'],
+      condicional:       ['faria','farias','faria','faríamos','faríeis','fariam'],
+      pres_conjuntivo:   ['faça','faças','faça','façamos','façais','façam'],
+      fut_conjuntivo:    ['fizer','fizeres','fizer','fizermos','fizerdes','fizerem'],
+      inf_pessoal:       ['fazer','fazeres','fazer','fazermos','fazerdes','fazerem'],
+    },
+
+    dizer: {
+      presente:          ['digo','dizes','diz','dizemos','dizeis','dizem'],
+      pret_perf_simples: ['disse','disseste','disse','dissemos','dissestes','disseram'],
+      pret_imperfeito:   ['dizia','dizias','dizia','dizíamos','dizíeis','diziam'],
+      futuro_perifr:     ['vou dizer','vais dizer','vai dizer','vamos dizer','ides dizer','vão dizer'],
+      futuro_simples:    ['direi','dirás','dirá','diremos','direis','dirão'],
+      condicional:       ['diria','dirias','diria','diríamos','diríeis','diriam'],
+      pres_conjuntivo:   ['diga','digas','diga','digamos','digais','digam'],
+      fut_conjuntivo:    ['disser','disseres','disser','dissermos','disserdes','disserem'],
+      inf_pessoal:       ['dizer','dizeres','dizer','dizermos','dizerdes','dizerem'],
+    },
+
+    dar: {
+      presente:          ['dou','dás','dá','damos','dais','dão'],
+      pret_perf_simples: ['dei','deste','deu','demos','destes','deram'],
+      pret_imperfeito:   ['dava','davas','dava','dávamos','dáveis','davam'],
+      futuro_perifr:     ['vou dar','vais dar','vai dar','vamos dar','ides dar','vão dar'],
+      futuro_simples:    ['darei','darás','dará','daremos','dareis','darão'],
+      condicional:       ['daria','darias','daria','daríamos','daríeis','dariam'],
+      pres_conjuntivo:   ['dê','dês','dê','dêmos','deis','dêem'],
+      fut_conjuntivo:    ['der','deres','der','dermos','derdes','derem'],
+      inf_pessoal:       ['dar','dares','dar','darmos','dardes','darem'],
+    },
+
+    ver: {
+      presente:          ['vejo','vês','vê','vemos','vedes','vêem'],
+      pret_perf_simples: ['vi','viste','viu','vimos','vistes','viram'],
+      pret_imperfeito:   ['via','vias','via','víamos','víeis','viam'],
+      futuro_perifr:     ['vou ver','vais ver','vai ver','vamos ver','ides ver','vão ver'],
+      futuro_simples:    ['verei','verás','verá','veremos','vereis','verão'],
+      condicional:       ['veria','verias','veria','veríamos','veríeis','veriam'],
+      pres_conjuntivo:   ['veja','vejas','veja','vejamos','vejais','vejam'],
+      fut_conjuntivo:    ['vir','vires','vir','virmos','virdes','virem'],
+      inf_pessoal:       ['ver','veres','ver','vermos','verdes','verem'],
+    },
+
+    saber: {
+      presente:          ['sei','sabes','sabe','sabemos','sabeis','sabem'],
+      pret_perf_simples: ['soube','soubeste','soube','soubemos','soubestes','souberam'],
+      pret_imperfeito:   ['sabia','sabias','sabia','sabíamos','sabíeis','sabiam'],
+      futuro_perifr:     ['vou saber','vais saber','vai saber','vamos saber','ides saber','vão saber'],
+      futuro_simples:    ['saberei','saberás','saberá','saberemos','sabereis','saberão'],
+      condicional:       ['saberia','saberias','saberia','saberíamos','saberíeis','saberiam'],
+      pres_conjuntivo:   ['saiba','saibas','saiba','saibamos','saibais','saibam'],
+      fut_conjuntivo:    ['souber','souberes','souber','soubermos','souberdes','souberem'],
+      inf_pessoal:       ['saber','saberes','saber','sabermos','saberdes','saberem'],
+    },
+
+    poder: {
+      presente:          ['posso','podes','pode','podemos','podeis','podem'],
+      pret_perf_simples: ['pude','pudeste','pôde','pudemos','pudestes','puderam'],
+      pret_imperfeito:   ['podia','podias','podia','podíamos','podíeis','podiam'],
+      futuro_perifr:     ['vou poder','vais poder','vai poder','vamos poder','ides poder','vão poder'],
+      futuro_simples:    ['poderei','poderás','poderá','poderemos','podereis','poderão'],
+      condicional:       ['poderia','poderias','poderia','poderíamos','poderíeis','poderiam'],
+      pres_conjuntivo:   ['possa','possas','possa','possamos','possais','possam'],
+      fut_conjuntivo:    ['puder','puderes','puder','pudermos','puderdes','puderem'],
+      inf_pessoal:       ['poder','poderes','poder','podermos','poderdes','poderem'],
+    },
+
+    querer: {
+      presente:          ['quero','queres','quer','queremos','quereis','querem'],
+      pret_perf_simples: ['quis','quiseste','quis','quisemos','quisestes','quiseram'],
+      pret_imperfeito:   ['queria','querias','queria','queríamos','queríeis','queriam'],
+      futuro_perifr:     ['vou querer','vais querer','vai querer','vamos querer','ides querer','vão querer'],
+      futuro_simples:    ['quererei','quererás','quererá','quereremos','querereis','quererão'],
+      condicional:       ['quereria','quererias','quereria','quereríamos','quereríeis','quereriam'],
+      pres_conjuntivo:   ['queira','queiras','queira','queiramos','queirais','queiram'],
+      fut_conjuntivo:    ['quiser','quiseres','quiser','quisermos','quiserdes','quiserem'],
+      inf_pessoal:       ['querer','quereres','querer','querermos','quererdes','quererem'],
+    },
+
+    'pôr': {
+      presente:          ['ponho','pões','põe','pomos','pondes','põem'],
+      pret_perf_simples: ['pus','puseste','pôs','pusemos','pusestes','puseram'],
+      pret_imperfeito:   ['punha','punhas','punha','púnhamos','púnheis','punham'],
+      futuro_perifr:     ['vou pôr','vais pôr','vai pôr','vamos pôr','ides pôr','vão pôr'],
+      futuro_simples:    ['porei','porás','porá','poremos','poreis','porão'],
+      condicional:       ['poria','porias','poria','poríamos','poríeis','poriam'],
+      pres_conjuntivo:   ['ponha','ponhas','ponha','ponhamos','ponhais','ponham'],
+      fut_conjuntivo:    ['puser','puseres','puser','pusermos','puserdes','puserem'],
+      inf_pessoal:       ['pôr','pores','pôr','pormos','pordes','porem'],
+    },
+
+    trazer: {
+      presente:          ['trago','trazes','traz','trazemos','trazeis','trazem'],
+      pret_perf_simples: ['trouxe','trouxeste','trouxe','trouxemos','trouxestes','trouxeram'],
+      pret_imperfeito:   ['trazia','trazias','trazia','trazíamos','trazíeis','traziam'],
+      futuro_perifr:     ['vou trazer','vais trazer','vai trazer','vamos trazer','ides trazer','vão trazer'],
+      futuro_simples:    ['trarei','trarás','trará','traremos','trareis','trarão'],
+      condicional:       ['traria','trarias','traria','traríamos','traríeis','trariam'],
+      pres_conjuntivo:   ['traga','tragas','traga','tragamos','tragais','tragam'],
+      fut_conjuntivo:    ['trouxer','trouxeres','trouxer','trouxermos','trouxerdes','trouxerem'],
+      inf_pessoal:       ['trazer','trazeres','trazer','trazermos','trazerdes','trazerem'],
+    },
+
+    ouvir: {
+      presente:          ['ouço','ouves','ouve','ouvimos','ouvis','ouvem'],
+      pret_perf_simples: ['ouvi','ouviste','ouviu','ouvimos','ouvistes','ouviram'],
+      pret_imperfeito:   ['ouvia','ouvias','ouvia','ouvíamos','ouvíeis','ouviam'],
+      futuro_perifr:     ['vou ouvir','vais ouvir','vai ouvir','vamos ouvir','ides ouvir','vão ouvir'],
+      futuro_simples:    ['ouvirei','ouvirás','ouvirá','ouviremos','ouvireis','ouvirão'],
+      condicional:       ['ouviria','ouvirias','ouviria','ouviríamos','ouviríeis','ouviriam'],
+      pres_conjuntivo:   ['ouça','ouças','ouça','ouçamos','ouçais','ouçam'],
+      fut_conjuntivo:    ['ouvir','ouvires','ouvir','ouvirmos','ouvirdes','ouvirem'],
+      inf_pessoal:       ['ouvir','ouvires','ouvir','ouvirmos','ouvirdes','ouvirem'],
+    },
+
+    pedir: {
+      presente:          ['peço','pedes','pede','pedimos','pedis','pedem'],
+      pret_perf_simples: ['pedi','pediste','pediu','pedimos','pedistes','pediram'],
+      pret_imperfeito:   ['pedia','pedias','pedia','pedíamos','pedíeis','pediam'],
+      futuro_perifr:     ['vou pedir','vais pedir','vai pedir','vamos pedir','ides pedir','vão pedir'],
+      futuro_simples:    ['pedirei','pedirás','pedirá','pediremos','pedireis','pedirão'],
+      condicional:       ['pediria','pedirias','pediria','pediríamos','pediríeis','pediriam'],
+      pres_conjuntivo:   ['peça','peças','peça','peçamos','peçais','peçam'],
+      fut_conjuntivo:    ['pedir','pedires','pedir','pedirmos','pedirdes','pedirem'],
+      inf_pessoal:       ['pedir','pedires','pedir','pedirmos','pedirdes','pedirem'],
+    },
+
+    sair: {
+      presente:          ['saio','sais','sai','saímos','saís','saem'],
+      pret_perf_simples: ['saí','saíste','saiu','saímos','saístes','saíram'],
+      pret_imperfeito:   ['saía','saías','saía','saíamos','saíeis','saíam'],
+      futuro_perifr:     ['vou sair','vais sair','vai sair','vamos sair','ides sair','vão sair'],
+      futuro_simples:    ['sairei','sairás','sairá','sairemos','saireis','sairão'],
+      condicional:       ['sairia','sairias','sairia','sairíamos','sairíeis','sairiam'],
+      pres_conjuntivo:   ['saia','saias','saia','saiamos','saiais','saiam'],
+      fut_conjuntivo:    ['sair','saíres','sair','sairmos','sairdes','saírem'],
+      inf_pessoal:       ['sair','saíres','sair','sairmos','sairdes','saírem'],
+    },
+
+    cair: {
+      presente:          ['caio','cais','cai','caímos','caís','caem'],
+      pret_perf_simples: ['caí','caíste','caiu','caímos','caístes','caíram'],
+      pret_imperfeito:   ['caía','caías','caía','caíamos','caíeis','caíam'],
+      futuro_perifr:     ['vou cair','vais cair','vai cair','vamos cair','ides cair','vão cair'],
+      futuro_simples:    ['cairei','cairás','cairá','cairemos','caireis','cairão'],
+      condicional:       ['cairia','cairias','cairia','cairíamos','cairíeis','cairiam'],
+      pres_conjuntivo:   ['caia','caias','caia','caiamos','caiais','caiam'],
+      fut_conjuntivo:    ['cair','caíres','cair','cairmos','cairdes','caírem'],
+      inf_pessoal:       ['cair','caíres','cair','cairmos','cairdes','caírem'],
+    },
+
+    ler: {
+      presente:          ['leio','lês','lê','lemos','ledes','leem'],
+      pret_perf_simples: ['li','leste','leu','lemos','lestes','leram'],
+      pret_imperfeito:   ['lia','lias','lia','líamos','líeis','liam'],
+      futuro_perifr:     ['vou ler','vais ler','vai ler','vamos ler','ides ler','vão ler'],
+      futuro_simples:    ['lerei','lerás','lerá','leremos','lereis','lerão'],
+      condicional:       ['leria','lerias','leria','leríamos','leríeis','leriam'],
+      pres_conjuntivo:   ['leia','leias','leia','leiamos','leiais','leiam'],
+      fut_conjuntivo:    ['ler','leres','ler','lermos','lerdes','lerem'],
+      inf_pessoal:       ['ler','leres','ler','lermos','lerdes','lerem'],
+    },
+
+    crer: {
+      presente:          ['creio','crês','crê','cremos','credes','creem'],
+      pret_perf_simples: ['cri','creste','creu','cremos','crestes','creram'],
+      pret_imperfeito:   ['cria','crias','cria','críamos','críeis','criam'],
+      futuro_perifr:     ['vou crer','vais crer','vai crer','vamos crer','ides crer','vão crer'],
+      futuro_simples:    ['crerei','crerás','crerá','creremos','crereis','crerão'],
+      condicional:       ['creria','crerias','creria','creríamos','creríeis','creriam'],
+      pres_conjuntivo:   ['creia','creias','creia','creiamos','creiais','creiam'],
+      fut_conjuntivo:    ['crer','creres','crer','crermos','crerdes','crerem'],
+      inf_pessoal:       ['crer','creres','crer','crermos','crerdes','crerem'],
+    },
+
+    valer: {
+      presente:          ['valho','vales','vale','valemos','valeis','valem'],
+      pret_perf_simples: ['vali','valeste','valeu','valemos','valestes','valeram'],
+      pret_imperfeito:   ['valia','valias','valia','valíamos','valíeis','valiam'],
+      futuro_perifr:     ['vou valer','vais valer','vai valer','vamos valer','ides valer','vão valer'],
+      futuro_simples:    ['valerei','valerás','valerá','valeremos','valereis','valerão'],
+      condicional:       ['valeria','valerias','valeria','valeríamos','valeríeis','valeriam'],
+      pres_conjuntivo:   ['valha','valhas','valha','valhamos','valhais','valham'],
+      fut_conjuntivo:    ['valer','valeres','valer','valermos','valerdes','valerem'],
+      inf_pessoal:       ['valer','valeres','valer','valermos','valerdes','valerem'],
+    },
+
+    medir: {
+      presente:          ['meço','medes','mede','medimos','medis','medem'],
+      pret_perf_simples: ['medi','mediste','mediu','medimos','medistes','mediram'],
+      pret_imperfeito:   ['media','medias','media','medíamos','medíeis','mediam'],
+      futuro_perifr:     ['vou medir','vais medir','vai medir','vamos medir','ides medir','vão medir'],
+      futuro_simples:    ['medirei','medirás','medirá','mediremos','medireis','medirão'],
+      condicional:       ['mediria','medirias','mediria','mediríamos','mediríeis','mediriam'],
+      pres_conjuntivo:   ['meça','meças','meça','meçamos','meçais','meçam'],
+      fut_conjuntivo:    ['medir','medires','medir','medirmos','medirdes','medirem'],
+      inf_pessoal:       ['medir','medires','medir','medirmos','medirdes','medirem'],
+    },
+
+    perder: {
+      presente:          ['perco','perdes','perde','perdemos','perdeis','perdem'],
+      pret_perf_simples: ['perdi','perdeste','perdeu','perdemos','perdestes','perderam'],
+      pret_imperfeito:   ['perdia','perdias','perdia','perdíamos','perdíeis','perdiam'],
+      futuro_perifr:     ['vou perder','vais perder','vai perder','vamos perder','ides perder','vão perder'],
+      futuro_simples:    ['perderei','perderás','perderá','perderemos','perdereis','perderão'],
+      condicional:       ['perderia','perderias','perderia','perderíamos','perderíeis','perderiam'],
+      pres_conjuntivo:   ['perca','percas','perca','percamos','percais','percam'],
+      fut_conjuntivo:    ['perder','perderes','perder','perdermos','perderdes','perderem'],
+      inf_pessoal:       ['perder','perderes','perder','perdermos','perderdes','perderem'],
+    },
+
+    seguir: {
+      presente:          ['sigo','segues','segue','seguimos','seguis','seguem'],
+      pret_perf_simples: ['segui','seguiste','seguiu','seguimos','seguistes','seguiram'],
+      pret_imperfeito:   ['seguia','seguias','seguia','seguíamos','seguíeis','seguiam'],
+      futuro_perifr:     ['vou seguir','vais seguir','vai seguir','vamos seguir','ides seguir','vão seguir'],
+      futuro_simples:    ['seguirei','seguirás','seguirá','seguiremos','seguireis','seguirão'],
+      condicional:       ['seguiria','seguirias','seguiria','seguiríamos','seguiríeis','seguiriam'],
+      pres_conjuntivo:   ['siga','sigas','siga','sigamos','sigais','sigam'],
+      fut_conjuntivo:    ['seguir','seguires','seguir','seguirmos','seguirdes','seguirem'],
+      inf_pessoal:       ['seguir','seguires','seguir','seguirmos','seguirdes','seguirem'],
+    },
+
+    servir: {
+      presente:          ['sirvo','serves','serve','servimos','servis','servem'],
+      pret_perf_simples: ['servi','serviste','serviu','servimos','servistes','serviram'],
+      pret_imperfeito:   ['servia','servias','servia','servíamos','servíeis','serviam'],
+      futuro_perifr:     ['vou servir','vais servir','vai servir','vamos servir','ides servir','vão servir'],
+      futuro_simples:    ['servirei','servirás','servirá','serviremos','servireis','servirão'],
+      condicional:       ['serviria','servirias','serviria','serviríamos','serviríeis','serviriam'],
+      pres_conjuntivo:   ['sirva','sirvas','sirva','sirvamos','sirvais','sirvam'],
+      fut_conjuntivo:    ['servir','servires','servir','servirmos','servirdes','servirem'],
+      inf_pessoal:       ['servir','servires','servir','servirmos','servirdes','servirem'],
+    },
+
+    mentir: {
+      presente:          ['minto','mentes','mente','mentimos','mentis','mentem'],
+      pret_perf_simples: ['menti','mentiste','mentiu','mentimos','mentistes','mentiram'],
+      pret_imperfeito:   ['mentia','mentias','mentia','mentíamos','mentíeis','mentiam'],
+      futuro_perifr:     ['vou mentir','vais mentir','vai mentir','vamos mentir','ides mentir','vão mentir'],
+      futuro_simples:    ['mentirei','mentirás','mentirá','mentiremos','mentireis','mentirão'],
+      condicional:       ['mentiria','mentirias','mentiria','mentiríamos','mentiríeis','mentiriam'],
+      pres_conjuntivo:   ['minta','mintas','minta','mintamos','mintais','mintam'],
+      fut_conjuntivo:    ['mentir','mentires','mentir','mentirmos','mentirdes','mentirem'],
+      inf_pessoal:       ['mentir','mentires','mentir','mentirmos','mentirdes','mentirem'],
+    },
+
+    dormir: {
+      presente:          ['durmo','dormes','dorme','dormimos','dormis','dormem'],
+      pret_perf_simples: ['dormi','dormiste','dormiu','dormimos','dormistes','dormiram'],
+      pret_imperfeito:   ['dormia','dormias','dormia','dormíamos','dormíeis','dormiam'],
+      futuro_perifr:     ['vou dormir','vais dormir','vai dormir','vamos dormir','ides dormir','vão dormir'],
+      futuro_simples:    ['dormirei','dormirás','dormirá','dormiremos','dormireis','dormirão'],
+      condicional:       ['dormiria','dormirias','dormiria','dormiríamos','dormiríeis','dormiriam'],
+      pres_conjuntivo:   ['durma','durmas','durma','durmamos','durmais','durmam'],
+      fut_conjuntivo:    ['dormir','dormires','dormir','dormirmos','dormirdes','dormirem'],
+      inf_pessoal:       ['dormir','dormires','dormir','dormirmos','dormirdes','dormirem'],
+    },
+
+    subir: {
+      presente:          ['subo','sobes','sobe','subimos','subis','sobem'],
+      pret_perf_simples: ['subi','subiste','subiu','subimos','subistes','subiram'],
+      pret_imperfeito:   ['subia','subias','subia','subíamos','subíeis','subiam'],
+      futuro_perifr:     ['vou subir','vais subir','vai subir','vamos subir','ides subir','vão subir'],
+      futuro_simples:    ['subirei','subirás','subirá','subiremos','subireis','subirão'],
+      condicional:       ['subiria','subirias','subiria','subiríamos','subiríeis','subiriam'],
+      pres_conjuntivo:   ['suba','subas','suba','subamos','subais','subam'],
+      fut_conjuntivo:    ['subir','subires','subir','subirmos','subirdes','subirem'],
+      inf_pessoal:       ['subir','subires','subir','subirmos','subirdes','subirem'],
+    },
+
+    cobrir: {
+      presente:          ['cubro','cobres','cobre','cobrimos','cobris','cobrem'],
+      pret_perf_simples: ['cobri','cobriste','cobriu','cobrimos','cobristes','cobriram'],
+      pret_imperfeito:   ['cobria','cobrias','cobria','cobríamos','cobríeis','cobriam'],
+      futuro_perifr:     ['vou cobrir','vais cobrir','vai cobrir','vamos cobrir','ides cobrir','vão cobrir'],
+      futuro_simples:    ['cobrirei','cobrirás','cobrirá','cobriremos','cobrireis','cobrirão'],
+      condicional:       ['cobriria','cobririas','cobriria','cobriríamos','cobriríeis','cobririam'],
+      pres_conjuntivo:   ['cubra','cubras','cubra','cubramos','cubrais','cubram'],
+      fut_conjuntivo:    ['cobrir','cobrires','cobrir','cobrirmos','cobrirdes','cobrirem'],
+      inf_pessoal:       ['cobrir','cobrires','cobrir','cobrirmos','cobrirdes','cobrirem'],
+    },
+
+    descobrir: {
+      presente:          ['descubro','descobres','descobre','descobrimos','descobris','descobrem'],
+      pret_perf_simples: ['descobri','descobriste','descobriu','descobrimos','descobristes','descobriram'],
+      pret_imperfeito:   ['descobria','descobrias','descobria','descobríamos','descobríeis','descobriam'],
+      futuro_perifr:     ['vou descobrir','vais descobrir','vai descobrir','vamos descobrir','ides descobrir','vão descobrir'],
+      futuro_simples:    ['descobrirei','descobrirás','descobrirá','descobriremos','descobrireis','descobrirão'],
+      condicional:       ['descobriria','descobririas','descobriria','descobriríamos','descobriríeis','descobririam'],
+      pres_conjuntivo:   ['descubra','descubras','descubra','descubramos','descubrais','descubram'],
+      fut_conjuntivo:    ['descobrir','descobrires','descobrir','descobrirmos','descobrirdes','descobrirem'],
+      inf_pessoal:       ['descobrir','descobrires','descobrir','descobrirmos','descobrirdes','descobrirem'],
+    },
+
+    abrir: {
+      // Regular in indicative — main quirk is participle "aberto"; kept as regular here.
+      presente:          ['abro','abres','abre','abrimos','abris','abrem'],
+      pret_perf_simples: ['abri','abriste','abriu','abrimos','abristes','abriram'],
+      pret_imperfeito:   ['abria','abrias','abria','abríamos','abríeis','abriam'],
+      futuro_perifr:     ['vou abrir','vais abrir','vai abrir','vamos abrir','ides abrir','vão abrir'],
+      futuro_simples:    ['abrirei','abrirás','abrirá','abriremos','abrireis','abrirão'],
+      condicional:       ['abriria','abririas','abriria','abriríamos','abriríeis','abririam'],
+      pres_conjuntivo:   ['abra','abras','abra','abramos','abrais','abram'],
+      fut_conjuntivo:    ['abrir','abrires','abrir','abrirmos','abrirdes','abrirem'],
+      inf_pessoal:       ['abrir','abrires','abrir','abrirmos','abrirdes','abrirem'],
+    },
+
+    escrever: {
+      // Regular in indicative — participle "escrito" is the quirk.
+      presente:          ['escrevo','escreves','escreve','escrevemos','escreveis','escrevem'],
+      pret_perf_simples: ['escrevi','escreveste','escreveu','escrevemos','escrevestes','escreveram'],
+      pret_imperfeito:   ['escrevia','escrevias','escrevia','escrevíamos','escrevíeis','escreviam'],
+      futuro_perifr:     ['vou escrever','vais escrever','vai escrever','vamos escrever','ides escrever','vão escrever'],
+      futuro_simples:    ['escreverei','escreverás','escreverá','escreveremos','escrevereis','escreverão'],
+      condicional:       ['escreveria','escreverias','escreveria','escreveríamos','escreveríeis','escreveriam'],
+      pres_conjuntivo:   ['escreva','escrevas','escreva','escrevamos','escrevais','escrevam'],
+      fut_conjuntivo:    ['escrever','escreveres','escrever','escrevermos','escreverdes','escreverem'],
+      inf_pessoal:       ['escrever','escreveres','escrever','escrevermos','escreverdes','escreverem'],
+    },
+
+    viver: {
+      presente:          ['vivo','vives','vive','vivemos','viveis','vivem'],
+      pret_perf_simples: ['vivi','viveste','viveu','vivemos','vivestes','viveram'],
+      pret_imperfeito:   ['vivia','vivias','vivia','vivíamos','vivíeis','viviam'],
+      futuro_perifr:     ['vou viver','vais viver','vai viver','vamos viver','ides viver','vão viver'],
+      futuro_simples:    ['viverei','viverás','viverá','viveremos','vivereis','viverão'],
+      condicional:       ['viveria','viverias','viveria','viveríamos','viveríeis','viveriam'],
+      pres_conjuntivo:   ['viva','vivas','viva','vivamos','vivais','vivam'],
+      fut_conjuntivo:    ['viver','viveres','viver','vivermos','viverdes','viverem'],
+      inf_pessoal:       ['viver','viveres','viver','vivermos','viverdes','viverem'],
+    },
+
+    morrer: {
+      presente:          ['morro','morres','morre','morremos','morreis','morrem'],
+      pret_perf_simples: ['morri','morreste','morreu','morremos','morrestes','morreram'],
+      pret_imperfeito:   ['morria','morrias','morria','morríamos','morríeis','morriam'],
+      futuro_perifr:     ['vou morrer','vais morrer','vai morrer','vamos morrer','ides morrer','vão morrer'],
+      futuro_simples:    ['morrerei','morrerás','morrerá','morreremos','morrereis','morrerão'],
+      condicional:       ['morreria','morrerias','morreria','morreríamos','morreríeis','morreriam'],
+      pres_conjuntivo:   ['morra','morras','morra','morramos','morrais','morram'],
+      fut_conjuntivo:    ['morrer','morreres','morrer','morrermos','morrerdes','morrerem'],
+      inf_pessoal:       ['morrer','morreres','morrer','morrermos','morrerdes','morrerem'],
+    },
+
+    produzir: {
+      presente:          ['produzo','produzes','produz','produzimos','produzis','produzem'],
+      pret_perf_simples: ['produzi','produziste','produziu','produzimos','produzistes','produziram'],
+      pret_imperfeito:   ['produzia','produzias','produzia','produzíamos','produzíeis','produziam'],
+      futuro_perifr:     ['vou produzir','vais produzir','vai produzir','vamos produzir','ides produzir','vão produzir'],
+      futuro_simples:    ['produzirei','produzirás','produzirá','produziremos','produzireis','produzirão'],
+      condicional:       ['produziria','produzirias','produziria','produziríamos','produziríeis','produziriam'],
+      pres_conjuntivo:   ['produza','produzas','produza','produzamos','produzais','produzam'],
+      fut_conjuntivo:    ['produzir','produzires','produzir','produzirmos','produzirdes','produzirem'],
+      inf_pessoal:       ['produzir','produzires','produzir','produzirmos','produzirdes','produzirem'],
+    },
+
+    conduzir: {
+      presente:          ['conduzo','conduzes','conduz','conduzimos','conduzis','conduzem'],
+      pret_perf_simples: ['conduzi','conduziste','conduziu','conduzimos','conduzistes','conduziram'],
+      pret_imperfeito:   ['conduzia','conduzias','conduzia','conduzíamos','conduzíeis','conduziam'],
+      futuro_perifr:     ['vou conduzir','vais conduzir','vai conduzir','vamos conduzir','ides conduzir','vão conduzir'],
+      futuro_simples:    ['conduzirei','conduzirás','conduzirá','conduziremos','conduzireis','conduzirão'],
+      condicional:       ['conduziria','conduzirias','conduziria','conduziríamos','conduziríeis','conduziriam'],
+      pres_conjuntivo:   ['conduza','conduzas','conduza','conduzamos','conduzais','conduzam'],
+      fut_conjuntivo:    ['conduzir','conduzires','conduzir','conduzirmos','conduzirdes','conduzirem'],
+      inf_pessoal:       ['conduzir','conduzires','conduzir','conduzirmos','conduzirdes','conduzirem'],
+    },
+
+    sentir: {
+      presente:          ['sinto','sentes','sente','sentimos','sentis','sentem'],
+      pret_perf_simples: ['senti','sentiste','sentiu','sentimos','sentistes','sentiram'],
+      pret_imperfeito:   ['sentia','sentias','sentia','sentíamos','sentíeis','sentiam'],
+      futuro_perifr:     ['vou sentir','vais sentir','vai sentir','vamos sentir','ides sentir','vão sentir'],
+      futuro_simples:    ['sentirei','sentirás','sentirá','sentiremos','sentireis','sentirão'],
+      condicional:       ['sentiria','sentirias','sentiria','sentiríamos','sentiríeis','sentiriam'],
+      pres_conjuntivo:   ['sinta','sintas','sinta','sintamos','sintais','sintam'],
+      fut_conjuntivo:    ['sentir','sentires','sentir','sentirmos','sentirdes','sentirem'],
+      inf_pessoal:       ['sentir','sentires','sentir','sentirmos','sentirdes','sentirem'],
+    },
+
+    rir: {
+      presente:          ['rio','ris','ri','rimos','rides','riem'],
+      pret_perf_simples: ['ri','riste','riu','rimos','ristes','riram'],
+      pret_imperfeito:   ['ria','rias','ria','ríamos','ríeis','riam'],
+      futuro_perifr:     ['vou rir','vais rir','vai rir','vamos rir','ides rir','vão rir'],
+      futuro_simples:    ['rirei','rirás','rirá','riremos','rireis','rirão'],
+      condicional:       ['riria','ririas','riria','riríamos','riríeis','ririam'],
+      pres_conjuntivo:   ['ria','rias','ria','riamos','riais','riam'],
+      fut_conjuntivo:    ['rir','rires','rir','rirmos','rirdes','rirem'],
+      inf_pessoal:       ['rir','rires','rir','rirmos','rirdes','rirem'],
+    },
+
+    sorrir: {
+      presente:          ['sorrio','sorris','sorri','sorrimos','sorrides','sorriem'],
+      pret_perf_simples: ['sorri','sorriste','sorriu','sorrimos','sorristes','sorriram'],
+      pret_imperfeito:   ['sorria','sorrias','sorria','sorríamos','sorríeis','sorriam'],
+      futuro_perifr:     ['vou sorrir','vais sorrir','vai sorrir','vamos sorrir','ides sorrir','vão sorrir'],
+      futuro_simples:    ['sorrirei','sorrirás','sorrirá','sorriremos','sorrireis','sorrirão'],
+      condicional:       ['sorriria','sorririas','sorriria','sorriríamos','sorriríeis','sorririam'],
+      pres_conjuntivo:   ['sorria','sorrias','sorria','sorriamos','sorriais','sorriam'],
+      fut_conjuntivo:    ['sorrir','sorrires','sorrir','sorrirmos','sorrirdes','sorrirem'],
+      inf_pessoal:       ['sorrir','sorrires','sorrir','sorrirmos','sorrirdes','sorrirem'],
+    },
+  };
+
+  /* ── VERB_LIST: order of infinitives in the deck (drives VERBS build) ── */
+  const VERB_LIST = [
+    // essenciais
+    'ser','estar','ter','haver','fazer','ir','poder','dever','querer','saber',
+    'conhecer','dizer','precisar','gostar','achar','ficar',
+    // comunicação
+    'falar','perguntar','responder','escutar','chamar','mandar','escrever','ler',
+    'prometer','descrever','traduzir','corrigir','agradecer','repetir','sugerir',
+    'mentir','recomendar','despedir','ligar','desligar','atender',
+    // movimento
+    'caminhar','correr','andar','viajar','vir','sair','entrar','subir','voltar',
+    'passar','conduzir','fugir','seguir','voar','mover','cair','nadar','dançar',
+    'visitar','chegar','passear','apanhar',
+    // comida
+    'comer','beber','cozinhar','tomar','almoçar','servir','preferir','fritar',
+    'morder','experimentar',
+    // quotidiano
+    'dormir','despertar','acordar','deitar','sentar','vestir','lavar','limpar',
+    'abrir','fechar','pendurar','acender','levantar','arrumar',
+    // trabalho
+    'trabalhar','estudar','aprender','ajudar','esperar','usar','assistir','produzir',
+    'construir','destruir','estabelecer','contribuir','influenciar','incluir',
+    'concluir','obter','manter','medir','marcar','iniciar','entregar',
+    // mente
+    'pensar','crer','compreender','entender','decidir','recordar','esquecer',
+    'sentir','temer','doer','lembrar','adorar','desejar',
+    // dinheiro
+    'comprar','vender','custar','valer','ganhar','necessitar','pagar','poupar',
+    // vida
+    'viver','morrer','nascer','crescer','aparecer','desaparecer','parecer',
+    'oferecer','merecer','morar',
+    // acções
+    'pôr','dar','trazer','levar','deixar','terminar','começar','permitir',
+    'obedecer','eleger','pedir','conseguir','encontrar','perder','mostrar',
+    'compartilhar','receber','defender','negar','contar','caber','resolver',
+    'devolver','costumar','acabar','arranjar','procurar','tocar','trocar',
+    'pousar','calhar','desenrascar','descobrir','cobrir','rir','sorrir','ouvir',
+    // percepção
+    'ver','olhar','cheirar',
+    // criativo
+    'cantar','jogar','brincar',
+    // meteo
+    'chover',
+    // casa
+    'carregar','estacionar','estragar',
+  ];
+
+  /* ── Build VERBS: engine + overrides ──
+     Overrides in IRREGULAR_OVERRIDES are full 9-tense tables and replace
+     the engine output entirely for irregulars. Regulars use conjRegular. */
+  const VERBS = VERB_LIST.map(inf => {
+    const meta = VERB_META[inf] || { en: '?', cat: 'accoes' };
+    const override = IRREGULAR_OVERRIDES[inf];
+    const conjugations = override
+      ? override
+      : conjRegular(inf);
+    return { infinitive: inf, en: meta.en, category: meta.cat, conjugations };
+  });
+
+  // Expose for schema validator (needs to read window.VERBS)
+  window.VERBS = VERBS;
+  window.PRONOUNS_PT = PRONOUNS_PT;
+  window.TENSE_META = TENSE_META;
+  window.VERB_CATEGORIES_PT = VERB_CATEGORIES_PT;
+
+
   /* ── Schema validation stub ── */
   const SCHEMAS = {
     // Blocks register their schemas here as they get authored.
-    // Example (added later):
-    // VERBS: v => Array.isArray(v) && v.every(x => x.infinitive && x.conjugations && Object.keys(x.conjugations).length === 9 && Object.values(x.conjugations).every(t => t.length === 6)),
+    VERBS: v => Array.isArray(v) && v.length >= 150
+      && v.every(x => x.infinitive && x.category && x.conjugations
+        && Object.keys(x.conjugations).length === 9
+        && Object.values(x.conjugations).every(t => Array.isArray(t) && t.length === 6)),
   };
   function validateAll() {
     const failed = [];
