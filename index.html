@@ -966,6 +966,100 @@
     .estudo-progress-bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
     .estudo-progress-fill { height: 100%; background: var(--verde); border-radius: 3px; transition: width .3s; }
     .estudo-progress-text { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    /* ── Frases Essenciais ── */
+    .frases-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .frases-tab {
+      padding: 6px 14px; border-radius: 20px; border: 1px solid var(--line);
+      background: var(--bg2); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .frases-tab.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+    .frases-tab:hover:not(.active) { background: var(--bg3); border-color: var(--verde2); color: var(--chalk); }
+
+    .frases-list { display: flex; flex-direction: column; gap: 6px; }
+    .frases-item {
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 12px 14px; cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .frases-item:hover { background: var(--bg3); border-color: var(--verde2); }
+    .frases-item-left { flex: 1; display: flex; flex-direction: column; gap: 3px; }
+    .frases-pt { font-size: 15px; font-weight: 600; color: var(--chalk); }
+    .frases-en { font-size: 12px; color: var(--muted); }
+    .frases-note { font-size: 11px; color: #6aadcc; font-style: italic; margin-top: 2px; }
+    .frases-speak { font-size: 15px; padding: 4px 8px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--line); cursor: pointer; flex-shrink: 0; }
+    .frases-speak:hover { background: var(--verde); border-color: var(--verde2); }
+
+    /* ── Objetos ── */
+    .obj-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .obj-tab {
+      padding: 6px 14px; border-radius: 20px; border: 1px solid var(--line);
+      background: var(--bg2); color: var(--muted); font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .obj-tab.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+    .obj-tab:hover:not(.active) { background: var(--bg3); border-color: var(--verde2); color: var(--chalk); }
+
+    .obj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    @media (min-width: 480px) { .obj-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 640px) { .obj-grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .obj-tile {
+      position: relative; background: var(--bg2); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 12px 10px; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center;
+      transition: background .15s, border-color .15s, transform .1s;
+    }
+    .obj-tile:hover { background: var(--bg3); border-color: var(--verde2); transform: translateY(-2px); }
+    .obj-tile:active { transform: scale(.97); }
+
+    .obj-article { font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 6px; color: #fff; margin-bottom: 2px; }
+    .obj-article.m { background: #1a4a7a; }
+    .obj-article.f { background: #7a1a4a; }
+    .obj-noun { font-size: 14px; font-weight: 700; color: var(--chalk); }
+    .obj-en { font-size: 11px; color: var(--muted); }
+    .obj-speak { font-size: 12px; margin-top: 4px; opacity: 0.7; }
+    .obj-es-badge {
+      position: absolute; top: 6px; right: 6px;
+      font-size: 10px; font-weight: 700; padding: 1px 4px;
+      border-radius: 4px; background: #7a2a00; color: #ffb366;
+      border: 1px solid #a04000; cursor: help;
+    }
+
+    /* tooltip */
+    .obj-tooltip {
+      display: none; position: absolute; top: 100%; right: 0; margin-top: 4px; z-index: 50;
+      background: var(--bg3); border: 1px solid var(--line); border-radius: 8px;
+      padding: 6px 10px; font-size: 11px; white-space: nowrap; color: var(--chalk);
+      pointer-events: none; box-shadow: 0 4px 12px rgba(0,0,0,.5);
+    }
+    .obj-tile:hover .obj-tooltip { display: block; }
+
+    /* ── Falsos Amigos ── */
+    .falsos-group { margin-bottom: 24px; }
+    .falsos-group-h {
+      font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--verde3); margin-bottom: 10px; padding-bottom: 6px;
+      border-bottom: 2px solid var(--verde);
+    }
+    .falsos-list { display: flex; flex-direction: column; gap: 6px; }
+    .falsos-item {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 12px 14px; display: flex; flex-direction: column; gap: 4px;
+    }
+    .falsos-item.hot { border-left: 3px solid #f97316; }
+    .falsos-row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .falsos-pt { font-size: 15px; font-weight: 700; color: var(--chalk); }
+    .falsos-pt-gloss { font-size: 13px; color: var(--verde3); }
+    .falsos-badges { display: flex; gap: 5px; align-items: center; margin-left: auto; }
+    .falsos-badge-hot { font-size: 12px; }
+    .falsos-badge-verify { font-size: 11px; font-weight: 600; padding: 1px 5px; border-radius: 5px; background: #2a1a00; color: #f0c040; border: 1px solid #5a3a00; }
+    .falsos-row2 { font-size: 12px; color: var(--muted); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .falsos-arrow { color: #f97316; font-weight: 700; }
+    .falsos-es-word { color: #9db5cc; font-style: italic; }
+    .falsos-es-gloss { color: var(--muted); }
   </style>
 </head>
 <body>
@@ -2520,6 +2614,8 @@
   window.PRONOUNS_PT = PRONOUNS_PT;
   window.TENSE_META = TENSE_META;
   window.VERB_CATEGORIES_PT = VERB_CATEGORIES_PT;
+  // NOTE: PHRASES_DATA, OBJETOS_DATA, FALSE_FRIENDS_DATA are exposed via
+  // window.X = X lines adjacent to their const declarations (further in script).
 
   /* Drill constants — must live AFTER TENSE_META and VERBS are initialized */
   /* Drilled tense keys (only tenses where TENSE_META[k].drilled === true) */
@@ -3402,6 +3498,667 @@
     setTimeout(() => { _estudo.quizIdx++; renderEstudoQuiz(); }, 900);
   }
 
+  /* ══════════════════════════════════════════════════════════════
+     FRASES ESSENCIAIS — Task 1.8
+     87 pt-PT phrases in 7 situations
+     ══════════════════════════════════════════════════════════════ */
+
+  const PHRASES_DATA = [
+    {
+      situation: 'Saudações',
+      label: 'Saudações · Greetings',
+      items: [
+        { pt: 'Olá!', en: 'Hello!' },
+        { pt: 'Bom dia!', en: 'Good morning!' },
+        { pt: 'Boa tarde!', en: 'Good afternoon!' },
+        { pt: 'Boa noite!', en: 'Good evening / Good night!' },
+        { pt: 'Como está?', en: 'How are you? (formal)', note: 'Formal — use with strangers/elders' },
+        { pt: 'Como estás?', en: 'How are you? (informal)', note: 'Informal — use with friends/young people' },
+        { pt: 'Tudo bem?', en: 'All good? / How's it going?' },
+        { pt: 'Tudo bem, obrigado.', en: 'All good, thank you. (male speaker)', note: 'obrigado = male speaker; obrigada = female speaker' },
+        { pt: 'Tudo bem, obrigada.', en: 'All good, thank you. (female speaker)', note: 'Gender-matched to the speaker, not the listener' },
+        { pt: 'Muito prazer!', en: 'Nice to meet you!' },
+        { pt: 'Chamo-me Ilya.', en: 'My name is Ilya.' },
+        { pt: 'Até logo!', en: 'See you later!' },
+        { pt: 'Até amanhã!', en: 'See you tomorrow!' },
+        { pt: 'Adeus!', en: 'Goodbye!' },
+        { pt: 'Com licença.', en: 'Excuse me. / Pardon me.', note: 'For passing or getting attention; also "desculpe"' },
+        { pt: 'Desculpe!', en: 'Sorry! / Excuse me!' },
+        { pt: 'De nada.', en: "You're welcome. / Don't mention it." },
+      ],
+    },
+    {
+      situation: 'Restaurante',
+      label: 'Restaurante · Restaurant',
+      items: [
+        { pt: 'Uma mesa para dois, se faz favor.', en: 'A table for two, please.', note: '"se faz favor" is the pt-PT preferred form; "por favor" also understood' },
+        { pt: 'A ementa, se faz favor.', en: 'The menu, please.' },
+        { pt: 'O que recomenda?', en: 'What do you recommend?' },
+        { pt: 'Queria pedir…', en: 'I would like to order…', note: 'Imperfeito for polite requests — very natural in pt-PT' },
+        { pt: 'Para mim, um bife com batatas fritas.', en: 'For me, a steak with chips.' },
+        { pt: 'Sou vegetariano / vegetariana.', en: 'I am vegetarian. (m/f)', note: 'Gender-match to speaker' },
+        { pt: 'Tenho alergia a…', en: 'I have an allergy to…' },
+        { pt: 'Está bem passado / mal passado?', en: 'Is it well done / rare?' },
+        { pt: 'Uma garrafa de água, se faz favor.', en: 'A bottle of water, please.' },
+        { pt: 'Tinto ou branco?', en: 'Red or white (wine)?' },
+        { pt: 'Estava delicioso!', en: 'It was delicious!' },
+        { pt: 'A conta, se faz favor.', en: 'The bill, please.' },
+        { pt: 'Fica aqui o troco.', en: 'Keep the change.' },
+        { pt: 'Pode cobrar ao quarto?', en: 'Can you charge it to the room?' },
+        { pt: 'Tem mesa disponível?', en: 'Do you have a table available?' },
+      ],
+    },
+    {
+      situation: 'Transportes',
+      label: 'Transportes · Transport',
+      items: [
+        { pt: 'Onde fica a paragem do autocarro?', en: 'Where is the bus stop?' },
+        { pt: 'Queria um bilhete para Lisboa, se faz favor.', en: 'I would like a ticket to Lisbon, please.' },
+        { pt: 'A que horas parte o comboio?', en: 'What time does the train depart?' },
+        { pt: 'Qual é o próximo comboio para o Porto?', en: 'What is the next train to Porto?' },
+        { pt: 'Onde é a paragem do metro?', en: 'Where is the metro stop?' },
+        { pt: 'Quanto custa o bilhete?', en: 'How much is the ticket?' },
+        { pt: 'É direto ou tenho de fazer transbordo?', en: 'Is it direct or do I have to change?' },
+        { pt: 'Esteja atento/atenta à sua paragem.', en: 'Pay attention to your stop. (m/f)' },
+        { pt: 'Pode chamar um táxi?', en: 'Can you call a taxi?' },
+        { pt: 'Vá ao aeroporto, se faz favor.', en: 'To the airport, please.' },
+        { pt: 'Estou perdido / perdida.', en: 'I am lost. (m/f)' },
+        { pt: 'Como é que se vai para…?', en: 'How do you get to…?' },
+        { pt: 'Vire à direita / à esquerda.', en: 'Turn right / left.' },
+        { pt: 'Siga em frente.', en: 'Go straight ahead.' },
+        { pt: 'A quanto fica daqui?', en: 'How far is it from here?' },
+      ],
+    },
+    {
+      situation: 'Compras',
+      label: 'Compras · Shopping',
+      items: [
+        { pt: 'Quanto custa isso?', en: 'How much does that cost?' },
+        { pt: 'É muito caro.', en: 'It is very expensive.' },
+        { pt: 'Tem mais barato?', en: 'Do you have anything cheaper?' },
+        { pt: 'Posso experimentar?', en: 'Can I try it on?' },
+        { pt: 'Que tamanho tem?', en: 'What size do you have?' },
+        { pt: 'Tem noutras cores?', en: 'Do you have it in other colours?' },
+        { pt: 'Vou levar este / esta.', en: 'I will take this one. (m/f)' },
+        { pt: 'Aceita cartão multibanco?', en: 'Do you accept Multibanco card?', note: 'Multibanco is the PT debit/ATM network — very common' },
+        { pt: 'Posso pagar com MB Way?', en: 'Can I pay with MB Way?', note: 'MB Way = Portuguese mobile payment app' },
+        { pt: 'Onde é a caixa?', en: 'Where is the checkout / cash register?' },
+        { pt: 'Tem saco?', en: 'Do you have a bag?' },
+        { pt: 'Pode embrulhar para oferta?', en: 'Can you gift-wrap it?' },
+        { pt: 'Tem recibo?', en: 'Do you have a receipt?' },
+      ],
+    },
+    {
+      situation: 'Alojamento',
+      label: 'Alojamento · Accommodation',
+      items: [
+        { pt: 'Tenho uma reserva em nome de…', en: 'I have a reservation in the name of…' },
+        { pt: 'Queria fazer o check-in.', en: 'I would like to check in.' },
+        { pt: 'A que horas é o check-out?', en: 'What time is check-out?' },
+        { pt: 'O meu quarto não foi arrumado.', en: 'My room was not cleaned.' },
+        { pt: 'O ar condicionado não funciona.', en: 'The air conditioning is not working.' },
+        { pt: 'Pode trazer toalhas limpas?', en: 'Can you bring clean towels?' },
+        { pt: 'Onde é o pequeno-almoço?', en: 'Where is breakfast?', note: 'pt-PT: "pequeno-almoço"; pt-BR: "café da manhã"' },
+        { pt: 'Inclui o pequeno-almoço?', en: 'Is breakfast included?' },
+        { pt: 'Tem wi-fi? Qual é a senha?', en: 'Do you have Wi-Fi? What is the password?', note: 'senha = password in pt-PT (also = meal ticket in some contexts)' },
+        { pt: 'Queria ficar mais uma noite.', en: 'I would like to stay one more night.' },
+        { pt: 'A chave não funciona.', en: 'The key is not working.' },
+        { pt: 'Pode guardar a bagagem?', en: 'Can you store my luggage?' },
+      ],
+    },
+    {
+      situation: 'Emergências',
+      label: 'Emergências · Emergencies',
+      items: [
+        { pt: 'Ajuda!', en: 'Help!' },
+        { pt: 'Ligue para o 112!', en: 'Call 112! (European emergency number)' },
+        { pt: 'Preciso de um médico.', en: 'I need a doctor.' },
+        { pt: 'Chame uma ambulância!', en: 'Call an ambulance!' },
+        { pt: 'Fui roubado / roubada.', en: 'I was robbed. (m/f)' },
+        { pt: 'Perdi o passaporte.', en: 'I lost my passport.' },
+        { pt: 'Onde é a esquadra da polícia?', en: 'Where is the police station?' },
+        { pt: 'Preciso de ir ao hospital.', en: 'I need to go to the hospital.' },
+        { pt: 'Tenho dores aqui.', en: 'I have pain here.' },
+        { pt: 'Sou alérgico / alérgica a penicilina.', en: 'I am allergic to penicillin. (m/f)' },
+        { pt: 'Podem contactar a embaixada?', en: 'Can you contact the embassy?' },
+        { pt: 'Preciso de um intérprete.', en: 'I need an interpreter.' },
+      ],
+    },
+    {
+      situation: 'Conversa informal',
+      label: 'Conversa informal · Small Talk',
+      items: [
+        { pt: 'De onde és?', en: 'Where are you from? (informal)' },
+        { pt: 'Sou de Londres.', en: 'I am from London.' },
+        { pt: 'Há quanto tempo estás em Portugal?', en: 'How long have you been in Portugal?' },
+        { pt: 'Que tal o tempo?', en: "How's the weather?" },
+        { pt: 'Está um dia lindo!', en: 'It is a beautiful day!' },
+        { pt: 'Gosto muito de Portugal.', en: 'I really like Portugal.' },
+        { pt: 'Estou a aprender português.', en: 'I am learning Portuguese.', note: 'pt-PT uses "estar a + infinitive" for progressive (not gerund)' },
+        { pt: 'Falas inglês?', en: 'Do you speak English? (informal)' },
+        { pt: 'Não percebi. Pode repetir?', en: "I didn't understand. Can you repeat?" },
+        { pt: 'Fala mais devagar, se faz favor.', en: 'Speak more slowly, please.' },
+        { pt: 'Como se diz… em português?', en: 'How do you say … in Portuguese?' },
+        { pt: 'Pois.', en: 'Yeah / Right / I see.', note: '"pois" is a classic PT filler — used to show you are listening/agreeing' },
+        { pt: 'Exactamente!', en: 'Exactly!', note: 'Written "exatamente" in new orthography, but "exactamente" common in pt-PT speech' },
+        { pt: 'Que bom!', en: 'How great! / That\'s great!' },
+        { pt: 'Já percebi.', en: 'I already understood. / Got it.' },
+      ],
+    },
+  ];
+
+  window.PHRASES_DATA = PHRASES_DATA;
+
+  let _frasesActiveSituation = PHRASES_DATA[0].situation;
+
+  function renderFrases() {
+    const t = document.getElementById('tool');
+    t.innerHTML = `
+      <button class="tool-back" id="frases-back-btn">← Voltar</button>
+      <div class="tool-name">Frases Essenciais</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:16px;">87 frases de sobrevivência em 7 situações · clica 🔊 para ouvir</div>
+      <div class="frases-tabs" id="frases-tabs"></div>
+      <div class="frases-list" id="frases-list"></div>
+    `;
+    t.querySelector('#frases-back-btn').onclick = goHome;
+
+    function renderFrasesPanel() {
+      // Tabs
+      const tabsEl = t.querySelector('#frases-tabs');
+      tabsEl.innerHTML = PHRASES_DATA.map(s =>
+        `<button class="frases-tab${s.situation === _frasesActiveSituation ? ' active' : ''}"
+          data-sit="${s.situation}">${s.situation}</button>`
+      ).join('');
+      tabsEl.querySelectorAll('.frases-tab[data-sit]').forEach(btn => {
+        btn.onclick = () => { _frasesActiveSituation = btn.dataset.sit; renderFrasesPanel(); };
+      });
+
+      // Phrase list
+      const group = PHRASES_DATA.find(s => s.situation === _frasesActiveSituation);
+      const listEl = t.querySelector('#frases-list');
+      listEl.innerHTML = group.items.map((item, idx) =>
+        `<div class="frases-item" data-phrase-idx="${idx}">
+          <div class="frases-item-left">
+            <span class="frases-pt">${item.pt}</span>
+            <span class="frases-en">${item.en}</span>
+            ${item.note ? `<span class="frases-note">ℹ ${item.note}</span>` : ''}
+          </div>
+          <button class="frases-speak" data-speak-phrase="${item.pt.replace(/"/g,'&quot;')}" aria-label="ouvir">🔊</button>
+        </div>`
+      ).join('');
+      listEl.querySelectorAll('.frases-speak[data-speak-phrase]').forEach(btn => {
+        btn.onclick = (e) => { e.stopPropagation(); speak(btn.dataset.speakPhrase); };
+      });
+      listEl.querySelectorAll('.frases-item[data-phrase-idx]').forEach(el => {
+        el.onclick = (e) => {
+          if (e.target.closest('.frases-speak')) return;
+          const group2 = PHRASES_DATA.find(s => s.situation === _frasesActiveSituation);
+          speak(group2.items[+el.dataset.phraseIdx].pt);
+        };
+      });
+    }
+
+    renderFrasesPanel();
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     OBJETOS — Task 1.9
+     250+ nouns in 10 categories with gender + ES-diff flags
+     ══════════════════════════════════════════════════════════════ */
+
+  const OBJETOS_DATA = [
+    {
+      category: 'Comida',
+      items: [
+        { article: 'o', noun: 'pão', plural: 'pães', en: 'bread', esGenderDiffers: false },
+        { article: 'o', noun: 'peixe', plural: 'peixes', en: 'fish', esGenderDiffers: false },
+        { article: 'a', noun: 'carne', plural: 'carnes', en: 'meat', esGenderDiffers: false },
+        { article: 'o', noun: 'frango', plural: 'frangos', en: 'chicken', esGenderDiffers: false },
+        { article: 'o', noun: 'arroz', plural: 'arrozes', en: 'rice', esGenderDiffers: false },
+        { article: 'a', noun: 'batata', plural: 'batatas', en: 'potato', esGenderDiffers: false },
+        { article: 'o', noun: 'tomate', plural: 'tomates', en: 'tomato', esGenderDiffers: false },
+        { article: 'a', noun: 'cebola', plural: 'cebolas', en: 'onion', esGenderDiffers: false },
+        { article: 'o', noun: 'alho', plural: 'alhos', en: 'garlic', esGenderDiffers: false },
+        { article: 'o', noun: 'azeite', plural: 'azeites', en: 'olive oil', esGenderDiffers: false },
+        { article: 'o', noun: 'queijo', plural: 'queijos', en: 'cheese', esGenderDiffers: false },
+        { article: 'o', noun: 'leite', plural: 'leites', en: 'milk', esGenderDiffers: true, esGender: 'f', esWord: 'leche' },
+        { article: 'o', noun: 'ovo', plural: 'ovos', en: 'egg', esGenderDiffers: false },
+        { article: 'a', noun: 'manteiga', plural: 'manteigas', en: 'butter', esGenderDiffers: false },
+        { article: 'o', noun: 'açúcar', plural: 'açúcares', en: 'sugar', esGenderDiffers: false },
+        { article: 'o', noun: 'sal', plural: 'sais', en: 'salt', esGenderDiffers: true, esGender: 'f', esWord: 'sal' },
+        { article: 'a', noun: 'água', plural: 'águas', en: 'water', esGenderDiffers: false },
+        { article: 'o', noun: 'vinho', plural: 'vinhos', en: 'wine', esGenderDiffers: false },
+        { article: 'a', noun: 'cerveja', plural: 'cervejas', en: 'beer', esGenderDiffers: false },
+        { article: 'o', noun: 'café', plural: 'cafés', en: 'coffee', esGenderDiffers: false },
+        { article: 'a', noun: 'fruta', plural: 'frutas', en: 'fruit', esGenderDiffers: false },
+        { article: 'a', noun: 'maçã', plural: 'maçãs', en: 'apple', esGenderDiffers: false },
+        { article: 'a', noun: 'laranja', plural: 'laranjas', en: 'orange', esGenderDiffers: false },
+        { article: 'o', noun: 'limão', plural: 'limões', en: 'lemon', esGenderDiffers: false },
+        { article: 'a', noun: 'uva', plural: 'uvas', en: 'grape', esGenderDiffers: false },
+        { article: 'o', noun: 'bacalhau', plural: 'bacalhaus', en: 'salted cod', esGenderDiffers: false },
+        { article: 'a', noun: 'sopa', plural: 'sopas', en: 'soup', esGenderDiffers: false },
+        { article: 'o', noun: 'bife', plural: 'bifes', en: 'steak', esGenderDiffers: false },
+        { article: 'o', noun: 'presunto', plural: 'presuntos', en: 'cured ham', esGenderDiffers: false },
+        { article: 'o', noun: 'mel', plural: 'méis', en: 'honey', esGenderDiffers: false },
+        { article: 'o', noun: 'iogurte', plural: 'iogurtes', en: 'yoghurt', esGenderDiffers: false },
+        { article: 'a', noun: 'cereja', plural: 'cerejas', en: 'cherry', esGenderDiffers: false },
+        { article: 'o', noun: 'chocolate', plural: 'chocolates', en: 'chocolate', esGenderDiffers: false },
+        { article: 'o', noun: 'gelado', plural: 'gelados', en: 'ice cream', esGenderDiffers: false },
+        { article: 'a', noun: 'pastelaria', plural: 'pastelarias', en: 'pastry shop / bakery', esGenderDiffers: false },
+      ],
+    },
+    {
+      category: 'Transportes',
+      items: [
+        { article: 'o', noun: 'autocarro', plural: 'autocarros', en: 'bus', esGenderDiffers: false },
+        { article: 'o', noun: 'comboio', plural: 'comboios', en: 'train', esGenderDiffers: false },
+        { article: 'o', noun: 'metro', plural: 'metros', en: 'metro / subway', esGenderDiffers: false },
+        { article: 'o', noun: 'táxi', plural: 'táxis', en: 'taxi', esGenderDiffers: false },
+        { article: 'o', noun: 'avião', plural: 'aviões', en: 'plane', esGenderDiffers: false },
+        { article: 'o', noun: 'barco', plural: 'barcos', en: 'boat', esGenderDiffers: false },
+        { article: 'a', noun: 'bicicleta', plural: 'bicicletas', en: 'bicycle', esGenderDiffers: false },
+        { article: 'o', noun: 'carro', plural: 'carros', en: 'car', esGenderDiffers: false },
+        { article: 'a', noun: 'mota', plural: 'motas', en: 'motorbike', esGenderDiffers: false },
+        { article: 'a', noun: 'paragem', plural: 'paragens', en: 'stop (bus/tram)', esGenderDiffers: false },
+        { article: 'o', noun: 'aeroporto', plural: 'aeroportos', en: 'airport', esGenderDiffers: false },
+        { article: 'a', noun: 'estação', plural: 'estações', en: 'station', esGenderDiffers: false },
+        { article: 'o', noun: 'bilhete', plural: 'bilhetes', en: 'ticket', esGenderDiffers: false },
+        { article: 'a', noun: 'viagem', plural: 'viagens', en: 'journey / trip', esGenderDiffers: true, esGender: 'm', esWord: 'viaje' },
+        { article: 'a', noun: 'ponte', plural: 'pontes', en: 'bridge', esGenderDiffers: true, esGender: 'm', esWord: 'puente' },
+        { article: 'a', noun: 'estrada', plural: 'estradas', en: 'road', esGenderDiffers: false },
+        { article: 'o', noun: 'porto', plural: 'portos', en: 'port / harbour', esGenderDiffers: false },
+        { article: 'a', noun: 'bagagem', plural: 'bagagens', en: 'luggage', esGenderDiffers: false },
+      ],
+    },
+    {
+      category: 'Casa',
+      items: [
+        { article: 'a', noun: 'casa', plural: 'casas', en: 'house / home', esGenderDiffers: false },
+        { article: 'o', noun: 'apartamento', plural: 'apartamentos', en: 'apartment', esGenderDiffers: false },
+        { article: 'o', noun: 'quarto', plural: 'quartos', en: 'room / bedroom', esGenderDiffers: false },
+        { article: 'a', noun: 'cozinha', plural: 'cozinhas', en: 'kitchen', esGenderDiffers: false },
+        { article: 'a', noun: 'casa de banho', plural: 'casas de banho', en: 'bathroom', esGenderDiffers: false },
+        { article: 'a', noun: 'sala', plural: 'salas', en: 'living room', esGenderDiffers: false },
+        { article: 'a', noun: 'janela', plural: 'janelas', en: 'window', esGenderDiffers: false },
+        { article: 'a', noun: 'porta', plural: 'portas', en: 'door', esGenderDiffers: false },
+        { article: 'a', noun: 'chave', plural: 'chaves', en: 'key', esGenderDiffers: false },
+        { article: 'a', noun: 'cama', plural: 'camas', en: 'bed', esGenderDiffers: false },
+        { article: 'a', noun: 'mesa', plural: 'mesas', en: 'table', esGenderDiffers: false },
+        { article: 'a', noun: 'cadeira', plural: 'cadeiras', en: 'chair', esGenderDiffers: false },
+        { article: 'o', noun: 'sofá', plural: 'sofás', en: 'sofa', esGenderDiffers: false },
+        { article: 'o', noun: 'frigorífico', plural: 'frigoríficos', en: 'refrigerator / fridge', esGenderDiffers: false },
+        { article: 'o', noun: 'fogão', plural: 'fogões', en: 'stove / cooker', esGenderDiffers: false },
+        { article: 'o', noun: 'lixo', plural: 'lixos', en: 'rubbish / trash', esGenderDiffers: false },
+        { article: 'a', noun: 'toalha', plural: 'toalhas', en: 'towel', esGenderDiffers: false },
+        { article: 'o', noun: 'tapete', plural: 'tapetes', en: 'rug / carpet', esGenderDiffers: false },
+        { article: 'a', noun: 'prateleira', plural: 'prateleiras', en: 'shelf', esGenderDiffers: false },
+        { article: 'o', noun: 'armário', plural: 'armários', en: 'wardrobe / cupboard', esGenderDiffers: false },
+        { article: 'a', noun: 'máquina de lavar', plural: 'máquinas de lavar', en: 'washing machine', esGenderDiffers: false },
+        { article: 'o', noun: 'telefone', plural: 'telefones', en: 'telephone', esGenderDiffers: false },
+        { article: 'o', noun: 'computador', plural: 'computadores', en: 'computer', esGenderDiffers: false },
+        { article: 'a', noun: 'luz', plural: 'luzes', en: 'light', esGenderDiffers: false },
+        { article: 'a', noun: 'torneira', plural: 'torneiras', en: 'tap / faucet', esGenderDiffers: false },
+        { article: 'o', noun: 'espelho', plural: 'espelhos', en: 'mirror', esGenderDiffers: false },
+        { article: 'o', noun: 'elevador', plural: 'elevadores', en: 'lift / elevator', esGenderDiffers: false },
+        { article: 'o', noun: 'andar', plural: 'andares', en: 'floor / storey', esGenderDiffers: false },
+        { article: 'a', noun: 'varanda', plural: 'varandas', en: 'balcony', esGenderDiffers: false },
+        { article: 'o', noun: 'sótão', plural: 'sótãos', en: 'attic', esGenderDiffers: false },
+      ],
+    },
+    {
+      category: 'Corpo',
+      items: [
+        { article: 'a', noun: 'cabeça', plural: 'cabeças', en: 'head', esGenderDiffers: false },
+        { article: 'o', noun: 'rosto', plural: 'rostos', en: 'face', esGenderDiffers: false },
+        { article: 'o', noun: 'olho', plural: 'olhos', en: 'eye', esGenderDiffers: false },
+        { article: 'o', noun: 'nariz', plural: 'narizes', en: 'nose', esGenderDiffers: false },
+        { article: 'a', noun: 'boca', plural: 'bocas', en: 'mouth', esGenderDiffers: false },
+        { article: 'o', noun: 'dente', plural: 'dentes', en: 'tooth', esGenderDiffers: false },
+        { article: 'a', noun: 'orelha', plural: 'orelhas', en: 'ear', esGenderDiffers: false },
+        { article: 'o', noun: 'pescoço', plural: 'pescoços', en: 'neck', esGenderDiffers: false },
+        { article: 'o', noun: 'ombro', plural: 'ombros', en: 'shoulder', esGenderDiffers: false },
+        { article: 'o', noun: 'braço', plural: 'braços', en: 'arm', esGenderDiffers: false },
+        { article: 'a', noun: 'mão', plural: 'mãos', en: 'hand', esGenderDiffers: false },
+        { article: 'o', noun: 'dedo', plural: 'dedos', en: 'finger / toe', esGenderDiffers: false },
+        { article: 'a', noun: 'perna', plural: 'pernas', en: 'leg', esGenderDiffers: false },
+        { article: 'o', noun: 'joelho', plural: 'joelhos', en: 'knee', esGenderDiffers: false },
+        { article: 'o', noun: 'pé', plural: 'pés', en: 'foot', esGenderDiffers: false },
+        { article: 'o', noun: 'coração', plural: 'corações', en: 'heart', esGenderDiffers: false },
+        { article: 'o', noun: 'pulmão', plural: 'pulmões', en: 'lung', esGenderDiffers: false },
+        { article: 'o', noun: 'estômago', plural: 'estômagos', en: 'stomach', esGenderDiffers: false },
+        { article: 'o', noun: 'sangue', plural: 'sangues', en: 'blood', esGenderDiffers: true, esGender: 'f', esWord: 'sangre' },
+        { article: 'a', noun: 'pele', plural: 'peles', en: 'skin', esGenderDiffers: false },
+        { article: 'o', noun: 'cabelo', plural: 'cabelos', en: 'hair', esGenderDiffers: false },
+        { article: 'o', noun: 'osso', plural: 'ossos', en: 'bone', esGenderDiffers: false },
+        { article: 'a', noun: 'dor', plural: 'dores', en: 'pain / ache', esGenderDiffers: false },
+        { article: 'o', noun: 'músculo', plural: 'músculos', en: 'muscle', esGenderDiffers: false },
+        { article: 'a', noun: 'barriga', plural: 'barrigas', en: 'belly / stomach', esGenderDiffers: false },
+        { article: 'o', noun: 'cotovelo', plural: 'cotovelos', en: 'elbow', esGenderDiffers: false },
+        { article: 'a', noun: 'costa', plural: 'costas', en: 'back (body)', esGenderDiffers: false },
+        { article: 'a', noun: 'testa', plural: 'testas', en: 'forehead', esGenderDiffers: false },
+        { article: 'o', noun: 'pulso', plural: 'pulsos', en: 'wrist', esGenderDiffers: false },
+      ],
+    },
+    {
+      category: 'Roupa',
+      items: [
+        { article: 'a', noun: 'roupa', plural: 'roupas', en: 'clothes', esGenderDiffers: false },
+        { article: 'a', noun: 'camisola', plural: 'camisolas', en: 'sweater / jumper', esGenderDiffers: false },
+        { article: 'a', noun: 'camisa', plural: 'camisas', en: 'shirt', esGenderDiffers: false },
+        { article: 'as', noun: 'calças', plural: 'calças', en: 'trousers / pants', esGenderDiffers: false },
+        { article: 'os', noun: 'calções', plural: 'calções', en: 'shorts', esGenderDiffers: false },
+        { article: 'a', noun: 'saia', plural: 'saias', en: 'skirt', esGenderDiffers: false },
+        { article: 'o', noun: 'vestido', plural: 'vestidos', en: 'dress', esGenderDiffers: false },
+        { article: 'o', noun: 'casaco', plural: 'casacos', en: 'coat / jacket', esGenderDiffers: false },
+        { article: 'o', noun: 'impermeável', plural: 'impermeáveis', en: 'raincoat', esGenderDiffers: false },
+        { article: 'os', noun: 'sapatos', plural: 'sapatos', en: 'shoes', esGenderDiffers: false },
+        { article: 'as', noun: 'botas', plural: 'botas', en: 'boots', esGenderDiffers: false },
+        { article: 'as', noun: 'meias', plural: 'meias', en: 'socks / stockings', esGenderDiffers: false },
+        { article: 'a', noun: 'gravata', plural: 'gravatas', en: 'tie', esGenderDiffers: false },
+        { article: 'o', noun: 'chapéu', plural: 'chapéus', en: 'hat', esGenderDiffers: false },
+        { article: 'o', noun: 'cinto', plural: 'cintos', en: 'belt', esGenderDiffers: false },
+        { article: 'a', noun: 'mala', plural: 'malas', en: 'handbag / bag', esGenderDiffers: false },
+        { article: 'o', noun: 'lenço', plural: 'lenços', en: 'scarf / handkerchief', esGenderDiffers: false },
+        { article: 'o', noun: 'tamanho', plural: 'tamanhos', en: 'size', esGenderDiffers: false },
+      ],
+    },
+    {
+      category: 'Cidade e Rua',
+      items: [
+        { article: 'a', noun: 'rua', plural: 'ruas', en: 'street', esGenderDiffers: false },
+        { article: 'a', noun: 'avenida', plural: 'avenidas', en: 'avenue', esGenderDiffers: false },
+        { article: 'a', noun: 'praça', plural: 'praças', en: 'square / plaza', esGenderDiffers: false },
+        { article: 'o', noun: 'jardim', plural: 'jardins', en: 'garden / park', esGenderDiffers: false },
+        { article: 'a', noun: 'loja', plural: 'lojas', en: 'shop / store', esGenderDiffers: false },
+        { article: 'o', noun: 'mercado', plural: 'mercados', en: 'market', esGenderDiffers: false },
+        { article: 'o', noun: 'supermercado', plural: 'supermercados', en: 'supermarket', esGenderDiffers: false },
+        { article: 'o', noun: 'banco', plural: 'bancos', en: 'bank', esGenderDiffers: false },
+        { article: 'o', noun: 'multibanco', plural: 'multibancos', en: 'ATM (Multibanco)', esGenderDiffers: false },
+        { article: 'a', noun: 'farmácia', plural: 'farmácias', en: 'pharmacy', esGenderDiffers: false },
+        { article: 'o', noun: 'hospital', plural: 'hospitais', en: 'hospital', esGenderDiffers: false },
+        { article: 'a', noun: 'escola', plural: 'escolas', en: 'school', esGenderDiffers: false },
+        { article: 'a', noun: 'universidade', plural: 'universidades', en: 'university', esGenderDiffers: false },
+        { article: 'o', noun: 'museu', plural: 'museus', en: 'museum', esGenderDiffers: false },
+        { article: 'a', noun: 'igreja', plural: 'igrejas', en: 'church', esGenderDiffers: false },
+        { article: 'o', noun: 'castelo', plural: 'castelos', en: 'castle', esGenderDiffers: false },
+        { article: 'a', noun: 'praia', plural: 'praias', en: 'beach', esGenderDiffers: false },
+        { article: 'o', noun: 'semáforo', plural: 'semáforos', en: 'traffic light', esGenderDiffers: false },
+        { article: 'a', noun: 'esquadra', plural: 'esquadras', en: 'police station', esGenderDiffers: false },
+        { article: 'o', noun: 'correios', plural: 'correios', en: 'post office', esGenderDiffers: false },
+        { article: 'a', noun: 'cor', plural: 'cores', en: 'colour', esGenderDiffers: true, esGender: 'm', esWord: 'color' },
+        { article: 'a', noun: 'árvore', plural: 'árvores', en: 'tree', esGenderDiffers: true, esGender: 'm', esWord: 'árbol' },
+        { article: 'a', noun: 'flor', plural: 'flores', en: 'flower', esGenderDiffers: false },
+        { article: 'o', noun: 'passeio', plural: 'passeios', en: 'pavement / sidewalk', esGenderDiffers: false },
+        { article: 'o', noun: 'bairro', plural: 'bairros', en: 'neighbourhood', esGenderDiffers: false },
+        { article: 'a', noun: 'fonte', plural: 'fontes', en: 'fountain / source', esGenderDiffers: false },
+        { article: 'o', noun: 'estacionamento', plural: 'estacionamentos', en: 'car park', esGenderDiffers: false },
+      ],
+    },
+    {
+      category: 'Trabalho e Escritório',
+      items: [
+        { article: 'o', noun: 'trabalho', plural: 'trabalhos', en: 'work / job', esGenderDiffers: false },
+        { article: 'o', noun: 'escritório', plural: 'escritórios', en: 'office', esGenderDiffers: false },
+        { article: 'a', noun: 'empresa', plural: 'empresas', en: 'company / firm', esGenderDiffers: false },
+        { article: 'o', noun: 'chefe', plural: 'chefes', en: 'boss / head', esGenderDiffers: false },
+        { article: 'o', noun: 'colega', plural: 'colegas', en: 'colleague (m)', esGenderDiffers: false },
+        { article: 'a', noun: 'reunião', plural: 'reuniões', en: 'meeting', esGenderDiffers: false },
+        { article: 'o', noun: 'projeto', plural: 'projetos', en: 'project', esGenderDiffers: false },
+        { article: 'o', noun: 'prazo', plural: 'prazos', en: 'deadline', esGenderDiffers: false },
+        { article: 'o', noun: 'relatório', plural: 'relatórios', en: 'report', esGenderDiffers: false },
+        { article: 'o', noun: 'e-mail', plural: 'e-mails', en: 'email', esGenderDiffers: false },
+        { article: 'a', noun: 'pasta', plural: 'pastas', en: 'folder / briefcase', esGenderDiffers: false },
+        { article: 'o', noun: 'computador', plural: 'computadores', en: 'computer', esGenderDiffers: false },
+        { article: 'a', noun: 'impressora', plural: 'impressoras', en: 'printer', esGenderDiffers: false },
+        { article: 'o', noun: 'contrato', plural: 'contratos', en: 'contract', esGenderDiffers: false },
+        { article: 'o', noun: 'salário', plural: 'salários', en: 'salary / wage', esGenderDiffers: false },
+        { article: 'a', noun: 'propina', plural: 'propinas', en: 'tuition fee (pt-PT)', esGenderDiffers: false },
+        { article: 'a', noun: 'senha', plural: 'senhas', en: 'password / queue number', esGenderDiffers: false },
+        { article: 'o', noun: 'recibo', plural: 'recibos', en: 'receipt', esGenderDiffers: false },
+        { article: 'a', noun: 'fatura', plural: 'faturas', en: 'invoice', esGenderDiffers: false },
+        { article: 'o', noun: 'seguro', plural: 'seguros', en: 'insurance', esGenderDiffers: false },
+        { article: 'a', noun: 'certidão', plural: 'certidões', en: 'certificate', esGenderDiffers: false },
+        { article: 'a', noun: 'licença', plural: 'licenças', en: 'licence / leave', esGenderDiffers: false },
+      ],
+    },
+    {
+      category: 'Natureza',
+      items: [
+        { article: 'o', noun: 'mar', plural: 'mares', en: 'sea', esGenderDiffers: false },
+        { article: 'o', noun: 'rio', plural: 'rios', en: 'river', esGenderDiffers: false },
+        { article: 'a', noun: 'montanha', plural: 'montanhas', en: 'mountain', esGenderDiffers: false },
+        { article: 'o', noun: 'lago', plural: 'lagos', en: 'lake', esGenderDiffers: false },
+        { article: 'a', noun: 'praia', plural: 'praias', en: 'beach', esGenderDiffers: false },
+        { article: 'o', noun: 'céu', plural: 'céus', en: 'sky', esGenderDiffers: false },
+        { article: 'o', noun: 'sol', plural: 'sóis', en: 'sun', esGenderDiffers: false },
+        { article: 'a', noun: 'lua', plural: 'luas', en: 'moon', esGenderDiffers: false },
+        { article: 'a', noun: 'estrela', plural: 'estrelas', en: 'star', esGenderDiffers: false },
+        { article: 'a', noun: 'chuva', plural: 'chuvas', en: 'rain', esGenderDiffers: false },
+        { article: 'o', noun: 'vento', plural: 'ventos', en: 'wind', esGenderDiffers: false },
+        { article: 'a', noun: 'neve', plural: 'neves', en: 'snow', esGenderDiffers: false },
+        { article: 'a', noun: 'nuvem', plural: 'nuvens', en: 'cloud', esGenderDiffers: false },
+        { article: 'o', noun: 'campo', plural: 'campos', en: 'field / countryside', esGenderDiffers: false },
+        { article: 'a', noun: 'floresta', plural: 'florestas', en: 'forest', esGenderDiffers: false },
+        { article: 'a', noun: 'pedra', plural: 'pedras', en: 'stone / rock', esGenderDiffers: false },
+        { article: 'a', noun: 'terra', plural: 'terras', en: 'earth / land', esGenderDiffers: false },
+        { article: 'o', noun: 'fogo', plural: 'fogos', en: 'fire', esGenderDiffers: false },
+        { article: 'o', noun: 'gelo', plural: 'gelos', en: 'ice', esGenderDiffers: false },
+        { article: 'o', noun: 'ambiente', plural: 'ambientes', en: 'environment', esGenderDiffers: false },
+        { article: 'o', noun: 'animal', plural: 'animais', en: 'animal', esGenderDiffers: false },
+        { article: 'o', noun: 'pássaro', plural: 'pássaros', en: 'bird', esGenderDiffers: false },
+        { article: 'o', noun: 'gato', plural: 'gatos', en: 'cat', esGenderDiffers: false },
+        { article: 'o', noun: 'cão', plural: 'cães', en: 'dog', esGenderDiffers: false },
+      ],
+    },
+    {
+      category: 'Família e Pessoas',
+      items: [
+        { article: 'a', noun: 'família', plural: 'famílias', en: 'family', esGenderDiffers: false },
+        { article: 'o', noun: 'pai', plural: 'pais', en: 'father / parents', esGenderDiffers: false },
+        { article: 'a', noun: 'mãe', plural: 'mães', en: 'mother', esGenderDiffers: false },
+        { article: 'o', noun: 'filho', plural: 'filhos', en: 'son / children', esGenderDiffers: false },
+        { article: 'a', noun: 'filha', plural: 'filhas', en: 'daughter', esGenderDiffers: false },
+        { article: 'o', noun: 'irmão', plural: 'irmãos', en: 'brother', esGenderDiffers: false },
+        { article: 'a', noun: 'irmã', plural: 'irmãs', en: 'sister', esGenderDiffers: false },
+        { article: 'o', noun: 'avô', plural: 'avós', en: 'grandfather', esGenderDiffers: false },
+        { article: 'a', noun: 'avó', plural: 'avós', en: 'grandmother', esGenderDiffers: false },
+        { article: 'o', noun: 'marido', plural: 'maridos', en: 'husband', esGenderDiffers: false },
+        { article: 'a', noun: 'esposa', plural: 'esposas', en: 'wife', esGenderDiffers: false },
+        { article: 'o', noun: 'namorado', plural: 'namorados', en: 'boyfriend', esGenderDiffers: false },
+        { article: 'a', noun: 'namorada', plural: 'namoradas', en: 'girlfriend', esGenderDiffers: false },
+        { article: 'o', noun: 'amigo', plural: 'amigos', en: 'friend (m)', esGenderDiffers: false },
+        { article: 'a', noun: 'amiga', plural: 'amigas', en: 'friend (f)', esGenderDiffers: false },
+        { article: 'o', noun: 'vizinho', plural: 'vizinhos', en: 'neighbour (m)', esGenderDiffers: false },
+        { article: 'a', noun: 'pessoa', plural: 'pessoas', en: 'person', esGenderDiffers: false },
+        { article: 'o', noun: 'homem', plural: 'homens', en: 'man', esGenderDiffers: false },
+        { article: 'a', noun: 'mulher', plural: 'mulheres', en: 'woman', esGenderDiffers: false },
+        { article: 'a', noun: 'criança', plural: 'crianças', en: 'child', esGenderDiffers: false },
+        { article: 'o', noun: 'bebé', plural: 'bebés', en: 'baby', esGenderDiffers: false },
+        { article: 'a', noun: 'equipa', plural: 'equipas', en: 'team', esGenderDiffers: true, esGender: 'm', esWord: 'equipo' },
+        { article: 'o', noun: 'apelido', plural: 'apelidos', en: 'surname / nickname', esGenderDiffers: false },
+      ],
+    },
+    {
+      category: 'Emergência',
+      items: [
+        { article: 'a', noun: 'emergência', plural: 'emergências', en: 'emergency', esGenderDiffers: false },
+        { article: 'a', noun: 'polícia', plural: 'polícias', en: 'police', esGenderDiffers: false },
+        { article: 'a', noun: 'ambulância', plural: 'ambulâncias', en: 'ambulance', esGenderDiffers: false },
+        { article: 'o', noun: 'bombeiro', plural: 'bombeiros', en: 'firefighter', esGenderDiffers: false },
+        { article: 'o', noun: 'médico', plural: 'médicos', en: 'doctor (m)', esGenderDiffers: false },
+        { article: 'a', noun: 'enfermeira', plural: 'enfermeiras', en: 'nurse (f)', esGenderDiffers: false },
+        { article: 'o', noun: 'hospital', plural: 'hospitais', en: 'hospital', esGenderDiffers: false },
+        { article: 'a', noun: 'farmácia', plural: 'farmácias', en: 'pharmacy', esGenderDiffers: false },
+        { article: 'o', noun: 'passaporte', plural: 'passaportes', en: 'passport', esGenderDiffers: false },
+        { article: 'o', noun: 'bilhete de identidade', plural: 'bilhetes de identidade', en: 'ID card', esGenderDiffers: false },
+        { article: 'o', noun: 'seguro', plural: 'seguros', en: 'insurance', esGenderDiffers: false },
+        { article: 'a', noun: 'embaixada', plural: 'embaixadas', en: 'embassy', esGenderDiffers: false },
+        { article: 'o', noun: 'consulado', plural: 'consulados', en: 'consulate', esGenderDiffers: false },
+        { article: 'o', noun: 'ladrão', plural: 'ladrões', en: 'thief / robber', esGenderDiffers: false },
+        { article: 'o', noun: 'acidente', plural: 'acidentes', en: 'accident', esGenderDiffers: false },
+        { article: 'a', noun: 'finança', plural: 'finanças', en: 'tax office / finances', esGenderDiffers: false },
+        { article: 'o', noun: 'SEF/AIMA', plural: '—', en: 'Immigration & Asylum Service', esGenderDiffers: false },
+        { article: 'o', noun: 'multibanco', plural: 'multibancos', en: 'ATM (PT network)', esGenderDiffers: false },
+        { article: 'a', noun: 'senha', plural: 'senhas', en: 'password / queue number', esGenderDiffers: false },
+        { article: 'o', noun: 'seguro de saúde', plural: 'seguros de saúde', en: 'health insurance', esGenderDiffers: false },
+        { article: 'a', noun: 'dor', plural: 'dores', en: 'pain', esGenderDiffers: false },
+        { article: 'a', noun: 'febre', plural: 'febres', en: 'fever', esGenderDiffers: false },
+        { article: 'o', noun: 'médico de família', plural: 'médicos de família', en: 'GP / family doctor', esGenderDiffers: false },
+        { article: 'o', noun: 'urgência', plural: 'urgências', en: 'A&E / emergency room', esGenderDiffers: false },
+      ],
+    },
+  ];
+
+  window.OBJETOS_DATA = OBJETOS_DATA;
+
+  let _objetosActiveCategory = OBJETOS_DATA[0].category;
+
+  function renderObjetos() {
+    const t = document.getElementById('tool');
+    t.innerHTML = `
+      <button class="tool-back" id="obj-back-btn">← Voltar</button>
+      <div class="tool-name">Objetos</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:16px;">250+ substantivos em 10 categorias · <span style="color:#ffb366">🇪🇸 ≠</span> = género diferente do espanhol</div>
+      <div class="obj-tabs" id="obj-tabs"></div>
+      <div class="obj-grid" id="obj-grid"></div>
+    `;
+    t.querySelector('#obj-back-btn').onclick = goHome;
+
+    function renderObjetosPanel() {
+      const tabsEl = t.querySelector('#obj-tabs');
+      tabsEl.innerHTML = OBJETOS_DATA.map(cat =>
+        `<button class="obj-tab${cat.category === _objetosActiveCategory ? ' active' : ''}"
+          data-cat="${cat.category}">${cat.category}</button>`
+      ).join('');
+      tabsEl.querySelectorAll('.obj-tab[data-cat]').forEach(btn => {
+        btn.onclick = () => { _objetosActiveCategory = btn.dataset.cat; renderObjetosPanel(); };
+      });
+
+      const catData = OBJETOS_DATA.find(c => c.category === _objetosActiveCategory);
+      const gridEl = t.querySelector('#obj-grid');
+      gridEl.innerHTML = catData.items.map((item, idx) => {
+        const artClass = (item.article === 'o' || item.article === 'os') ? 'm' : 'f';
+        const esBadge = item.esGenderDiffers
+          ? `<span class="obj-es-badge" title="género diferente em espanhol: ${item.esGender === 'm' ? 'el' : 'la'} ${item.esWord}">🇪🇸 ≠
+              <span class="obj-tooltip">ES: ${item.esGender === 'm' ? 'el' : 'la'} ${item.esWord}</span>
+             </span>`
+          : '';
+        return `<div class="obj-tile" data-obj-idx="${idx}" data-obj-phrase="${(item.article + ' ' + item.noun).replace(/"/g,'&quot;')}">
+          ${esBadge}
+          <span class="obj-article ${artClass}">${item.article}</span>
+          <span class="obj-noun">${item.noun}</span>
+          <span class="obj-en">${item.en}</span>
+          <span class="obj-speak">🔊</span>
+        </div>`;
+      }).join('');
+
+      gridEl.querySelectorAll('.obj-tile[data-obj-phrase]').forEach(tile => {
+        tile.onclick = (e) => {
+          if (e.target.closest('.obj-es-badge')) return;
+          speak(tile.dataset.objPhrase);
+        };
+      });
+    }
+
+    renderObjetosPanel();
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     FALSOS AMIGOS — Task 1.9b
+     Foundation data; full UI in Task 3.5
+     ══════════════════════════════════════════════════════════════ */
+
+  const FALSE_FRIENDS_DATA = [
+    // PT↔ES hot traps
+    { pt: 'oficina',    gloss: 'workshop / repair shop', esWord: 'oficina',    esGloss: 'office',        hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'borracha',   gloss: 'eraser',                 esWord: 'borracha',   esGloss: 'drunk woman',   hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'polvo',      gloss: 'octopus',                esWord: 'polvo',      esGloss: 'dust',          hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'esquisito',  gloss: 'weird / odd',            esWord: 'exquisito',  esGloss: 'delicious',     hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'embaraçada', gloss: 'embarrassed',            esWord: 'embarazada', esGloss: 'pregnant',      hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'ligar',      gloss: 'to call / turn on',      esWord: 'ligar',      esGloss: 'to hook up',    hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'propina',    gloss: 'tuition fee (pt-PT)',     esWord: 'propina',    esGloss: 'tip / bribe',   hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'policia',    gloss: 'police (institution)',    esWord: 'policía',    esGloss: 'police officer',hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'bordo',      gloss: 'on board (a bordo)',      esWord: 'bordo',      esGloss: 'edge / hem',    hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'salada',     gloss: 'salad',                   esWord: 'salada',     esGloss: 'salty (f)',     hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    // PT↔ES common traps
+    { pt: 'apelido',    gloss: 'nickname / surname',      esWord: 'apellido',   esGloss: 'surname',       hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'escritório', gloss: 'office',                  esWord: 'escritorio', esGloss: 'desk',          hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'presunto',   gloss: 'ham (cured)',              esWord: 'presunto',   esGloss: 'allegedly',     hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'acordar',    gloss: 'to wake up',               esWord: 'acordarse', esGloss: 'to remember',   hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'cadeira',    gloss: 'chair',                    esWord: 'cadera',    esGloss: 'hip',           hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'pasta',      gloss: 'folder / briefcase',       esWord: 'pasta',     esGloss: 'pasta / dough', hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'berro',      gloss: 'scream / shout',           esWord: 'berro',     esGloss: 'watercress',    hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'poltrona',   gloss: 'armchair',                 esWord: 'poltrona',  esGloss: 'coward (f)',    hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'borboleta',  gloss: 'butterfly',                esWord: 'borboleta', esGloss: '(no direct equiv.)', hot: false, showInBridge: false, category: 'PT↔ES', verify: true },
+    { pt: 'exquisito',  gloss: '(variant spelling of esquisito — weird)', esWord: 'exquisito', esGloss: 'delicious', hot: false, showInBridge: false, category: 'PT↔ES', verify: true },
+    // PT→EN traps
+    { pt: 'pretender',  gloss: 'to intend / to aim',       esWord: null, esGloss: null,  hot: true,  showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'parentes',   gloss: 'relatives (not parents!)',  esWord: null, esGloss: null,  hot: true,  showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'constipado', gloss: 'having a cold (not constipated!)', esWord: null, esGloss: null, hot: true, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'puxar',      gloss: 'to pull (signs say PUXE = pull)', esWord: null, esGloss: null, hot: true, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'assistir',   gloss: 'to watch / attend (not assist!)', esWord: null, esGloss: null, hot: true, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'talher',     gloss: 'cutlery / utensil',          esWord: null, esGloss: null,  hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'atender',    gloss: 'to answer (phone) / to serve', esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'marcar',     gloss: 'to book / to score / to mark', esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'realizar',   gloss: 'to carry out / to realise',   esWord: null, esGloss: null,  hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'sensível',   gloss: 'sensitive (not sensible!)',    esWord: null, esGloss: null,  hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'actual',     gloss: 'current / present (not actual!)', esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'particular', gloss: 'private (escola particular = private school)', esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'simpático',  gloss: 'nice / kind (not sympathetic!)', esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+  ];
+
+  window.FALSE_FRIENDS_DATA = FALSE_FRIENDS_DATA;
+
+  function renderFalsos() {
+    const t = document.getElementById('tool');
+
+    // Group by category
+    const groups = {};
+    FALSE_FRIENDS_DATA.forEach(item => {
+      if (!groups[item.category]) groups[item.category] = [];
+      groups[item.category].push(item);
+    });
+
+    const groupsHtml = Object.entries(groups).map(([cat, items]) => {
+      const itemsHtml = items.map(item => {
+        const badges = `
+          <span class="falsos-badges">
+            ${item.hot ? '<span class="falsos-badge-hot" title="Armadilha frequente">🔥</span>' : ''}
+            ${item.verify ? '<span class="falsos-badge-verify">⚠ verificado</span>' : ''}
+          </span>`;
+        const row2 = item.esWord
+          ? `<div class="falsos-row2">ES: <span class="falsos-es-word">${item.esWord}</span> <span class="falsos-arrow">→</span> <span class="falsos-es-gloss">"${item.esGloss}"</span></div>`
+          : '';
+        return `<div class="falsos-item${item.hot ? ' hot' : ''}">
+          <div class="falsos-row1">
+            <span class="falsos-pt" data-speak-falso="${item.pt.replace(/"/g,'&quot;')}" style="cursor:pointer">${item.pt}</span>
+            <span class="falsos-pt-gloss">"${item.gloss}"</span>
+            ${badges}
+          </div>
+          ${row2}
+        </div>`;
+      }).join('');
+      return `<div class="falsos-group">
+        <div class="falsos-group-h">${cat}</div>
+        <div class="falsos-list">${itemsHtml}</div>
+      </div>`;
+    }).join('');
+
+    t.innerHTML = `
+      <button class="tool-back" id="falsos-back-btn">← Voltar</button>
+      <div class="tool-name">Falsos Amigos</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:20px;">🔥 = armadilha frequente · ⚠ = verificado por nativo</div>
+      ${groupsHtml}
+    `;
+    t.querySelector('#falsos-back-btn').onclick = goHome;
+    t.querySelectorAll('[data-speak-falso]').forEach(el => {
+      el.onclick = (e) => { e.stopPropagation(); speak(el.dataset.speakFalso); };
+    });
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
   /* ── openTool('estudo') handler — note: this redefines openTool (hoisted last, wins) ── */
   function openTool(name) {
     document.getElementById('home').hidden = true;
@@ -3411,6 +4168,12 @@
       renderVerbMachine();
     } else if (name === 'estudo') {
       renderEstudo();
+    } else if (name === 'frases') {
+      renderFrases();
+    } else if (name === 'objetos') {
+      renderObjetos();
+    } else if (name === 'falsos') {
+      renderFalsos();
     } else {
       t.innerHTML = `
         <button class="tool-back" onclick="goHome()">← Voltar</button>
@@ -3433,6 +4196,14 @@
       && Object.keys(v).length === 9
       && Object.values(v).every(t => t.label && typeof t.drilled === 'boolean'),
     PRONOUNS_PT: v => Array.isArray(v) && v.length === 6 && v.every(p => typeof p === 'string'),
+    PHRASES_DATA: v => Array.isArray(v) && v.length >= 7
+      && v.every(s => s.situation && Array.isArray(s.items) && s.items.length >= 5
+        && s.items.every(p => p.pt && p.en)),
+    OBJETOS_DATA: v => Array.isArray(v) && v.length >= 10
+      && v.every(cat => cat.category && Array.isArray(cat.items) && cat.items.length >= 5
+        && cat.items.every(n => n.article && n.noun && n.en && typeof n.esGenderDiffers === 'boolean')),
+    FALSE_FRIENDS_DATA: v => Array.isArray(v)
+      && v.every(x => x.pt && x.gloss && (typeof x.showInBridge === 'boolean') && x.category),
   };
   function validateAll() {
     const failed = [];
@@ -3456,7 +4227,7 @@
     // Map from data-block name to tool tile[data-tool] to hide.
     const toolFromBlock = {
       LESSONS: 'estudo', VERBS: 'verbos', OBJETOS_DATA: 'objetos', SLANG_DATA: 'calao',
-      FALSE_FRIENDS_DATA: 'falsos', OUVIDO_DATA: 'ouvido',
+      FALSE_FRIENDS_DATA: 'falsos', PHRASES_DATA: 'frases', OUVIDO_DATA: 'ouvido',
       SITUACAO_DATA: 'situacao', /* etc */
     };
     const tool = toolFromBlock[dataBlockName];
