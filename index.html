@@ -18,9 +18,10 @@
       --line:     #263040;
       --chalk:    #e6edf3;
       --muted:    #7a8fa8;
-      --verde:    #046a38;
+      --verde:    #046A38;
       --verde2:   #05883f;
       --verde3:   #09b854;
+      --vermelho: #DA291C;
       --radius:   14px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -57,7 +58,7 @@
       display: inline-block;
       padding: 2px 9px;
       border-radius: 8px;
-      background: var(--verde);
+      background: linear-gradient(90deg, var(--verde) 40%, var(--vermelho) 100%);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: .05em;
@@ -81,7 +82,8 @@
       gap: 6px;
       white-space: nowrap;
     }
-    #audio-chip:hover { background: var(--bg3); }
+    #audio-chip:hover { background: var(--bg3); border-color: var(--vermelho); }
+    #audio-chip:active { border-color: var(--vermelho); color: var(--vermelho); }
 
     /* ── Section headers ── */
     section[data-section] { margin-bottom: 28px; }
@@ -91,11 +93,23 @@
       letter-spacing: .12em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 12px;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
       gap: 7px;
     }
+    .section-en {
+      display: block;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.6;
+      margin-bottom: 12px;
+      padding-left: 2px;
+    }
+    section[data-section="vivo"] h2 { color: var(--vermelho); opacity: 0.85; }
 
     /* ── Tile grid ── */
     .grid {
@@ -113,6 +127,7 @@
       padding: 16px 14px;
       min-height: 64px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
@@ -122,6 +137,8 @@
       line-height: 1.3;
       transition: background .15s, transform .12s, border-color .15s;
     }
+    .grid button .pt { display: block; font-size: 1rem; font-weight: 600; }
+    .grid button .en { display: block; font-size: 0.75rem; opacity: 0.65; margin-top: 3px; font-weight: 400; letter-spacing: 0.02em; color: var(--muted); }
     .grid button[data-tool]:hover {
       background: var(--bg3);
       border-color: var(--verde2);
@@ -357,6 +374,8 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+    #toast.success { border-color: var(--verde); color: var(--verde3); }
+    #toast.error   { border-color: var(--vermelho); color: #f87171; }
   </style>
 </head>
 <body>
@@ -369,47 +388,100 @@
   <main id="home">
     <section data-section="start">
       <h2>🚀 Começar aqui</h2>
+      <span class="section-en">start here</span>
       <div class="grid">
-        <button data-tool="do-espanhol">Do Espanhol</button>
-        <button data-tool="ouvido">Ouvido</button>
-        <button data-tool="situacao">Situação</button>
-        <button data-tool="frases">Frases Essenciais</button>
+        <button data-tool="do-espanhol">
+          <span class="pt">Do Espanhol</span>
+          <span class="en">from spanish</span>
+        </button>
+        <button data-tool="ouvido">
+          <span class="pt">Ouvido</span>
+          <span class="en">ear · listening</span>
+        </button>
+        <button data-tool="situacao">
+          <span class="pt">Situação</span>
+          <span class="en">situation · dialogues</span>
+        </button>
+        <button data-tool="frases">
+          <span class="pt">Frases Essenciais</span>
+          <span class="en">essential phrases</span>
+        </button>
       </div>
     </section>
 
     <section data-section="estudo">
       <h2>📚 Estudo</h2>
+      <span class="section-en">study</span>
       <div class="grid">
-        <button data-tool="estudo">Estudo (16 lições)</button>
-        <button data-tool="verbos">Máquina de Verbos</button>
+        <button data-tool="estudo">
+          <span class="pt">Estudo (16 lições)</span>
+          <span class="en">study · 16 lessons</span>
+        </button>
+        <button data-tool="verbos">
+          <span class="pt">Máquina de Verbos</span>
+          <span class="en">verb machine</span>
+        </button>
       </div>
     </section>
 
     <section data-section="gramatica">
       <h2>🧠 Gramática</h2>
+      <span class="section-en">grammar</span>
       <div class="grid">
-        <button data-tool="cola">Cola Gramatical</button>
-        <button data-tool="por-para">Por vs Para</button>
-        <button data-tool="ser-estar">Ser vs Estar</button>
-        <button data-tool="conjuntivo">Conjuntivo</button>
-        <button data-tool="falsos">Falsos Amigos</button>
+        <button data-tool="cola">
+          <span class="pt">Cola Gramatical</span>
+          <span class="en">grammar glue</span>
+        </button>
+        <button data-tool="por-para">
+          <span class="pt">Por vs Para</span>
+          <span class="en">por vs para</span>
+        </button>
+        <button data-tool="ser-estar">
+          <span class="pt">Ser vs Estar</span>
+          <span class="en">ser vs estar</span>
+        </button>
+        <button data-tool="conjuntivo">
+          <span class="pt">Conjuntivo</span>
+          <span class="en">subjunctive</span>
+        </button>
+        <button data-tool="falsos">
+          <span class="pt">Falsos Amigos</span>
+          <span class="en">false friends</span>
+        </button>
       </div>
     </section>
 
     <section data-section="referencia">
       <h2>📖 Referência</h2>
+      <span class="section-en">reference</span>
       <div class="grid">
-        <button data-tool="objetos">Objetos</button>
-        <button data-tool="numeros">Números</button>
-        <button data-tool="tempo">Tempo e Datas</button>
+        <button data-tool="objetos">
+          <span class="pt">Objetos</span>
+          <span class="en">objects · nouns</span>
+        </button>
+        <button data-tool="numeros">
+          <span class="pt">Números</span>
+          <span class="en">numbers</span>
+        </button>
+        <button data-tool="tempo">
+          <span class="pt">Tempo e Datas</span>
+          <span class="en">time &amp; dates</span>
+        </button>
       </div>
     </section>
 
     <section data-section="vivo">
       <h2>🎭 Português Vivo</h2>
+      <span class="section-en">living portuguese</span>
       <div class="grid">
-        <button data-tool="calao">Calão de Portugal</button>
-        <button data-tool="ditados">Ditados e Cultura</button>
+        <button data-tool="calao">
+          <span class="pt">Calão de Portugal</span>
+          <span class="en">portuguese slang</span>
+        </button>
+        <button data-tool="ditados">
+          <span class="pt">Ditados e Cultura</span>
+          <span class="en">sayings &amp; culture</span>
+        </button>
       </div>
     </section>
   </main>
