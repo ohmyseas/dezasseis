@@ -376,6 +376,285 @@
     }
     #toast.success { border-color: var(--verde); color: var(--verde3); }
     #toast.error   { border-color: var(--vermelho); color: #f87171; }
+
+    /* ── Verb Machine ── */
+
+    /* Search + filter bar */
+    .vm-search-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .vm-search-input {
+      flex: 1;
+      min-width: 160px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--chalk);
+      outline: none;
+      transition: border-color .15s;
+    }
+    .vm-search-input::placeholder { color: var(--muted); }
+    .vm-search-input:focus { border-color: var(--verde2); }
+
+    /* Category chips */
+    .vm-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    .vm-chip {
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      background: var(--bg2);
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .vm-chip:hover { border-color: var(--verde2); color: var(--chalk); }
+    .vm-chip.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+
+    /* Verb list */
+    .vm-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .vm-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, transform .1s;
+      gap: 10px;
+      text-align: left;
+    }
+    .vm-card:hover { background: var(--bg3); border-color: var(--verde2); transform: translateX(3px); }
+    .vm-card:active { transform: scale(.98); }
+    .vm-card-left { display: flex; flex-direction: column; gap: 2px; }
+    .vm-card-inf { font-size: 16px; font-weight: 700; color: var(--chalk); }
+    .vm-card-en  { font-size: 12px; color: var(--muted); }
+    .vm-card-cat {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .vm-count {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    /* Full verb view */
+    .vm-verb-header {
+      margin-bottom: 20px;
+    }
+    .vm-verb-inf {
+      font-size: clamp(24px, 6vw, 36px);
+      font-weight: 900;
+      color: var(--verde3);
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .vm-verb-en {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+    .vm-verb-cat-badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 10px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      margin-top: 6px;
+      display: inline-block;
+    }
+
+    /* Tense section */
+    .tense-section {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .tense-section.tense-drilled { border-color: var(--line); }
+    .tense-section.tense-recognize { border-color: #1e2a38; opacity: 0.85; }
+
+    .tense-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 11px 14px;
+      background: var(--bg2);
+      cursor: pointer;
+      user-select: none;
+      gap: 10px;
+    }
+    .tense-drilled .tense-header { background: var(--bg2); }
+    .tense-recognize .tense-header { background: #0f161f; }
+
+    .tense-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tense-label {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .tense-drilled .tense-label { color: var(--chalk); }
+    .tense-recognize .tense-label { color: #6e7681; }
+
+    .tense-recognize-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 8px;
+      background: #1a2233;
+      color: #4a5f7a;
+      border: 1px solid #1e2d42;
+    }
+
+    .tense-header-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tense-info-btn {
+      font-size: 15px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .15s, color .15s;
+      line-height: 1;
+    }
+    .tense-info-btn:hover { background: var(--bg3); color: var(--chalk); border-color: var(--line); }
+    .tense-listen-btn {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 8px;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .15s, color .15s;
+    }
+    .tense-listen-btn:hover { background: var(--verde); color: #fff; border-color: var(--verde2); }
+    .tense-toggle-arrow {
+      font-size: 13px;
+      color: var(--muted);
+      transition: transform .2s;
+    }
+    .tense-section.collapsed .tense-toggle-arrow { transform: rotate(-90deg); }
+
+    /* Theory panel */
+    .tense-theory {
+      background: #0d1520;
+      border-top: 1px solid var(--line);
+      padding: 12px 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #9db5cc;
+      display: none;
+    }
+    .tense-theory.open { display: block; }
+    .tense-theory em { font-style: italic; color: var(--chalk); }
+    .tense-theory code {
+      font-family: 'Courier New', monospace;
+      background: #1a2233;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--verde3);
+    }
+
+    /* Forms grid */
+    .tense-forms {
+      padding: 10px 14px 12px;
+      background: var(--bg);
+    }
+    .tense-section.collapsed .tense-forms { display: none; }
+    .form-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 0;
+      border-bottom: 1px solid #111922;
+    }
+    .form-row:last-child { border-bottom: none; }
+    .form-pronoun {
+      width: 130px;
+      font-size: 12px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+    .form-word {
+      flex: 1;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .tense-drilled .form-word { color: var(--chalk); }
+    .tense-recognize .form-word { color: #6e7681; }
+
+    /* vós row muting */
+    .form-row.form-vos .form-pronoun,
+    .form-row.form-vos .form-word {
+      color: #4a5f6a;
+      opacity: 0.6;
+    }
+    .form-row.form-vos .form-word {
+      font-style: italic;
+    }
+    .vos-hint {
+      font-size: 10px;
+      color: #3a4f5a;
+      font-style: italic;
+      margin-left: 4px;
+    }
+
+    .form-speak-btn {
+      font-size: 14px;
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #3a5268;
+      cursor: pointer;
+      transition: background .12s, color .12s;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .form-speak-btn:hover { background: var(--bg2); color: var(--verde3); border-color: var(--line); }
+    .form-speak-btn:active { transform: scale(.92); }
   </style>
 </head>
 <body>
@@ -585,11 +864,15 @@
     document.getElementById('home').hidden = true;
     const t = document.getElementById('tool');
     t.hidden = false;
-    t.innerHTML = `
-      <button class="tool-back" onclick="goHome()">← Voltar</button>
-      <div class="tool-name">${name}</div>
-      <div class="tool-under">Em construção.</div>
-    `;
+    if (name === 'verbos') {
+      renderVerbMachine();
+    } else {
+      t.innerHTML = `
+        <button class="tool-back" onclick="goHome()">← Voltar</button>
+        <div class="tool-name">${name}</div>
+        <div class="tool-under">Em construção.</div>
+      `;
+    }
   }
   function goHome() {
     document.getElementById('home').hidden = false;
@@ -598,6 +881,189 @@
   document.querySelectorAll('[data-tool]').forEach(b => {
     b.onclick = () => openTool(b.dataset.tool);
   });
+
+  /* ══════════════════════════════════════════════════════════════
+     MÁQUINA DE VERBOS — Task 1.4
+     ══════════════════════════════════════════════════════════════ */
+
+  /* Theory copy verbatim from Spec Appendix A */
+  const TENSE_THEORY = {
+    presente: `Now, near-future, habits, universal truths. <code>Falo português</code> = "I speak Portuguese" or "I am speaking." Portuguese does NOT have a separate progressive tense used the way English does — <code>Estou a falar</code> (pt-PT) or <code>Estou falando</code> (pt-BR) exists but the plain Presente carries most work. Same behavior as Spanish <em>hablo</em>.`,
+
+    pret_perf_simples: `Your main past. <code>Falei ontem</code> = "I spoke yesterday." One completed event, dated or datable. <em>Big trap from Spanish</em>: this is what you use for "I ate," "I saw," "I went" — NOT the compound tense. If you catch yourself building <code>tenho comido</code> for "I ate," stop — that means something else (see Ter as auxiliary card in Do Espanhol).`,
+
+    pret_imperfeito: `Background past, habits, states, ongoing conditions. <code>Quando era criança, falava com o meu avô</code> = "When I was a kid, I used to talk with my grandfather." Same instinct as Spanish <em>hablaba</em>. Rule of thumb: if English uses "used to" or "was ___-ing" for background, use Imperfeito.`,
+
+    futuro_perifr: `Near future, plans, decisions just made. <code>Vou almoçar agora</code> = "I'm going to have lunch now." This is what Portuguese speakers use in daily speech ~90% of the time for future — the "textbook" Futuro Simples (<em>falarei</em>) is more formal/written. Learn this one first, use it always.`,
+
+    futuro_simples: `<em>Recognize-only.</em> Formal, written, predictions, promises. <code>Falarei com ele amanhã</code> = "I will speak with him tomorrow." You'll see it in news, contracts, formal writing; in speech you'll almost always hear the perifrástico form instead. Recognize it, don't reach for it.`,
+
+    condicional: `<em>Recognize-only.</em> "Would" — polite requests, hypotheticals, softened statements. <code>Gostaria de um café</code> = "I would like a coffee." Portuguese also uses Imperfeito for the same softening (<code>Queria um café</code>), which is more common in casual speech. Recognize it; use Imperfeito or <code>podia</code>/<code>queria</code> first.`,
+
+    pres_conjuntivo: `<em>Recognize-only.</em> Subjunctive after doubt, wish, emotion, negation, impersonal expressions. <code>Espero que fales português</code> = "I hope you speak Portuguese." Same trigger family as Spanish <em>hable</em> (WEIRDO-style). Recognize the shape; production comes later.`,
+
+    fut_conjuntivo: `<em>Recognize-only.</em> <strong>Alive in Portuguese, dead in Spanish.</strong> Used after <code>quando / se / enquanto / assim que</code> when the action is future or hypothetical. <code>Quando fores a Lisboa, avisa-me</code> = "When you go to Lisbon, tell me." Formed from the 3rd-person plural preterite stem: <code>falaram → falares/falar/falarmos/falarem</code>. Recognize it everywhere — you'll hear it constantly.`,
+
+    inf_pessoal: `<em>Recognize-only.</em> <strong>Unique to Portuguese.</strong> A conjugated infinitive — English and Spanish have nothing like it. <code>É importante para eu falar bem</code> = "It's important for me to speak well." Forms: <code>falar / falares / falar / falarmos / falarem</code>. Recognize it in speech and text; it's how Portuguese speakers avoid clunky "para que" subordinate clauses.`,
+  };
+
+  /* State for the verb machine */
+  let _vmFilter = { query: '', category: '' };
+
+  /* Speak all 6 forms of a tense with 800ms gap */
+  let _speakAllTimer = null;
+  async function speakAllForms(forms) {
+    if (_speakAllTimer) { clearTimeout(_speakAllTimer); _speakAllTimer = null; }
+    for (let i = 0; i < forms.length; i++) {
+      await new Promise(resolve => {
+        _speakAllTimer = setTimeout(async () => {
+          await speak(forms[i]);
+          resolve();
+        }, i === 0 ? 0 : 800);
+      });
+    }
+  }
+
+  /* Render a single tense section */
+  function renderTenseSection(tenseKey, forms) {
+    const meta = TENSE_META[tenseKey] || { label: tenseKey, drilled: false };
+    const isDrilled = meta.drilled;
+    const sectionClass = isDrilled ? 'tense-drilled' : 'tense-recognize';
+    const theory = TENSE_THEORY[tenseKey] || '';
+
+    const formsHtml = PRONOUNS_PT.map((pronoun, idx) => {
+      const isVos = idx === 4; // vós is index 4
+      const form = forms[idx] || '—';
+      return `
+        <div class="form-row${isVos ? ' form-vos' : ''}">
+          <span class="form-pronoun">${pronoun}${isVos ? '<span class="vos-hint">(arc.)</span>' : ''}</span>
+          <span class="form-word">${form}</span>
+          <button class="form-speak-btn" onclick="speak(${JSON.stringify(form)})" aria-label="ouvir '${form}' em português">🔊</button>
+        </div>`;
+    }).join('');
+
+    const formsArray = JSON.stringify(forms);
+    return `
+      <div class="tense-section ${sectionClass}" id="ts-${tenseKey}">
+        <div class="tense-header" onclick="toggleTenseSection('${tenseKey}')">
+          <div class="tense-header-left">
+            <span class="tense-label">${meta.label}</span>
+            ${!isDrilled ? `<span class="tense-recognize-badge">reconhecer</span>` : ''}
+          </div>
+          <div class="tense-header-right">
+            <button class="tense-info-btn" onclick="event.stopPropagation(); toggleTheory('${tenseKey}')" aria-label="sobre este tempo">ℹ</button>
+            <button class="tense-listen-btn" onclick="event.stopPropagation(); speakAllForms(${formsArray})" aria-label="ouvir todas as formas">▶ Ouvir tudo</button>
+            <span class="tense-toggle-arrow">▾</span>
+          </div>
+        </div>
+        <div class="tense-theory" id="theory-${tenseKey}">${theory}</div>
+        <div class="tense-forms">${formsHtml}</div>
+      </div>`;
+  }
+
+  function toggleTenseSection(tenseKey) {
+    const el = document.getElementById('ts-' + tenseKey);
+    if (el) el.classList.toggle('collapsed');
+  }
+
+  function toggleTheory(tenseKey) {
+    const el = document.getElementById('theory-' + tenseKey);
+    if (el) el.classList.toggle('open');
+  }
+
+  /* Full verb detail view */
+  function renderVerb(infinitive) {
+    const verb = VERBS.find(v => v.infinitive === infinitive);
+    if (!verb) return;
+
+    const catLabel = (VERB_CATEGORIES_PT.find(c => c.key === verb.category) || {}).label || verb.category;
+    const tenseSections = Object.entries(verb.conjugations)
+      .map(([key, forms]) => renderTenseSection(key, forms))
+      .join('');
+
+    const t = document.getElementById('tool');
+    t.innerHTML = `
+      <button class="tool-back" onclick="renderVerbMachine()">← Máquina de Verbos</button>
+      <div class="vm-verb-header">
+        <div class="vm-verb-inf">
+          ${verb.infinitive}
+          <span class="vm-verb-en">${verb.en}</span>
+        </div>
+        <span class="vm-verb-cat-badge">${catLabel}</span>
+      </div>
+      ${tenseSections}
+    `;
+    t.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }
+
+  /* Verb list view */
+  function renderVerbMachine() {
+    const query = _vmFilter.query.toLowerCase().trim();
+    const cat = _vmFilter.category;
+
+    const filtered = VERBS.filter(v => {
+      const matchQ = !query
+        || v.infinitive.toLowerCase().includes(query)
+        || v.en.toLowerCase().includes(query);
+      const matchC = !cat || v.category === cat;
+      return matchQ && matchC;
+    });
+
+    // Build category chips from unique categories in VERBS order
+    const usedCats = [];
+    VERB_CATEGORIES_PT.forEach(c => {
+      if (VERBS.some(v => v.category === c.key)) usedCats.push(c);
+    });
+
+    const chipsHtml = [
+      `<button class="vm-chip${!cat ? ' active' : ''}" onclick="vmSetCat('')">Todos</button>`,
+      ...usedCats.map(c =>
+        `<button class="vm-chip${cat === c.key ? ' active' : ''}" onclick="vmSetCat('${c.key}')">${c.label}</button>`
+      )
+    ].join('');
+
+    const cardsHtml = filtered.map(v => {
+      const catLabel = (VERB_CATEGORIES_PT.find(c => c.key === v.category) || {}).label || v.category;
+      return `
+        <button class="vm-card" onclick="renderVerb(${JSON.stringify(v.infinitive)})">
+          <div class="vm-card-left">
+            <span class="vm-card-inf">${v.infinitive}</span>
+            <span class="vm-card-en">${v.en}</span>
+          </div>
+          <span class="vm-card-cat">${catLabel}</span>
+        </button>`;
+    }).join('');
+
+    const t = document.getElementById('tool');
+    t.innerHTML = `
+      <button class="tool-back" onclick="goHome()">← Voltar</button>
+      <div class="tool-name">Máquina de Verbos</div>
+      <div class="vm-search-bar">
+        <input type="search" class="vm-search-input" id="vm-search"
+          placeholder="Procurar… falar, to speak, …"
+          value="${_vmFilter.query.replace(/"/g, '&quot;')}"
+          oninput="vmSetQuery(this.value)"
+          aria-label="Procurar verbo">
+      </div>
+      <div class="vm-chips">${chipsHtml}</div>
+      <div class="vm-count">${filtered.length} verb${filtered.length !== 1 ? 'os' : 'o'}</div>
+      <div class="vm-list">${cardsHtml || '<div style="color:var(--muted);padding:16px 0">Nenhum verbo encontrado.</div>'}</div>
+    `;
+    // Focus search box
+    const s = document.getElementById('vm-search');
+    if (s && !_vmFilter.query) s.focus();
+  }
+
+  function vmSetQuery(val) {
+    _vmFilter.query = val;
+    renderVerbMachine();
+  }
+
+  function vmSetCat(cat) {
+    _vmFilter.category = cat;
+    renderVerbMachine();
+  }
 
   /* ── Audio Setup Modal ── */
   function openAudioModal() {
@@ -1489,6 +1955,10 @@
       && v.every(x => x.infinitive && x.category && x.conjugations
         && Object.keys(x.conjugations).length === 9
         && Object.values(x.conjugations).every(t => Array.isArray(t) && t.length === 6)),
+    TENSE_META: v => v && typeof v === 'object'
+      && Object.keys(v).length === 9
+      && Object.values(v).every(t => t.label && typeof t.drilled === 'boolean'),
+    PRONOUNS_PT: v => Array.isArray(v) && v.length === 6 && v.every(p => typeof p === 'string'),
   };
   function validateAll() {
     const failed = [];
