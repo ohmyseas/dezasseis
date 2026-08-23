@@ -820,6 +820,152 @@
       transition: background .15s;
     }
     .btn-sair:hover { background: var(--bg); }
+
+    /* ── Estudo (16-lesson module) ── */
+    .estudo-list { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+    .estudo-tile {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      cursor: pointer;
+      transition: background .15s, border-color .15s, transform .1s;
+      text-align: left;
+      gap: 12px;
+    }
+    .estudo-tile:hover { background: var(--bg3); border-color: var(--verde2); transform: translateX(3px); }
+    .estudo-tile:active { transform: scale(.98); }
+    .estudo-tile.locked { opacity: 0.45; cursor: not-allowed; }
+    .estudo-tile.locked:hover { transform: none; border-color: var(--line); background: var(--bg2); }
+    .estudo-tile.completed { border-color: var(--verde); }
+    .estudo-tile-left { display: flex; flex-direction: column; gap: 2px; flex: 1; }
+    .estudo-tile-num { font-size: 11px; font-weight: 700; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+    .estudo-tile-title { font-size: 16px; font-weight: 700; color: var(--chalk); }
+    .estudo-tile-en { font-size: 12px; color: var(--muted); }
+    .estudo-tile-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .estudo-score-badge {
+      font-size: 12px; font-weight: 700; padding: 2px 9px;
+      border-radius: 10px; background: var(--verde); color: #fff;
+      white-space: nowrap;
+    }
+    .estudo-score-badge.fail { background: var(--vermelho); }
+    .estudo-lock-icon { font-size: 16px; color: var(--muted); }
+    .estudo-soon { font-size: 11px; color: var(--muted); font-style: italic; }
+
+    /* Lesson detail */
+    .lesson-header { margin-bottom: 20px; }
+    .lesson-title-pt { font-size: clamp(22px,5vw,32px); font-weight: 900; color: var(--verde3); margin-bottom: 4px; }
+    .lesson-title-en { font-size: 13px; color: var(--muted); }
+    .lesson-tabs { display: flex; gap: 6px; margin-bottom: 20px; flex-wrap: wrap; }
+    .lesson-tab {
+      padding: 8px 18px; border-radius: 20px; border: 1px solid var(--line);
+      background: var(--bg2); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .lesson-tab.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+    .lesson-tab:hover:not(.active) { background: var(--bg3); border-color: var(--verde2); color: var(--chalk); }
+    .lesson-notes { margin-bottom: 20px; line-height: 1.7; }
+    .lesson-notes p { margin-bottom: 12px; }
+    .lesson-notes b { color: var(--verde3); cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+    .lesson-notes em { color: var(--chalk); font-style: italic; }
+
+    .lesson-table {
+      width: 100%; border-collapse: collapse; margin-bottom: 16px;
+      background: var(--bg2); border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .lesson-table-title {
+      font-size: 12px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--verde3);
+      padding: 10px 14px 6px; background: var(--bg2);
+    }
+    .lesson-table td { padding: 8px 14px; border-bottom: 1px solid var(--line); font-size: 14px; }
+    .lesson-table tr:last-child td { border-bottom: none; }
+    .lesson-table td:first-child { color: var(--chalk); font-weight: 600; width: 50%; cursor: pointer; }
+    .lesson-table td:first-child:hover { color: var(--verde3); }
+    .lesson-table td:last-child { color: var(--muted); }
+
+    .vocab-section { margin-bottom: 20px; }
+    .vocab-label { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .vocab-grid { display: flex; flex-direction: column; gap: 6px; }
+    .vocab-item {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--bg2); border: 1px solid var(--line);
+      border-radius: 10px; padding: 10px 14px; gap: 10px;
+    }
+    .vocab-pt { font-size: 15px; font-weight: 600; color: var(--chalk); }
+    .vocab-en { font-size: 13px; color: var(--muted); flex: 1; }
+    .vocab-speak { padding: 4px 8px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--line); font-size: 13px; cursor: pointer; }
+    .vocab-speak:hover { background: var(--verde); border-color: var(--verde2); }
+
+    /* Drill */
+    .estudo-drill-card {
+      background: var(--bg2); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 24px 20px 20px; margin-bottom: 16px;
+    }
+    .estudo-drill-num { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: .1em; margin-bottom: 10px; }
+    .estudo-drill-prompt { font-size: 20px; font-weight: 700; color: var(--chalk); margin-bottom: 12px; line-height: 1.4; }
+    .estudo-drill-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .estudo-drill-opt {
+      background: var(--bg3); border: 1px solid var(--line);
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 14px; font-weight: 600; color: var(--chalk);
+      cursor: pointer; text-align: left; transition: background .12s, border-color .12s;
+    }
+    .estudo-drill-opt:hover:not(:disabled) { background: var(--bg); border-color: var(--verde2); color: var(--verde3); }
+    .estudo-drill-opt.correct { border-color: var(--verde); background: rgba(4,106,56,.18); color: var(--verde3); }
+    .estudo-drill-opt.wrong { border-color: var(--vermelho); background: rgba(218,41,28,.1); color: #f87171; }
+    .estudo-drill-fill {
+      width: 100%; background: var(--bg3); border: 2px solid var(--line);
+      border-radius: 10px; padding: 12px 16px; font-size: 18px; font-family: inherit;
+      color: var(--chalk); outline: none; transition: border-color .15s; margin-bottom: 10px;
+    }
+    .estudo-drill-fill:focus { border-color: var(--verde2); }
+    .estudo-drill-fill.correct { border-color: var(--verde2); background: rgba(5,136,63,.1); }
+    .estudo-drill-fill.wrong { border-color: var(--vermelho); background: rgba(218,41,28,.07); }
+    .estudo-drill-feedback { font-size: 14px; min-height: 20px; margin-bottom: 8px; }
+    .estudo-drill-feedback.ok { color: var(--verde3); }
+    .estudo-drill-feedback.err { color: #f87171; }
+    .estudo-drill-answer { font-size: 17px; font-weight: 700; color: var(--verde3); margin: 8px 0; }
+
+    /* Quiz */
+    .quiz-q { font-size: 18px; font-weight: 700; color: var(--chalk); margin-bottom: 18px; line-height: 1.5; cursor: pointer; }
+    .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+    .quiz-opt {
+      background: var(--bg3); border: 1px solid var(--line);
+      border-radius: 10px; padding: 13px 16px;
+      font-size: 15px; font-weight: 600; color: var(--chalk);
+      cursor: pointer; text-align: left; transition: background .12s, border-color .12s;
+    }
+    .quiz-opt:hover:not(:disabled) { background: var(--bg); border-color: var(--verde2); color: var(--verde3); }
+    .quiz-opt.correct { border-color: var(--verde); background: rgba(4,106,56,.18); color: var(--verde3); }
+    .quiz-opt.wrong { border-color: var(--vermelho); background: rgba(218,41,28,.1); color: #f87171; }
+    .quiz-progress { font-size: 12px; color: var(--muted); margin-bottom: 14px; font-weight: 700; letter-spacing: .06em; }
+    .quiz-result { text-align: center; padding: 32px 20px; }
+    .quiz-result-score { font-size: 48px; font-weight: 900; margin-bottom: 12px; }
+    .quiz-result-score.pass { color: var(--verde3); }
+    .quiz-result-score.fail { color: #f87171; }
+    .quiz-result-msg { font-size: 16px; color: var(--muted); margin-bottom: 24px; }
+    .quiz-result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .btn-estudo {
+      padding: 12px 22px; border-radius: 12px; font-size: 15px; font-weight: 700;
+      background: var(--verde); color: #fff; border: none; cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-estudo:hover { background: var(--verde2); }
+    .btn-estudo.secondary { background: var(--bg3); color: var(--chalk); border: 1px solid var(--line); }
+    .btn-estudo.secondary:hover { background: var(--bg); }
+    .btn-estudo.small { padding: 9px 16px; font-size: 13px; }
+    .btn-unlock { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;
+      background: var(--bg3); color: var(--muted); border: 1px solid var(--line); cursor: pointer; }
+    .btn-unlock:hover { border-color: var(--verde2); color: var(--verde3); }
+    .estudo-progress { margin: 16px 0; }
+    .estudo-progress-bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+    .estudo-progress-fill { height: 100%; background: var(--verde); border-radius: 3px; transition: width .3s; }
+    .estudo-progress-text { font-size: 12px; color: var(--muted); margin-top: 6px; }
   </style>
 </head>
 <body>
@@ -2382,9 +2528,903 @@
   const DRILL_PERSON_IDXS = [0, 1, 2, 3, 5]; // skip vós (4)
 
 
+  /* ══════════════════════════════════════════════════════════════
+     ESTUDO — 16-lesson framework (Tasks 1.6 + 1.7)
+     Lessons 1-8: full content (pt-PT)
+     Lessons 9-16: locked stubs (Em breve — Phase 3)
+     ══════════════════════════════════════════════════════════════ */
+
+  const LESSONS = [
+    {
+      id: 1,
+      title: 'Alfabeto e Ortografia',
+      en: 'Alphabet & Spelling',
+      notes: `<p>O <b>alfabeto português</b> tem 26 letras — as mesmas que o inglês — mas com sons bem diferentes. A letra <b>c</b> antes de <em>e/i</em> soa /s/ (como em <em>cidade</em>); antes de <em>a/o/u</em> soa /k/ (como em <em>caro</em>). O <b>ç</b> (c cedilha) marca sempre o som /s/ antes de <em>a/o/u</em>: <b>começar</b>, <b>ação</b>.</p>
+      <p>Os dígrafos <b>nh</b> = /ɲ/ (como o "ñ" espanhol): <em>amanhã, manhã</em>. E <b>lh</b> = /ʎ/ (como "ll" castelhana clássica): <em>filho, trabalho</em>. Aprende estes dois e já pareces nativo.</p>
+      <p>As <b>terminações nasais</b> são a assinatura do português: <b>-ão</b> (pão, mão, não) faz o plural <b>-ões</b> (pães, mãos, não→nasal); <b>-ão</b> nomes podem também fazer -<b>ãos</b> (irmãos) ou -<b>ães</b> (capitães). Acento agudo (á, é, í, ó, ú) indica sílaba tónica.</p>`,
+      tables: [
+        { title: 'Dígrafos e sons especiais', rows: [
+          ['nh','som /ɲ/ — amanhã, manhã, vinho'],
+          ['lh','som /ʎ/ — filho, trabalho, vermelho'],
+          ['ç','sempre /s/ — ação, começar, França'],
+          ['ch','som /ʃ/ — chave, chegar, chuva'],
+          ['ss','sempre /s/ — passar, pessoa, assim'],
+          ['rr','vibrante forte — carro, ferro, terra'],
+        ]},
+        { title: 'Terminações nasais e plurais', rows: [
+          ['-ão','-ões (pão→pães, ação→ações)'],
+          ['-ão','-ãos (mão→mãos, irmão→irmãos)'],
+          ['-ão','-ães (capitão→capitães)'],
+          ['-ã','-ãs (manhã→manhãs, cidadã→cidadãs)'],
+          ['-em','-ens (homem→homens, jovem→jovens)'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'bom dia', en: 'good morning' },
+        { pt: 'olá', en: 'hello' },
+        { pt: 'sim', en: 'yes' },
+        { pt: 'não', en: 'no / not' },
+        { pt: 'obrigado', en: 'thank you (said by male)' },
+        { pt: 'obrigada', en: 'thank you (said by female)' },
+        { pt: 'por favor', en: 'please' },
+        { pt: 'desculpe', en: 'excuse me / sorry' },
+        { pt: 'boa tarde', en: 'good afternoon' },
+        { pt: 'boa noite', en: 'good evening / good night' },
+        { pt: 'adeus', en: 'goodbye' },
+        { pt: 'até logo', en: 'see you soon' },
+        { pt: 'como está?', en: 'how are you? (formal)' },
+        { pt: 'bem, obrigado', en: 'fine, thank you' },
+        { pt: 'com licença', en: 'excuse me (to pass)' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: 'O dígrafo "nh" representa qual som?', answer: '/ɲ/ — como em "amanhã"', options: ['/ɲ/ — como em "amanhã"', '/ʃ/ — como em "chave"', '/lj/ — como em "linho"', '/n/ — como em "nada"'] },
+          { prompt: 'Qual é o plural de "ação"?', answer: 'ações', options: ['ações', 'ações', 'acções', 'açõens'] },
+          { prompt: 'O "c" em "cidade" soa como…', answer: '/s/ (sibilante)', options: ['/s/ (sibilante)', '/k/ (oclusivo)', '/θ/ (dental)', '/ʃ/ (fricativo)'] },
+          { prompt: 'Qual palavra usa "ç"?', answer: 'começar', options: ['começar', 'comer', 'carro', 'casa'] },
+          { prompt: '"lh" em "filho" soa como…', answer: '/ʎ/ — como "ll" clássico', options: ['/ʎ/ — como "ll" clássico', '/l/ simples', '/lj/', '/ʃ/'] },
+          { prompt: 'Qual é o plural de "irmão"?', answer: 'irmãos', options: ['irmãos', 'irmões', 'irmães', 'irmãons'] },
+        ],
+      },
+      quiz: [
+        { q: '"obrigado" vs "obrigada" — a diferença é…', choices: ['Depende do género do falante', 'Depende de quem recebe', 'São sinónimos perfeitos', 'Obrigada é mais formal'], correct: 0 },
+        { q: 'O plural de "pão" é…', choices: ['pães', 'pãos', 'pões', 'pãens'], correct: 0 },
+        { q: '"nh" em português europeu soa como…', choices: ['"ñ" em espanhol', '"n" em inglês', '"ng" em inglês', '"ny" em húngaro'], correct: 0 },
+        { q: 'Qual palavra tem "ç"?', choices: ['ação', 'carro', 'chuva', 'ferro'], correct: 0 },
+        { q: '"ch" em português soa como…', choices: ['/ʃ/ — "sh" inglês', '/tʃ/ — "ch" inglês', '/k/', '/h/'], correct: 0 },
+        { q: '"bom dia" diz-se…', choices: ['De manhã', 'À tarde', 'À noite', 'A qualquer hora'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 2,
+      title: 'Pronúncia pt-PT',
+      en: 'European Portuguese Pronunciation',
+      notes: `<p>O português europeu tem três características fonéticas que o distinguem do brasileiro — e do espanhol. Primeira: as <b>vogais átonas reduzem-se</b>. O <em>e</em> átono vira /ɨ/ (um som central, quase mudo): <b>de</b> soa "d'", <b>pequeno</b> soa "pknenu". O <em>o</em> átono vira /u/: <b>obrigado</b> soa "ubrigadu".</p>
+      <p>Segunda: as <b>vogais nasais</b>. <b>Pão</b> /pɐ̃w̃/, <b>mão</b> /mɐ̃w̃/, <b>bem</b> /bɐ̃j̃/. Pratica: diz "pão" com o nariz — tens de sentir o ar sair pelo nariz.</p>
+      <p>Terceira: o <b>s final</b> soa /ʃ/ antes de consoante ou pausa: <b>boas</b> soa "bóaʃ", <b>três</b> soa "trêʃ". Mas entre vogais: /z/: <em>as outras</em> = "az outras". Esta regra marca o sotaque Lisboa.</p>`,
+      tables: [
+        { title: 'Reduções vocálicas pt-PT', rows: [
+          ['e átono → /ɨ/', 'de → "d\'", pequeno → "pknenu"'],
+          ['o átono → /u/', 'obrigado → "ubrigadu", logo → "logu"'],
+          ['a tónico → /a/', 'casa → "cáza" (mantém-se)'],
+          ['e tónico → /e/ ou /ɛ/', 'mesa → "méza", terra → "tɛrra"'],
+        ]},
+        { title: 'Pares nasais vs orais', rows: [
+          ['pão /pɐ̃w̃/', 'pau /paw/ (sem nasal)'],
+          ['mão /mɐ̃w̃/', 'mau /maw/ (sem nasal)'],
+          ['bem /bɐ̃j̃/', 'vê /ve/ (sem nasal)'],
+          ['tem /tɐ̃j̃/', 'ter /ter/ (sem nasal)'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'falar', en: 'to speak' },
+        { pt: 'comer', en: 'to eat' },
+        { pt: 'viver', en: 'to live' },
+        { pt: 'aprender', en: 'to learn' },
+        { pt: 'perceber', en: 'to understand / to notice' },
+        { pt: 'ouvir', en: 'to hear / to listen' },
+        { pt: 'dizer', en: 'to say / to tell' },
+        { pt: 'saber', en: 'to know (a fact)' },
+        { pt: 'querer', en: 'to want' },
+        { pt: 'poder', en: 'to be able to / can' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: 'O "e" átono em pt-PT soa como…', answer: '/ɨ/ — quase mudo', options: ['/ɨ/ — quase mudo', '/e/ claro', '/ɛ/ aberto', '/a/'] },
+          { prompt: '"pão" vs "pau" — qual tem nasal?', answer: 'pão /pɐ̃w̃/', options: ['pão /pɐ̃w̃/', 'pau /paw/', 'ambos', 'nenhum'] },
+          { prompt: 'O "s" final em "boas" antes de pausa soa…', answer: '/ʃ/ — como "sh"', options: ['/ʃ/ — como "sh"', '/s/ simples', '/z/', 'mudo'] },
+          { prompt: 'Em "obrigado", o "o" inicial soa como…', answer: '/u/ reduzido', options: ['/u/ reduzido', '/o/ claro', '/ɔ/ aberto', '/ə/'] },
+          { prompt: '"mão" vs "mau" — como distinguir?', answer: 'mão tem ressonância nasal', options: ['mão tem ressonância nasal', 'mau é mais longo', 'mão tem acento agudo', 'não há diferença falada'] },
+          { prompt: '"as outras" — o "s" de "as" soa…', answer: '/z/ (entre vogais)', options: ['/z/ (entre vogais)', '/ʃ/', '/s/', 'mudo'] },
+        ],
+      },
+      quiz: [
+        { q: 'Em pt-PT, o "o" átono (não acentuado) tende a soar como…', choices: ['/u/', '/o/', '/ɔ/', '/ə/'], correct: 0 },
+        { q: '"Pão" distingue-se de "pau" porque…', choices: ['tem ressonância nasal', 'tem o acento gráfico', 'tem o dígrafo ão', 'é mais curto'], correct: 0 },
+        { q: 'O "s" final antes de consoante (como em "boas festas") soa…', choices: ['/ʃ/ (Lisboa)', '/s/ simples', '/z/', 'mudo'], correct: 0 },
+        { q: '"Pequeno" em pt-PT pronuncia-se mais como…', choices: ['"pknénu"', '"pequeño"', '"peˈkenu"', '"pequénu" pleno'], correct: 0 },
+        { q: '"aprender" em pt-PT — as vogais átonas…', choices: ['Reduzem-se e quase desaparecem', 'Mantêm-se todas claras', 'Ficam mais nasais', 'Não mudam'], correct: 0 },
+        { q: 'Qual dos pares é nasal + oral?', choices: ['bem / bê', 'vê / ver', 'pá / pa', 'de / do'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 3,
+      title: 'Presente + Ser/Estar',
+      en: 'Present Tense + Ser vs Estar intro',
+      notes: `<p>O <b>presente do indicativo</b> regular segue três famílias: <em>-ar</em> (falar), <em>-er</em> (comer), <em>-ir</em> (viver). A terminação da 1ª pessoa do singular é sempre <b>-o</b>: <em>falo, como, vivo</em>.</p>
+      <p><b>Ser</b> expressa identidade permanente: origem, profissão, material, essência. <em>Sou português. Ela é médica. Isto é madeira.</em> <b>Estar</b> expressa estado, localização, condição temporária. <em>Estou cansado. Onde está o livro? Está em Lisboa.</em></p>
+      <p>Regra rápida: <em>Ser = o que és</em>. <em>Estar = como estás ou onde estás</em>. Mas há exceções — vê a Lição 6 para o mergulho profundo.</p>`,
+      tables: [
+        { title: 'falar / comer / viver — Presente', rows: [
+          ['eu', 'falo / como / vivo'],
+          ['tu', 'falas / comes / vives'],
+          ['ele/ela', 'fala / come / vive'],
+          ['nós', 'falamos / comemos / vivemos'],
+          ['vós', 'falais / comeis / viveis'],
+          ['eles/elas', 'falam / comem / vivem'],
+        ]},
+        { title: 'ser — Presente', rows: [
+          ['eu','sou'], ['tu','és'], ['ele/ela','é'],
+          ['nós','somos'], ['vós','sois'], ['eles/elas','são'],
+        ]},
+        { title: 'estar — Presente', rows: [
+          ['eu','estou'], ['tu','estás'], ['ele/ela','está'],
+          ['nós','estamos'], ['vós','estais'], ['eles/elas','estão'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'nome', en: 'name' },
+        { pt: 'casa', en: 'house / home' },
+        { pt: 'cidade', en: 'city' },
+        { pt: 'feliz', en: 'happy' },
+        { pt: 'cansado/a', en: 'tired' },
+        { pt: 'pronto/a', en: 'ready' },
+        { pt: 'português/portuguesa', en: 'Portuguese' },
+        { pt: 'médico/a', en: 'doctor' },
+        { pt: 'aqui', en: 'here' },
+        { pt: 'lá', en: 'there' },
+        { pt: 'hoje', en: 'today' },
+        { pt: 'sempre', en: 'always' },
+        { pt: 'nunca', en: 'never' },
+        { pt: 'muito', en: 'very / a lot' },
+        { pt: 'pouco', en: 'a little / few' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"I speak Portuguese" — qual forma?', answer: 'Falo português.', options: ['Falo português.', 'Fales português.', 'Fala português.', 'Falamos português.'] },
+          { prompt: '"She is tired" — ser ou estar?', answer: 'Está cansada. (estar — estado)', options: ['Está cansada. (estar — estado)', 'É cansada. (ser — identidade)', 'Seja cansada.', 'Estar cansada.'] },
+          { prompt: '"I am Portuguese" — ser ou estar?', answer: 'Sou português. (ser — identidade)', options: ['Sou português. (ser — identidade)', 'Estou português.', 'Serei português.', 'É português.'] },
+          { prompt: '"Where is the book?" — ser ou estar?', answer: 'Onde está o livro? (estar — localização)', options: ['Onde está o livro? (estar — localização)', 'Onde é o livro? (ser)', 'Onde fica o livro?', 'Onde são os livros?'] },
+          { prompt: '"They eat here every day" — forma correta?', answer: 'Comem aqui todos os dias.', options: ['Comem aqui todos os dias.', 'Comam aqui todos os dias.', 'Come aqui todos os dias.', 'Comemos aqui todos os dias.'] },
+          { prompt: '"We live in Lisbon" — forma correta?', answer: 'Vivemos em Lisboa.', options: ['Vivemos em Lisboa.', 'Vivimos em Lisboa.', 'Vivem em Lisboa.', 'Vivo em Lisboa.'] },
+        ],
+      },
+      quiz: [
+        { q: '"Ela ___ médica." — qual verbo?', choices: ['é (ser — profissão)', 'está (estar — estado)', 'tem', 'fica'], correct: 0 },
+        { q: '"Estou cansado" usa "estar" porque…', choices: ['exprime um estado temporário', 'indica identidade', 'descreve profissão', 'é localização geográfica'], correct: 0 },
+        { q: 'Presente de "falar" para "eles" é…', choices: ['falam', 'fala', 'falais', 'falem'], correct: 0 },
+        { q: '"Nós ___ em Lisboa." — usar…', choices: ['estamos (estado/localização)', 'somos (identidade)', 'ficamos (opcional)', 'temos'], correct: 0 },
+        { q: 'Presente de "comer" para "eu" é…', choices: ['como', 'come', 'comes', 'coma'], correct: 0 },
+        { q: '"Sou de Portugal" — "ser" indica aqui…', choices: ['Origem', 'Localização atual', 'Estado emocional', 'Material'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 4,
+      title: 'Pretérito Perfeito Simples',
+      en: 'Simple Past Tense',
+      notes: `<p>O <b>pretérito perfeito simples</b> é o tempo principal do passado em português europeu — corresponde ao "I ate / I spoke / I went" inglês. Uma acção completa, datada ou datável: <em>Ontem comi uma pastel de nata. Na semana passada fui a Lisboa.</em></p>
+      <p>Verbos regulares <em>-ar</em>: <b>falei, falaste, falou, falámos, falastes, falaram</b>. Nota pt-PT: a 1ª pessoa do plural leva acento — <b>falámos</b> (passado) vs <b>falamos</b> (presente). Verbos <em>-er</em>: <b>comi, comeste, comeu, comemos, comestes, comeram</b>. Verbos <em>-ir</em>: <b>vivi, viveste, viveu, vivemos, vivestes, viveram</b>.</p>
+      <p>Os irregulares essenciais: <b>fui</b> (ser/ir), <b>tive</b> (ter), <b>fiz</b> (fazer), <b>disse</b> (dizer), <b>vim</b> (vir), <b>pus</b> (pôr). Aprende estes seis — surgem em todas as conversas.</p>`,
+      tables: [
+        { title: 'falar / comer / viver — Pretérito Perfeito Simples', rows: [
+          ['eu', 'falei / comi / vivi'],
+          ['tu', 'falaste / comeste / viveste'],
+          ['ele/ela', 'falou / comeu / viveu'],
+          ['nós', 'falámos / comemos / vivemos'],
+          ['vós', 'falastes / comestes / vivestes'],
+          ['eles/elas', 'falaram / comeram / viveram'],
+        ]},
+        { title: 'Irregulares essenciais', rows: [
+          ['ser / ir → fui', 'fui, foste, foi, fomos, fostes, foram'],
+          ['ter → tive', 'tive, tiveste, teve, tivemos, tivestes, tiveram'],
+          ['fazer → fiz', 'fiz, fizeste, fez, fizemos, fizestes, fizeram'],
+          ['dizer → disse', 'disse, disseste, disse, dissemos, dissestes, disseram'],
+          ['vir → vim', 'vim, vieste, veio, viemos, viestes, vieram'],
+          ['pôr → pus', 'pus, puseste, pôs, pusemos, pusestes, puseram'],
+        ]},
+        { title: 'Marcadores temporais', rows: [
+          ['ontem', 'yesterday'],
+          ['na semana passada', 'last week'],
+          ['no ano passado', 'last year'],
+          ['há dois dias', 'two days ago'],
+          ['esta manhã', 'this morning'],
+          ['já', 'already'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'ontem', en: 'yesterday' },
+        { pt: 'na semana passada', en: 'last week' },
+        { pt: 'há dois anos', en: 'two years ago' },
+        { pt: 'já', en: 'already' },
+        { pt: 'ainda não', en: 'not yet' },
+        { pt: 'ir', en: 'to go' },
+        { pt: 'ter', en: 'to have' },
+        { pt: 'fazer', en: 'to do / to make' },
+        { pt: 'dizer', en: 'to say / to tell' },
+        { pt: 'vir', en: 'to come' },
+        { pt: 'comprar', en: 'to buy' },
+        { pt: 'chegar', en: 'to arrive' },
+        { pt: 'sair', en: 'to leave / to go out' },
+        { pt: 'encontrar', en: 'to find / to meet' },
+        { pt: 'pagar', en: 'to pay' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"I spoke with her yesterday" — forma correta?', answer: 'Falei com ela ontem.', options: ['Falei com ela ontem.', 'Falava com ela ontem.', 'Falo com ela ontem.', 'Fale com ela ontem.'] },
+          { prompt: '"We went to the beach last week" — "ir" no pretérito?', answer: 'fomos', options: ['fomos', 'íamos', 'vamos', 'fomo'] },
+          { prompt: '"She made dinner" — "fazer" no pretérito 3ª pessoa?', answer: 'fez', options: ['fez', 'fiz', 'fizeu', 'fazia'] },
+          { prompt: '"falámos" vs "falamos" — qual é o passado?', answer: 'falámos (com acento)', options: ['falámos (com acento)', 'falamos (sem acento)', 'Ambos são passado', 'Depende do contexto'] },
+          { prompt: '"They arrived yesterday" — forma correta?', answer: 'Chegaram ontem.', options: ['Chegaram ontem.', 'Chegavam ontem.', 'Chegou ontem.', 'Chegamos ontem.'] },
+          { prompt: '"ter" no pretérito — 1ª pessoa?', answer: 'tive', options: ['tive', 'tinha', 'tenho', 'teve'] },
+        ],
+      },
+      quiz: [
+        { q: 'Pretérito perfeito de "falar" — 1ª pessoa singular?', choices: ['falei', 'falava', 'falo', 'falarei'], correct: 0 },
+        { q: '"Fomos ao mercado" — "fui/fomos" é pretérito de…', choices: ['ir (e também ser)', 'fazer', 'ter', 'vir'], correct: 0 },
+        { q: 'Em pt-PT, "falámos" (com acento) significa…', choices: ['falamos no passado', 'falamos agora', 'vamos falar', 'costumamos falar'], correct: 0 },
+        { q: '"Ela ___ a compras ontem." (ir)', choices: ['foi', 'ia', 'vai', 'fez'], correct: 0 },
+        { q: 'Pretérito de "fazer" — 3ª pessoa singular?', choices: ['fez', 'fiz', 'fizeu', 'fazia'], correct: 0 },
+        { q: 'Qual marcador temporal indica pretérito perfeito?', choices: ['ontem', 'amanhã', 'agora', 'sempre'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 5,
+      title: 'Pretérito Imperfeito',
+      en: 'Imperfect Past / Used To',
+      notes: `<p>O <b>pretérito imperfeito</b> descreve o passado contínuo, habitual ou de fundo. Usa-se quando em inglês dirias "used to" ou "was/were ___-ing": <em>Quando era criança, comia sempre pão com manteiga.</em> (used to eat). <em>Ela estava a ler quando eu cheguei.</em> (was reading — background action).</p>
+      <p>Terminações regulares: <em>-ar</em> → <b>-ava, -avas, -ava, -ávamos, -áveis, -avam</b>. <em>-er/-ir</em> → <b>-ia, -ias, -ia, -íamos, -íeis, -iam</b>.</p>
+      <p><b>Contraste</b>: <em>Perfeito</em> = acção completa, pontual ("ontem fui ao cinema"). <em>Imperfeito</em> = fundo, hábito, estado em curso ("quando era novo, ia muito ao cinema"). Os dois aparecem frequentemente juntos: a acção pontual (perfeito) interrompe o estado de fundo (imperfeito).</p>`,
+      tables: [
+        { title: 'falar / comer / viver — Imperfeito', rows: [
+          ['eu', 'falava / comia / vivia'],
+          ['tu', 'falavas / comias / vivias'],
+          ['ele/ela', 'falava / comia / vivia'],
+          ['nós', 'falávamos / comíamos / vivíamos'],
+          ['vós', 'fálaveis / comíeis / vivíeis'],
+          ['eles/elas', 'falavam / comiam / viviam'],
+        ]},
+        { title: 'ser / ter / estar — Imperfeito', rows: [
+          ['ser:', 'era, eras, era, éramos, éreis, eram'],
+          ['ter:', 'tinha, tinhas, tinha, tínhamos, tínheis, tinham'],
+          ['estar:', 'estava, estavas, estava, estávamos, estáveis, estavam'],
+          ['ir:', 'ia, ias, ia, íamos, íeis, iam'],
+        ]},
+        { title: 'Contextos de uso', rows: [
+          ['Hábito passado', '"Quando era novo, ia ao cinema." (used to go)'],
+          ['Estado de fundo', '"Estava a chover quando saí." (was raining)'],
+          ['Descrição passada', '"A cidade era pequena e tranquila."'],
+          ['Polidez', '"Queria um café, se faz favor." (I would like)'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'quando era criança', en: 'when I was a child' },
+        { pt: 'antigamente', en: 'in the old days / formerly' },
+        { pt: 'todos os dias', en: 'every day' },
+        { pt: 'normalmente', en: 'normally / usually' },
+        { pt: 'às vezes', en: 'sometimes' },
+        { pt: 'já não', en: 'no longer' },
+        { pt: 'ainda', en: 'still / yet' },
+        { pt: 'enquanto', en: 'while / as long as' },
+        { pt: 'de repente', en: 'suddenly' },
+        { pt: 'naquele tempo', en: 'at that time' },
+        { pt: 'morar', en: 'to live (reside)' },
+        { pt: 'sonhar', en: 'to dream' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"I used to live in Lisbon" — qual tempo?', answer: 'Vivia em Lisboa. (imperfeito)', options: ['Vivia em Lisboa. (imperfeito)', 'Vivi em Lisboa. (perfeito)', 'Vivo em Lisboa. (presente)', 'Viverei em Lisboa. (futuro)'] },
+          { prompt: '"It was raining when I arrived" — qual tempo para "chover"?', answer: 'Chovia (imperfeito — fundo)', options: ['Chovia (imperfeito — fundo)', 'Choveu (perfeito)', 'Chove (presente)', 'Choverá (futuro)'] },
+          { prompt: 'Imperfeito de "ser" — 1ª pessoa singular?', answer: 'era', options: ['era', 'fui', 'sou', 'seria'] },
+          { prompt: '"Every day she ate fish" — forma correta?', answer: 'Todos os dias ela comia peixe.', options: ['Todos os dias ela comia peixe.', 'Todos os dias ela comeu peixe.', 'Todos os dias ela come peixe.', 'Todos os dias ela comerá peixe.'] },
+          { prompt: 'Qual contexto pede o imperfeito?', answer: 'Hábito passado ("used to")', options: ['Hábito passado ("used to")', 'Acção completa de ontem', 'Plano para amanhã', 'Ordem ou pedido'] },
+          { prompt: '"ter" no imperfeito — 3ª pessoa plural?', answer: 'tinham', options: ['tinham', 'tiveram', 'têm', 'teriam'] },
+        ],
+      },
+      quiz: [
+        { q: '"Quando era novo, morava em Lisboa." — "era" e "morava" são…', choices: ['Imperfeito (estado habitual)', 'Perfeito (acção pontual)', 'Presente (facto actual)', 'Futuro perifrástico'], correct: 0 },
+        { q: 'Qual frase usa corretamente o imperfeito?', choices: ['"Todos os dias comia sopa." (habitual)', '"Ontem comi sopa." (pontual)', '"Amanhã como sopa." (futuro)', '"Come sopa agora." (ordem)'], correct: 0 },
+        { q: 'Imperfeito de "falar" — 1ª pessoa plural?', choices: ['falávamos', 'falámos', 'falamos', 'falávemos'], correct: 0 },
+        { q: '"Estava a chover quando a Sofia chegou." — "estava" é…', choices: ['Imperfeito (fundo/estado)', 'Perfeito (acção completa)', 'Presente (agora)', 'Conjuntivo'], correct: 0 },
+        { q: 'Em "Era uma vez um rei…" — "era" indica…', choices: ['Descrição/estado de fundo', 'Acção completa passada', 'Hábito futuro', 'Condição hipotética'], correct: 0 },
+        { q: 'Imperfeito de "ir" — 3ª pessoa singular?', choices: ['ia', 'foi', 'vai', 'iria'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 6,
+      title: 'Ser vs Estar — Mergulho Profundo',
+      en: 'Ser vs Estar — Deep Dive',
+      notes: `<p>A distinção <b>ser/estar</b> vai além de "permanente vs temporário" — essa regra falha em muitos casos. Usa <b>ser</b> para: identidade, origem, profissão, material, hora/data, relações, características inerentes. Usa <b>estar</b> para: estado actual, localização, estar a + infinitivo (ação em curso), resultados de mudança.</p>
+      <p>Os casos difíceis: <b>ser casado</b> (estado civil — facto) vs <b>estar casado</b> (resultado de ter casado — ambos usados!). <b>É morto</b> (como pessoa — o personagem) vs <b>está morto</b> (condição actual — o corpo). Em pt-PT coloquial: "Tá bem?" (abreviação de "está bem?") vs "É bom!" (qualidade permanente).</p>
+      <p>Expressões fixas: <em>estar à vontade</em> (be at ease), <em>estar com fome</em> (be hungry), <em>ser capaz de</em> (be able to), <em>estar de acordo</em> (agree), <em>ser uma pena</em> (be a pity).</p>`,
+      tables: [
+        { title: 'Usar SER', rows: [
+          ['Identidade/essência', '"Sou João. Ela é actriz."'],
+          ['Origem/nacionalidade', '"Somos de Lisboa. É português."'],
+          ['Material/composição', '"A mesa é de madeira."'],
+          ['Hora e data', '"São três horas. É segunda-feira."'],
+          ['Relações', '"Ela é minha irmã."'],
+          ['Características inerentes', '"O céu é azul. O fogo é quente."'],
+        ]},
+        { title: 'Usar ESTAR', rows: [
+          ['Estado actual', '"Estou cansado. Ela está doente."'],
+          ['Localização (pessoas/coisas)', '"Onde está o livro? Está na mesa."'],
+          ['Ação em curso (estar a + inf)', '"Estou a trabalhar."'],
+          ['Resultado de mudança', '"A porta está aberta. (foi aberta)"'],
+          ['Estar com + noun', '"Estou com fome/frio/sono."'],
+          ['Expressões de condição', '"Está bem? Tá óptimo!"'],
+        ]},
+        { title: 'Casos que enganam', rows: [
+          ['estar morto', 'condição actual do corpo'],
+          ['ser morto', '"to be killed" (passiva)'],
+          ['estar casado', 'resultado de casar (mais comum)'],
+          ['ser casado', 'estado civil no registo (mais formal)'],
+          ['estar rico', 'riqueza temporária/recente'],
+          ['ser rico', 'riqueza como característica'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'estar com fome', en: 'to be hungry' },
+        { pt: 'estar com sede', en: 'to be thirsty' },
+        { pt: 'estar com sono', en: 'to be sleepy' },
+        { pt: 'estar à vontade', en: 'to be at ease / make yourself at home' },
+        { pt: 'ser capaz de', en: 'to be able to / be capable of' },
+        { pt: 'estar de acordo', en: 'to agree' },
+        { pt: 'ser uma pena', en: 'what a pity / it\'s a shame' },
+        { pt: 'tá bem', en: 'okay / alright (colloquial estar)' },
+        { pt: 'é bom', en: 'it\'s good (quality)' },
+        { pt: 'está bom', en: 'it\'s okay / it\'s fine (condition)' },
+        { pt: 'ser difícil', en: 'to be difficult (inherent)' },
+        { pt: 'estar difícil', en: 'to be proving difficult (currently)' },
+        { pt: 'solteiro/a', en: 'single (unmarried)' },
+        { pt: 'casado/a', en: 'married' },
+        { pt: 'doente', en: 'ill / sick' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"The table is made of wood" — ser ou estar?', answer: 'É de madeira. (ser — material)', options: ['É de madeira. (ser — material)', 'Está de madeira. (estar)', 'Fica de madeira.', 'Tem madeira.'] },
+          { prompt: '"I\'m hungry" — ser ou estar?', answer: 'Estou com fome. (estar — estado)', options: ['Estou com fome. (estar — estado)', 'Sou com fome.', 'Tenho fome (também possível)', 'Estou fome.'] },
+          { prompt: '"What time is it? — It\'s three o\'clock" — ser ou estar?', answer: 'São três horas. (ser — hora)', options: ['São três horas. (ser — hora)', 'Estão três horas. (estar)', 'Ficam três horas.', 'Têm três horas.'] },
+          { prompt: '"The door is open." — ser ou estar?', answer: 'A porta está aberta. (estar — resultado)', options: ['A porta está aberta. (estar — resultado)', 'A porta é aberta. (ser — qualidade permanente)', 'A porta fica aberta.', 'A porta tem aberta.'] },
+          { prompt: '"She is a doctor" — ser ou estar?', answer: 'Ela é médica. (ser — profissão)', options: ['Ela é médica. (ser — profissão)', 'Ela está médica. (estar)', 'Ela fica médica.', 'Ela tem médica.'] },
+          { prompt: '"Where is the book?" — ser ou estar?', answer: 'Onde está o livro? (estar — localização)', options: ['Onde está o livro? (estar — localização)', 'Onde é o livro? (ser)', 'Onde fica o livro? (também correto)', 'Onde tem o livro?'] },
+        ],
+      },
+      quiz: [
+        { q: '"___ três horas." — ser ou estar?', choices: ['São (ser — hora)', 'Estão (estar)', 'Ficam', 'Têm'], correct: 0 },
+        { q: '"Estou a trabalhar" significa…', choices: ['I am working (ação em curso)', 'I work (hábito geral)', 'I used to work', 'I will work'], correct: 0 },
+        { q: '"A sopa ___ quente." (inerentemente) — ser ou estar?', choices: ['está (estado temporário/actual)', 'é (qualidade inerente)', 'fica', 'tem'], correct: 0 },
+        { q: '"___ com fome" — qual verbo?', choices: ['Estou (estar — estado físico)', 'Sou (ser)', 'Tenho (também válido)', 'Fico'], correct: 0 },
+        { q: '"Tá bem?" é contração coloquial de…', choices: ['"Está bem?" (estar)', '"É bem?" (ser)', '"Tem bem?"', '"Vai bem?"'], correct: 0 },
+        { q: '"Ela é portuguesa" — "ser" indica…', choices: ['Origem/nacionalidade', 'Localização atual', 'Estado emocional', 'Ação em curso'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 7,
+      title: 'Pronomes Clíticos e Enclítico',
+      en: 'Object Pronouns & Clitic Placement',
+      notes: `<p>Os <b>pronomes clíticos</b> em português são: <em>me, te, o/a, nos, vos, os/as</em>. "O/a" são acusativos (complemento direto); "me/te/nos/vos" servem tanto acusativo como dativo. A forma de dativo de 3ª pessoa é <b>lhe/lhes</b>: <em>Dei-lhe o livro</em> (I gave him the book).</p>
+      <p>A regra base de pt-PT: <b>enclítico</b> — o pronome vai depois do verbo, ligado por hífen: <em>Chamo-<b>me</b> João. Dá-<b>me</b> isso. Vejo-<b>o</b> amanhã.</em></p>
+      <p><b>Gatilhos proclíticos</b> (pronome antes do verbo): negação (<em>não o vi</em>), pronomes relativos (<em>quem o viu</em>), conjunções subordinantes (<em>que me disse</em>), advérbios de negação/indefinição (<em>nunca me fez isso, alguém me chamou</em>). Em pt-PT formal, o enclítico é o padrão; o proclítico só aparece com estes gatilhos.</p>`,
+      tables: [
+        { title: 'Pronomes clíticos', rows: [
+          ['me', 'me (1ª sg — direto e indireto)'],
+          ['te', 'you (2ª sg — direto e indireto)'],
+          ['o / a', 'him / her / it (direto 3ª sg)'],
+          ['nos', 'us (1ª pl — direto e indireto)'],
+          ['vos', 'you all (2ª pl)'],
+          ['os / as', 'them (direto 3ª pl)'],
+          ['lhe / lhes', 'to him / to her / to them (indireto)'],
+        ]},
+        { title: 'Posição: enclítico (padrão pt-PT)', rows: [
+          ['Chamo-me João.', 'My name is João.'],
+          ['Dá-me isso.', 'Give me that.'],
+          ['Vejo-o amanhã.', 'I\'ll see him tomorrow.'],
+          ['Ela telefonou-lhe.', 'She called him/her.'],
+          ['Vemo-nos depois.', 'We\'ll see each other later.'],
+        ]},
+        { title: 'Posição: proclítico (com gatilho)', rows: [
+          ['Não o vi.', 'I didn\'t see him. (negação → antes)'],
+          ['Nunca me disse isso.', 'He never told me that. (nunca → antes)'],
+          ['Que me pedes?', 'What do you ask of me? (que → antes)'],
+          ['Alguém te ligou.', 'Someone called you. (alguém → antes)'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'chamar-se', en: 'to be called / named' },
+        { pt: 'dar', en: 'to give' },
+        { pt: 'ver', en: 'to see' },
+        { pt: 'conhecer', en: 'to know (a person/place)' },
+        { pt: 'dizer', en: 'to tell / to say' },
+        { pt: 'perguntar', en: 'to ask (a question)' },
+        { pt: 'ajudar', en: 'to help' },
+        { pt: 'mostrar', en: 'to show' },
+        { pt: 'encontrar', en: 'to meet / to find' },
+        { pt: 'mandar', en: 'to send / to order' },
+        { pt: 'ligar', en: 'to call (phone)' },
+        { pt: 'esquecer', en: 'to forget' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"My name is Ana" — posição do clítico em pt-PT?', answer: 'Chamo-me Ana. (enclítico)', options: ['Chamo-me Ana. (enclítico)', 'Me chamo Ana. (proclítico — errado em pt-PT)', 'Ana me chama.', 'Meu nome é Ana.'] },
+          { prompt: '"I didn\'t see him" — posição após negação?', answer: 'Não o vi. (proclítico após negação)', options: ['Não o vi. (proclítico após negação)', 'Não vi-o. (enclítico após negação — errado)', 'Vi-o não.', 'O não vi.'] },
+          { prompt: '"Give me the book" (imperativo) — posição?', answer: 'Dá-me o livro. (enclítico)', options: ['Dá-me o livro. (enclítico)', 'Me dá o livro. (proclítico — errado)', 'Dá o livro me.', 'Dar-me o livro.'] },
+          { prompt: '"She never told me" — posição de "me"?', answer: 'Nunca me disse. (proclítico — "nunca" é gatilho)', options: ['Nunca me disse. (proclítico — "nunca" é gatilho)', 'Nunca disse-me. (enclítico — errado)', 'Me nunca disse.', 'Disse-me nunca.'] },
+          { prompt: '"I\'ll see you (tu) tomorrow" — forma correta?', answer: 'Vejo-te amanhã.', options: ['Vejo-te amanhã.', 'Te vejo amanhã.', 'Vejo tu amanhã.', 'Te-vejo amanhã.'] },
+          { prompt: '"He gave her the book" — "lhe" indica…', answer: '"to her" — dativo indireto', options: ['"to her" — dativo indireto', '"her" — acusativo direto', '"she" — sujeito', '"from her" — ablativo'] },
+        ],
+      },
+      quiz: [
+        { q: '"___ chamo Mariana." — posição correta em pt-PT?', choices: ['Chamo-me Mariana. (enclítico)', 'Me chamo Mariana. (proclítico)', 'Mariana me chamo.', 'Chamo Mariana me.'], correct: 0 },
+        { q: '"Não ___ vi." — o pronome "o" vai…', choices: ['antes do verbo (proclítico — negação é gatilho)', 'depois do verbo (enclítico)', 'antes de "não"', 'no fim da frase'], correct: 0 },
+        { q: '"Dativo de 3ª pessoa" em português é…', choices: ['lhe / lhes', 'o / a', 'me / te', 'nos / vos'], correct: 0 },
+        { q: '"Ela telefonou-lhe" — "-lhe" refere-se a…', choices: ['a ele/ela (dativo — a quem)', 'ele/ela (acusativo — quem)', 'ela própria (reflexo)', 'o telefone (objeto)'], correct: 0 },
+        { q: '"Que me pedes?" — "me" está antes do verbo porque…', choices: ['"que" é conjunção subordinante (gatilho proclítico)', 'é sempre assim em perguntas', '"me" nunca vai depois do verbo', 'é pt-BR neste caso'], correct: 0 },
+        { q: '"Vejo-o amanhã" — "-o" refere-se a…', choices: ['him / it (acusativo masculino)', 'her (acusativo feminino)', 'them (plural)', 'to him (dativo)'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 8,
+      title: 'Infinitivo Pessoal',
+      en: 'Personal Infinitive — unique to Portuguese',
+      notes: `<p>O <b>infinitivo pessoal</b> é uma das características mais distintas do português — não existe em espanhol, francês, inglês, ou qualquer outro romance. É um infinitivo <em>conjugado</em>: o mesmo verbo tem seis formas com sujeito implícito.</p>
+      <p>Formação: parte do infinitivo, e acrescenta-se <em>-es, -mos, -des, -em</em> nas pessoas correspondentes. Para <em>falar</em>: <b>falar, falares, falar, falarmos, falardes, falarem</b>. 1ª e 3ª pessoa singular são iguais ao infinitivo — a diferença está nas outras.</p>
+      <p>Usa-se quando o sujeito da subordinada é diferente do da principal, especialmente após preposições: <em>para eu entender</em> (so that I understand), <em>sem eles saberem</em> (without them knowing), <em>antes de nós chegarmos</em> (before we arrive). Evita o conjuntivo em muitos casos e é muito mais comum em pt-PT falado do que os livros sugerem.</p>`,
+      tables: [
+        { title: 'falar / comer / viver — Infinitivo Pessoal', rows: [
+          ['eu', 'falar / comer / viver (= infinitivo)'],
+          ['tu', 'falares / comeres / viveres'],
+          ['ele/ela', 'falar / comer / viver (= infinitivo)'],
+          ['nós', 'falarmos / comermos / vivermos'],
+          ['vós', 'falardes / comerdes / viverdes'],
+          ['eles/elas', 'falarem / comerem / viverem'],
+        ]},
+        { title: 'Preposições que pedem Inf. Pessoal', rows: [
+          ['para + inf. pessoal', '"para eu perceber" (so I can understand)'],
+          ['sem + inf. pessoal', '"sem eles saberem" (without them knowing)'],
+          ['antes de + inf. pessoal', '"antes de nós irmos" (before we go)'],
+          ['depois de + inf. pessoal', '"depois de chegares" (after you arrive)'],
+          ['ao + inf. pessoal', '"ao entrarem" (upon them entering)'],
+          ['por + inf. pessoal', '"por eles insistirem" (because they insist)'],
+        ]},
+        { title: 'Impessoal vs Pessoal', rows: [
+          ['É importante falar.', '(impessoal — sem sujeito específico)'],
+          ['É importante eu falar.', '(pessoal — "eu" é o sujeito)'],
+          ['Saí sem fazer barulho.', '(impessoal — o sujeito é o mesmo)'],
+          ['Saí sem eles fazerem barulho.', '(pessoal — sujeito diferente: eles)'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'para eu perceber', en: 'so that I can understand' },
+        { pt: 'sem eles saberem', en: 'without them knowing' },
+        { pt: 'antes de nós chegarmos', en: 'before we arrive' },
+        { pt: 'depois de tu chegares', en: 'after you arrive' },
+        { pt: 'ao entrarem', en: 'upon them entering / when they entered' },
+        { pt: 'por insistirem', en: 'because they insist / for insisting' },
+        { pt: 'apesar de sermos', en: 'despite us being' },
+        { pt: 'até eles virem', en: 'until they come' },
+        { pt: 'em vez de eu ir', en: 'instead of me going' },
+        { pt: 'a fim de aprendermos', en: 'in order to learn (us)' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"para eles falar___" — infinitivo pessoal de "falar" 3ª pl?', answer: 'falarem', options: ['falarem', 'falares', 'falarmos', 'falando'] },
+          { prompt: '"without you (tu) knowing" — "saber" inf. pessoal?', answer: 'sem tu saberes', options: ['sem tu saberes', 'sem tu saber', 'sem tu sabes', 'sem tu souberes'] },
+          { prompt: '"before we arrive" — "chegar" inf. pessoal?', answer: 'antes de chegarmos', options: ['antes de chegarmos', 'antes de chegar', 'antes de chegardes', 'antes de chegarem'] },
+          { prompt: 'Quando usar o infinitivo pessoal vs impessoal?', answer: 'Quando o sujeito da subordinada é diferente do da principal', options: ['Quando o sujeito da subordinada é diferente do da principal', 'Sempre que há preposição', 'Apenas em frases formais', 'Apenas com "para"'] },
+          { prompt: '"after you (tu) arrive" — forma correta?', answer: 'depois de chegares', options: ['depois de chegares', 'depois de chegar', 'depois de chegarmos', 'depois de chegares tu'] },
+          { prompt: 'O infinitivo pessoal existe em…', choices: undefined, answer: 'Apenas em português (e galego)', options: ['Apenas em português (e galego)', 'Português e espanhol', 'Português e francês', 'Todas as línguas românicas'] },
+        ],
+      },
+      quiz: [
+        { q: 'Infinitivo pessoal de "comer" — 2ª pessoa singular (tu)?', choices: ['comeres', 'comer', 'comermos', 'comerem'], correct: 0 },
+        { q: '"para eu entender" — o infinitivo pessoal usa-se porque…', choices: ['O sujeito ("eu") é explícito e diferente do da principal', 'Sempre após "para"', 'É mais formal', 'O conjuntivo é mais difícil'], correct: 0 },
+        { q: '"Saíram sem ___ reparar." (eles) — forma correta?', choices: ['repararem', 'reparar', 'reparares', 'reparando'], correct: 0 },
+        { q: 'O infinitivo pessoal é único em português porque…', choices: ['É um infinitivo conjugado — inexistente noutras línguas', 'Usa terminações do conjuntivo', 'É formado com "ter + particípio"', 'Só existe no passado'], correct: 0 },
+        { q: '"antes de nós ___ (ir)" — infinitivo pessoal correto?', choices: ['irmos', 'ir', 'irdes', 'irem'], correct: 0 },
+        { q: 'Qual frase usa CORRETAMENTE o infinitivo pessoal?', choices: ['"Liguei antes de eles chegarem."', '"Liguei antes de eles chegar."', '"Liguei antes eles chegam."', '"Liguei antes que eles chegassem." (também válido, mas não inf. pessoal)'], correct: 0 },
+      ],
+    },
+
+    // Lessons 9-16: locked stubs (Em breve — Phase 3)
+    { id: 9, title: 'Futuro: Perifrástico e Simples', en: 'Future Tense (periphrastic + simple)', locked: true },
+    { id: 10, title: 'Conjuntivo: Presente e Futuro', en: 'Subjunctive: Present & Future', locked: true },
+    { id: 11, title: 'Frases Relativas', en: 'Relative Clauses', locked: true },
+    { id: 12, title: 'Voz Passiva', en: 'Passive Voice', locked: true },
+    { id: 13, title: 'Condicional e Hipótese', en: 'Conditional & Hypothesis', locked: true },
+    { id: 14, title: 'Preposições: a, em, de, por, para', en: 'Prepositions Deep Dive', locked: true },
+    { id: 15, title: 'Discurso Indireto', en: 'Reported Speech', locked: true },
+    { id: 16, title: 'Síntese Final', en: 'Final Synthesis', locked: true },
+  ];
+
+  // Expose for schema validator
+  window.LESSONS = LESSONS;
+
+  /* ── Estudo localStorage helpers ── */
+  function getLessonScores() {
+    const store = loadStore();
+    return store.lesson_scores || {};
+  }
+  function setLessonScore(id, pct) {
+    const store = loadStore();
+    if (!store.lesson_scores) store.lesson_scores = {};
+    const prev = store.lesson_scores[id] || 0;
+    store.lesson_scores[id] = Math.max(prev, pct);
+    saveStore(store);
+  }
+  function lessonPassed(id) {
+    return (getLessonScores()[id] || 0) >= 0.75;
+  }
+  function isLessonUnlocked(lesson) {
+    if (lesson.locked) return false; // stub
+    if (lesson.id === 1) return true;
+    return lessonPassed(lesson.id - 1);
+  }
+  function unlockLesson(id) {
+    // Force unlock (gate bypass)
+    const store = loadStore();
+    if (!store.lesson_scores) store.lesson_scores = {};
+    store.lesson_scores[id] = Math.max(store.lesson_scores[id] || 0, 0.75);
+    saveStore(store);
+    renderEstudo();
+  }
+
+  /* ── Estudo state ── */
+  let _estudo = {
+    lessonId: null,
+    tab: 'learn',  // 'learn' | 'drill' | 'quiz'
+    drillIdx: 0,
+    drillItems: [],
+    drillAnswered: false,
+    quizIdx: 0,
+    quizScore: 0,
+    quizLocked: false,
+  };
+
+  /* ── renderEstudo: lesson list ── */
+  function renderEstudo() {
+    const scores = getLessonScores();
+    const passed = Object.values(scores).filter(v => v >= 0.75).length;
+    const pct = Math.round(passed / 8 * 100);
+
+    const tiles = LESSONS.map(L => {
+      if (L.locked) {
+        return `<div class="estudo-tile locked" title="Em breve">
+          <div class="estudo-tile-left">
+            <span class="estudo-tile-num">Lição ${L.id}</span>
+            <span class="estudo-tile-title">${L.title}</span>
+            <span class="estudo-tile-en">${L.en}</span>
+          </div>
+          <div class="estudo-tile-right">
+            <span class="estudo-lock-icon">🔒</span>
+            <span class="estudo-soon">Em breve</span>
+          </div>
+        </div>`;
+      }
+      const score = scores[L.id];
+      const unlocked = isLessonUnlocked(L);
+      const isLocked = !unlocked && L.id !== 1;
+      const scoreLabel = score !== undefined ? `${Math.round(score * 100)}%` : null;
+      const passed = score !== undefined && score >= 0.75;
+      return `<div class="estudo-tile${passed ? ' completed' : ''}${isLocked ? ' locked' : ''}"
+          onclick="${isLocked ? `unlockLesson(${L.id - 1})` : `openEstudoLesson(${L.id})`}"
+          title="${isLocked ? 'Completa a lição anterior para desbloquear (toca para ignorar o gate)' : L.title}">
+        <div class="estudo-tile-left">
+          <span class="estudo-tile-num">Lição ${L.id}</span>
+          <span class="estudo-tile-title">${L.title}</span>
+          <span class="estudo-tile-en">${L.en}</span>
+        </div>
+        <div class="estudo-tile-right">
+          ${scoreLabel ? `<span class="estudo-score-badge${passed ? '' : ' fail'}">${scoreLabel}</span>` : ''}
+          ${isLocked ? `<span class="estudo-lock-icon">🔓</span><span class="estudo-soon">toca para ignorar</span>` : ''}
+          ${passed ? '<span style="color:var(--verde3);font-size:18px">✓</span>' : ''}
+        </div>
+      </div>`;
+    }).join('');
+
+    const t = document.getElementById('tool');
+    t.innerHTML = `
+      <button class="tool-back" onclick="goHome()">← Voltar</button>
+      <div class="tool-name">Estudo <span style="font-size:16px;font-weight:400;color:var(--muted)">16 lições</span></div>
+      <div class="estudo-progress">
+        <div class="estudo-progress-bar"><div class="estudo-progress-fill" style="width:${pct}%"></div></div>
+        <div class="estudo-progress-text">${passed} / 8 lições concluídas · Lições 9-16 em breve</div>
+      </div>
+      <div class="estudo-list">${tiles}</div>
+    `;
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function openEstudoLesson(id) {
+    _estudo.lessonId = id;
+    _estudo.tab = 'learn';
+    renderEstudoLesson();
+  }
+
+  /* ── renderEstudoLesson: learn tab ── */
+  function renderEstudoLesson() {
+    const L = LESSONS.find(x => x.id === _estudo.lessonId);
+    if (!L) return;
+
+    const tabBtns = ['learn','drill','quiz'].map(tab => {
+      const labels = { learn: 'Aprender', drill: 'Exercício', quiz: 'Teste' };
+      return `<button class="lesson-tab${_estudo.tab === tab ? ' active' : ''}" onclick="setEstudoTab('${tab}')">${labels[tab]}</button>`;
+    }).join('');
+
+    const notes = L.notes.replace(/<b>([^<]+)<\/b>/g, (m, txt) =>
+      `<b onclick="speak('${txt.replace(/'/g,"\\'")}')" title="ouvir: ${txt.replace(/"/g,'&quot;')}">${txt}</b>`);
+
+    const tablesHtml = (L.tables || []).map(tbl => `
+      <div class="lesson-table-title">${tbl.title}</div>
+      <table class="lesson-table">
+        ${tbl.rows.map(r => `<tr><td onclick="speak('${r[0].replace(/'/g,"\\'")}')" title="ouvir">${r[0]} 🔊</td><td>${r[1]}</td></tr>`).join('')}
+      </table>
+    `).join('');
+
+    const vocabHtml = (L.vocab || []).map(v =>
+      `<div class="vocab-item">
+        <span class="vocab-pt">${v.pt}</span>
+        <span class="vocab-en">${v.en}</span>
+        <button class="vocab-speak" onclick="speak('${v.pt.replace(/'/g,"\\'")}')" title="ouvir">🔊</button>
+      </div>`
+    ).join('');
+
+    const t = document.getElementById('tool');
+    t.innerHTML = `
+      <button class="tool-back" onclick="renderEstudo()">← Todas as lições</button>
+      <div class="lesson-header">
+        <div class="lesson-title-pt">Lição ${L.id}: ${L.title}</div>
+        <div class="lesson-title-en">${L.en}</div>
+      </div>
+      <div class="lesson-tabs">${tabBtns}</div>
+      <div class="lesson-notes">${notes}</div>
+      ${tablesHtml}
+      <div class="vocab-section">
+        <div class="vocab-label">Vocabulário · ${(L.vocab||[]).length} palavras</div>
+        <div class="vocab-grid">${vocabHtml}</div>
+      </div>
+      <div class="drill-actions" style="margin-top:20px">
+        <button class="btn-estudo" onclick="setEstudoTab('drill')">Começar o exercício →</button>
+      </div>
+    `;
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function setEstudoTab(tab) {
+    _estudo.tab = tab;
+    if (tab === 'learn') renderEstudoLesson();
+    else if (tab === 'drill') startEstudoDrill();
+    else if (tab === 'quiz') startEstudoQuiz();
+  }
+
+  /* ── Drill ── */
+  function startEstudoDrill() {
+    const L = LESSONS.find(x => x.id === _estudo.lessonId);
+    if (!L || !L.drill) return;
+    _estudo.drillItems = [...L.drill.items];
+    // Shuffle
+    for (let i = _estudo.drillItems.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [_estudo.drillItems[i], _estudo.drillItems[j]] = [_estudo.drillItems[j], _estudo.drillItems[i]];
+    }
+    _estudo.drillIdx = 0;
+    _estudo.drillAnswered = false;
+    renderEstudoDrill();
+  }
+
+  function renderEstudoDrill() {
+    const L = LESSONS.find(x => x.id === _estudo.lessonId);
+    const items = _estudo.drillItems;
+    const tabBtns = ['learn','drill','quiz'].map(tab => {
+      const labels = { learn: 'Aprender', drill: 'Exercício', quiz: 'Teste' };
+      return `<button class="lesson-tab${tab === 'drill' ? ' active' : ''}" onclick="setEstudoTab('${tab}')">${labels[tab]}</button>`;
+    }).join('');
+    const header = `
+      <button class="tool-back" onclick="renderEstudo()">← Todas as lições</button>
+      <div class="lesson-header">
+        <div class="lesson-title-pt">Lição ${L.id}: ${L.title}</div>
+      </div>
+      <div class="lesson-tabs">${tabBtns}</div>
+    `;
+
+    if (_estudo.drillIdx >= items.length) {
+      // Done
+      const t = document.getElementById('tool');
+      t.innerHTML = `${header}
+        <div class="quiz-result">
+          <div style="font-size:40px;margin-bottom:12px">✓</div>
+          <div class="quiz-result-msg">${items.length} exercícios concluídos!</div>
+          <div class="quiz-result-actions">
+            <button class="btn-estudo secondary" onclick="startEstudoDrill()">Repetir</button>
+            <button class="btn-estudo" onclick="setEstudoTab('quiz')">Fazer o teste →</button>
+          </div>
+        </div>`;
+      t.scrollTop = 0; window.scrollTo(0, 0);
+      return;
+    }
+
+    const item = items[_estudo.drillIdx];
+    // Shuffle options each render only if not answered
+    const shuffled = _estudo.drillAnswered ? item._shuffled : shuffleArr([...item.options]);
+    if (!_estudo.drillAnswered) item._shuffled = shuffled;
+
+    const opts = shuffled.map((opt, i) => {
+      let cls = '';
+      if (_estudo.drillAnswered) {
+        if (opt === item.answer) cls = ' correct';
+        else if (opt === item._chosen) cls = ' wrong';
+      }
+      return `<button class="estudo-drill-opt${cls}"
+        ${_estudo.drillAnswered ? 'disabled' : ''}
+        onclick="answerEstudoDrill('${opt.replace(/'/g,"\\'")}')">${opt}</button>`;
+    }).join('');
+
+    const t = document.getElementById('tool');
+    t.innerHTML = `${header}
+      <div class="estudo-drill-card">
+        <div class="estudo-drill-num">${_estudo.drillIdx + 1} / ${items.length}</div>
+        <div class="estudo-drill-prompt">${item.prompt}</div>
+        <div class="estudo-drill-options">${opts}</div>
+        ${_estudo.drillAnswered ? `<div class="estudo-drill-answer">Resposta: ${item.answer} <button onclick="speak('${item.answer.replace(/'/g,"\\'")}')" style="background:none;border:none;cursor:pointer;font-size:14px">🔊</button></div>` : ''}
+      </div>
+      <div class="drill-actions">
+        ${_estudo.drillAnswered
+          ? `<button class="btn-estudo" onclick="advanceEstudoDrill()">Próximo →</button>`
+          : `<button class="btn-estudo secondary small" onclick="advanceEstudoDrill()">Saltar</button>`}
+      </div>`;
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function answerEstudoDrill(chosen) {
+    if (_estudo.drillAnswered) return;
+    const item = _estudo.drillItems[_estudo.drillIdx];
+    item._chosen = chosen;
+    _estudo.drillAnswered = true;
+    if (chosen === item.answer) speak(item.answer);
+    renderEstudoDrill();
+  }
+
+  function advanceEstudoDrill() {
+    _estudo.drillIdx++;
+    _estudo.drillAnswered = false;
+    renderEstudoDrill();
+  }
+
+  function shuffleArr(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  /* ── Quiz ── */
+  function startEstudoQuiz() {
+    _estudo.quizIdx = 0;
+    _estudo.quizScore = 0;
+    _estudo.quizLocked = false;
+    renderEstudoQuiz();
+  }
+
+  function renderEstudoQuiz() {
+    const L = LESSONS.find(x => x.id === _estudo.lessonId);
+    const quiz = L.quiz || [];
+    const tabBtns = ['learn','drill','quiz'].map(tab => {
+      const labels = { learn: 'Aprender', drill: 'Exercício', quiz: 'Teste' };
+      return `<button class="lesson-tab${tab === 'quiz' ? ' active' : ''}" onclick="setEstudoTab('${tab}')">${labels[tab]}</button>`;
+    }).join('');
+    const header = `
+      <button class="tool-back" onclick="renderEstudo()">← Todas as lições</button>
+      <div class="lesson-header">
+        <div class="lesson-title-pt">Lição ${L.id}: ${L.title}</div>
+      </div>
+      <div class="lesson-tabs">${tabBtns}</div>
+    `;
+    const t = document.getElementById('tool');
+
+    if (_estudo.quizIdx >= quiz.length) {
+      // Results
+      const pct = _estudo.quizScore / quiz.length;
+      const passed = pct >= 0.75;
+      setLessonScore(L.id, pct);
+      const nextLesson = LESSONS.find(x => x.id === L.id + 1 && !x.locked);
+      t.innerHTML = `${header}
+        <div class="quiz-result">
+          <div class="quiz-result-score ${passed ? 'pass' : 'fail'}">${_estudo.quizScore}/${quiz.length}</div>
+          <div class="quiz-result-msg">${passed
+            ? 'Lição concluída! O gate abre para a próxima.'
+            : 'Abaixo de 75% — revê o material e tenta de novo.'}</div>
+          <div class="quiz-result-actions">
+            <button class="btn-estudo secondary" onclick="startEstudoQuiz()">Repetir teste</button>
+            ${passed && nextLesson ? `<button class="btn-estudo" onclick="openEstudoLesson(${nextLesson.id})">Próxima lição →</button>` : ''}
+            <button class="btn-estudo secondary" onclick="renderEstudo()">Todas as lições</button>
+          </div>
+        </div>`;
+      t.scrollTop = 0; window.scrollTo(0, 0);
+      return;
+    }
+
+    const Q = quiz[_estudo.quizIdx];
+    // Shuffle choices with seed-based rotation for reproducibility
+    const choicesWithIdx = Q.choices.map((c, i) => ({ c, i }));
+    const seed = (_estudo.lessonId * 7 + _estudo.quizIdx * 13) % Q.choices.length;
+    const shuffled = [...choicesWithIdx];
+    for (let k = 0; k < seed; k++) shuffled.push(shuffled.shift());
+
+    const opts = shuffled.map(({ c, i }) => {
+      return `<button class="quiz-opt" data-idx="${i}"
+        onclick="answerEstudoQuiz(${i}, ${Q.correct})"
+        >${c}</button>`;
+    }).join('');
+
+    t.innerHTML = `${header}
+      <div class="quiz-progress">Pergunta ${_estudo.quizIdx + 1} / ${quiz.length} · ${_estudo.quizScore} certa${_estudo.quizScore !== 1 ? 's' : ''}</div>
+      <div class="quiz-q" onclick="speak('${Q.q.replace(/'/g,"\\'").replace(/_+/g,'')}')" title="ouvir">${Q.q} 🔊</div>
+      <div class="quiz-opts">${opts}</div>`;
+    _estudo.quizLocked = false;
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function answerEstudoQuiz(chosen, correct) {
+    if (_estudo.quizLocked) return;
+    _estudo.quizLocked = true;
+    document.querySelectorAll('.quiz-opt').forEach(b => {
+      const i = +b.dataset.idx;
+      if (i === correct) b.classList.add('correct');
+      else if (i === chosen) b.classList.add('wrong');
+      b.disabled = true;
+    });
+    if (chosen === correct) _estudo.quizScore++;
+    setTimeout(() => { _estudo.quizIdx++; renderEstudoQuiz(); }, 900);
+  }
+
+  /* ── openTool('estudo') handler — note: this redefines openTool (hoisted last, wins) ── */
+  function openTool(name) {
+    document.getElementById('home').hidden = true;
+    const t = document.getElementById('tool');
+    t.hidden = false;
+    if (name === 'verbos') {
+      renderVerbMachine();
+    } else if (name === 'estudo') {
+      renderEstudo();
+    } else {
+      t.innerHTML = `
+        <button class="tool-back" onclick="goHome()">← Voltar</button>
+        <div class="tool-name">${name}</div>
+        <div class="tool-under">Em construção.</div>
+      `;
+    }
+  }
+
   /* ── Schema validation stub ── */
   const SCHEMAS = {
     // Blocks register their schemas here as they get authored.
+    LESSONS: v => Array.isArray(v) && v.length >= 8
+      && v.slice(0, 8).every(l => l.id && l.title && l.notes && Array.isArray(l.vocab) && l.vocab.length >= 8),
     VERBS: v => Array.isArray(v) && v.length >= 150
       && v.every(x => x.infinitive && x.category && x.conjugations
         && Object.keys(x.conjugations).length === 9
@@ -2415,7 +3455,7 @@
   function hideToolFor(dataBlockName) {
     // Map from data-block name to tool tile[data-tool] to hide.
     const toolFromBlock = {
-      VERBS: 'verbos', OBJETOS_DATA: 'objetos', SLANG_DATA: 'calao',
+      LESSONS: 'estudo', VERBS: 'verbos', OBJETOS_DATA: 'objetos', SLANG_DATA: 'calao',
       FALSE_FRIENDS_DATA: 'falsos', OUVIDO_DATA: 'ouvido',
       SITUACAO_DATA: 'situacao', /* etc */
     };
