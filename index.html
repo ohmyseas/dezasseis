@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#046a38">
+  <title>Dezasseis — Português europeu</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon-192.png">
+  <style>
+    body { font-family: -apple-system, system-ui, sans-serif; margin: 0; padding: 16px; background: #0b0e14; color: #e6edf3; }
+    h1 { font-size: 24px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 8px; background: #046a38; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <h1>Dezasseis <span class="badge">🇵🇹 pt-PT</span></h1>
+  <p>App under construction. First tool ships week 1.</p>
+  <button id="test">Test TTS</button>
+  <script>
+    document.getElementById('test').onclick = async () => {
+      const r = await fetch('/api/speak', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ text: 'bom dia, tudo bem?', voice: 'joana' })
+      });
+      const b = await r.blob();
+      new Audio(URL.createObjectURL(b)).play();
+    };
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/service-worker.js');
+  </script>
+</body>
+</html>
