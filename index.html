@@ -1061,6 +1061,178 @@
     .falsos-es-word { color: #9db5cc; font-style: italic; }
     .falsos-es-gloss { color: var(--muted); }
 
+    /* ── Ouvido ── */
+    .ouvido-panels { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+    .ouvido-panel-btn {
+      flex: 1; min-width: 140px;
+      padding: 10px 16px; border-radius: 10px; font-size: 14px; font-weight: 700;
+      background: var(--bg2); border: 1px solid var(--line); color: var(--muted);
+      cursor: pointer; transition: background .15s, border-color .15s, color .15s;
+    }
+    .ouvido-panel-btn.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+    .ouvido-panel-btn:hover:not(.active) { background: var(--bg3); border-color: var(--verde2); color: var(--chalk); }
+
+    /* Pares Mínimos */
+    .pm-score-bar {
+      display: flex; gap: 12px; align-items: center; margin-bottom: 18px;
+      background: var(--bg2); border: 1px solid var(--line); border-radius: 10px;
+      padding: 10px 16px; font-size: 13px; font-weight: 700;
+    }
+    .pm-score-correct { color: var(--verde3); }
+    .pm-score-wrong { color: #f87171; }
+    .pm-card {
+      background: var(--bg2); border: 2px solid var(--line); border-radius: var(--radius);
+      padding: 28px 20px 24px; text-align: center; margin-bottom: 16px;
+    }
+    .pm-prompt { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+    .pm-play-btn {
+      background: var(--verde); border: none; border-radius: 12px; color: #fff;
+      font-size: 32px; width: 72px; height: 72px; cursor: pointer;
+      transition: background .15s, transform .12s; display: inline-flex;
+      align-items: center; justify-content: center; margin-bottom: 20px;
+    }
+    .pm-play-btn:hover { background: var(--verde2); }
+    .pm-play-btn:active { transform: scale(.93); }
+    .pm-choices { display: flex; gap: 12px; justify-content: center; }
+    .pm-choice {
+      flex: 1; max-width: 160px;
+      padding: 16px 10px; font-size: 20px; font-weight: 800;
+      background: var(--bg3); border: 2px solid var(--line); border-radius: 12px;
+      cursor: pointer; color: var(--chalk); transition: background .12s, border-color .12s;
+    }
+    .pm-choice:hover:not(:disabled) { background: var(--verde); border-color: var(--verde2); }
+    .pm-choice.correct { border-color: var(--verde3); background: #0b3a1a; }
+    .pm-choice.wrong { border-color: var(--vermelho); background: #2d0a09; }
+    .pm-hint { font-size: 13px; color: var(--muted); margin-top: 12px; min-height: 20px; }
+    .pm-voice-badge {
+      font-size: 11px; padding: 2px 8px; border-radius: 8px;
+      background: var(--bg3); border: 1px solid var(--line); color: var(--muted);
+      margin-top: 10px; display: inline-block;
+    }
+
+    /* Fala Real */
+    .fr-list { display: flex; flex-direction: column; gap: 10px; }
+    .fr-item {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .fr-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+    .fr-cat {
+      font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 6px; background: var(--bg3); border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .fr-focus {
+      font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 6px;
+      background: #1a2d40; color: #6aadcc; border: 1px solid #2a4060;
+    }
+    .fr-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .fr-play-btn {
+      background: var(--verde); border: none; border-radius: 8px; color: #fff;
+      font-size: 16px; padding: 6px 14px; cursor: pointer; font-weight: 700;
+      transition: background .15s;
+    }
+    .fr-play-btn:hover { background: var(--verde2); }
+    .fr-speed-group { display: flex; gap: 4px; }
+    .fr-speed-btn {
+      padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: 700;
+      background: var(--bg3); border: 1px solid var(--line); color: var(--muted); cursor: pointer;
+      transition: background .12s, color .12s;
+    }
+    .fr-speed-btn.active, .fr-speed-btn:hover { background: var(--verde); color: #fff; border-color: var(--verde2); }
+    .fr-transcript { font-size: 16px; font-weight: 600; color: var(--chalk); margin-bottom: 4px; }
+    .fr-translation { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .fr-attribution { font-size: 10px; color: #4a5f7a; font-style: italic; }
+    .fr-unavail { font-size: 13px; color: var(--muted); font-style: italic; padding: 20px; text-align: center; }
+
+    /* ── Situação ── */
+    .sit-picker { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-top: 8px; }
+    @media (min-width: 480px) { .sit-picker { grid-template-columns: repeat(3,1fr); } }
+    .sit-tile {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 18px 12px; text-align: center; cursor: pointer;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      transition: background .15s, border-color .15s, transform .1s;
+    }
+    .sit-tile:hover { background: var(--bg3); border-color: var(--verde2); transform: translateY(-2px); }
+    .sit-tile:active { transform: scale(.97); }
+    .sit-tile-icon { font-size: 28px; line-height: 1; }
+    .sit-tile-title { font-size: 14px; font-weight: 700; color: var(--chalk); }
+
+    /* Dialogue view */
+    .sit-dialogue-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px; flex-wrap: wrap; gap: 8px;
+    }
+    .sit-dialogue-title { font-size: 20px; font-weight: 800; color: var(--verde3); }
+    .sit-actions { display: flex; gap: 8px; }
+    .sit-action-btn {
+      padding: 7px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      background: var(--bg3); border: 1px solid var(--line); color: var(--muted); cursor: pointer;
+      transition: background .12s, color .12s;
+    }
+    .sit-action-btn:hover { background: var(--bg); color: var(--chalk); }
+    .sit-action-btn.primary { background: var(--verde); color: #fff; border-color: var(--verde2); }
+    .sit-action-btn.primary:hover { background: var(--verde2); }
+
+    .sit-turns { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+    .sit-turn {
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .sit-turn.user-turn { flex-direction: row-reverse; }
+    .sit-avatar {
+      font-size: 22px; line-height: 1; flex-shrink: 0; margin-top: 4px;
+    }
+    .sit-bubble {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: 12px;
+      padding: 12px 14px; max-width: 85%;
+    }
+    .sit-turn.user-turn .sit-bubble { background: var(--bg3); border-color: var(--verde); }
+    .sit-bubble-pt { font-size: 15px; font-weight: 600; color: var(--chalk); margin-bottom: 2px; }
+    .sit-bubble-en { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .sit-bubble-speak {
+      font-size: 13px; padding: 3px 8px; border-radius: 6px;
+      background: var(--bg3); border: 1px solid var(--line); cursor: pointer;
+      transition: background .12s;
+    }
+    .sit-bubble-speak:hover { background: var(--verde); border-color: var(--verde2); }
+
+    /* User choice panel */
+    .sit-choices {
+      display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;
+    }
+    .sit-choice {
+      padding: 13px 16px; border-radius: 10px; font-size: 14px; font-weight: 600;
+      background: var(--bg3); border: 2px solid var(--line); color: var(--chalk);
+      cursor: pointer; text-align: left; transition: background .12s, border-color .12s;
+    }
+    .sit-choice:hover:not(:disabled) { background: var(--bg); border-color: var(--verde2); color: var(--verde3); }
+    .sit-choice.correct { border-color: var(--verde); background: rgba(4,106,56,.18); color: var(--verde3); }
+    .sit-choice.wrong { border-color: var(--vermelho); background: rgba(218,41,28,.1); color: #f87171; }
+    .sit-choice-note { font-size: 12px; color: #f97316; margin-top: 4px; font-weight: 400; }
+    .sit-next-btn {
+      padding: 13px 20px; border-radius: 12px; font-size: 15px; font-weight: 700;
+      background: var(--verde); color: #fff; border: none; cursor: pointer;
+      transition: background .15s; display: none;
+    }
+    .sit-next-btn:hover { background: var(--verde2); }
+    .sit-complete {
+      text-align: center; padding: 32px 20px;
+    }
+    .sit-complete-icon { font-size: 56px; margin-bottom: 12px; }
+    .sit-complete-msg { font-size: 18px; font-weight: 700; color: var(--verde3); margin-bottom: 16px; }
+
+    /* Script view */
+    .sit-script { display: flex; flex-direction: column; gap: 10px; }
+    .sit-script-turn {
+      display: flex; gap: 10px; font-size: 14px; padding: 10px 14px;
+      background: var(--bg2); border: 1px solid var(--line); border-radius: 10px;
+    }
+    .sit-script-speaker { font-weight: 700; color: var(--verde3); min-width: 80px; flex-shrink: 0; }
+    .sit-script-text { color: var(--chalk); }
+    .sit-script-en { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .sit-script-correct { border-color: var(--verde); }
+
     /* ── Do Espanhol bridge tool ── */
     .bridge-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
     .bridge-tab {
@@ -4695,6 +4867,667 @@
     return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
 
+  /* ══════════════════════════════════════════════════════════════
+     OUVIDO — Task 2.1 (Pares Mínimos) + Task 2.2 (Fala Real)
+     ══════════════════════════════════════════════════════════════ */
+
+  /* OUVIDO_DATA.minimal_pairs already defined above in window.OUVIDO_DATA.
+     We extend it here with the full pair list and add natural clips. */
+  const OUVIDO_MINIMAL_PAIRS = [
+    { a: "pão",  b: "pau",   hint: "nasal vs oral — bread vs stick" },
+    { a: "mão",  b: "mau",   hint: "nasal vs oral — hand vs bad" },
+    { a: "põe",  b: "pôr",   hint: "nasal vs oral — puts vs to put" },
+    { a: "pães", b: "país",  hint: "nasal vs oral — breads vs country" },
+    { a: "são",  b: "sã",    hint: "nasal + gender — healthy (m) vs (f)" },
+    { a: "vão",  b: "van",   hint: "nasal vs oral — they go vs van" },
+    { a: "lã",   b: "lá",    hint: "nasal a vs oral a — wool vs there" },
+    { a: "chá",  b: "já",    hint: "ch /ʃ/ vs j /ʒ/ — tea vs already" },
+    { a: "dois", b: "doze",  hint: "coda /ʃ/ vs open — two vs twelve" },
+    { a: "faz",  b: "fás",   hint: "coda /ʃ/ — does vs archaic 2nd" },
+    { a: "vez",  b: "vês",   hint: "coda /ʃ/ — time vs you see" },
+    { a: "mais", b: "maçã",  hint: "diphthong vs nasal — more vs apple" },
+  ];
+
+  /* OUVIDO_DATA.natural — 15 clips from Wikimedia Commons Lingua Libre (CC BY-SA) */
+  const OUVIDO_NATURAL = [
+    { id: "pt_bom_dia",         url: "/audio/pt_bom_dia.wav",         transcript: "Bom dia.",                   en: "Good morning.",             attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "phrase",  focus: "nasal_em" },
+    { id: "pt_bem_obrigado",    url: "/audio/pt_bem_obrigado.wav",    transcript: "Bem, obrigado.",             en: "Well, thank you.",          attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "phrase",  focus: "stress" },
+    { id: "pt_nao_compreendo",  url: "/audio/pt_nao_compreendo.wav",  transcript: "Não compreendo.",            en: "I don't understand.",       attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "phrase",  focus: "nasal_ao" },
+    { id: "pt_nao_falo_bem",    url: "/audio/pt_nao_falo_bem.wav",    transcript: "Não falo bem português.",   en: "I don't speak Portuguese well.", attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "phrase",  focus: "final_sh" },
+    { id: "pt_emergencia",      url: "/audio/pt_emergencia.wav",      transcript: "É uma emergência.",         en: "It's an emergency.",        attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "phrase",  focus: "nasal_encia" },
+    { id: "pt_libras_esterlinas", url: "/audio/pt_libras_esterlinas.wav", transcript: "Aceita libras esterlinas?", en: "Do you accept British pounds?", attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "phrase",  focus: "final_sh" },
+    { id: "pt_onde_tem",        url: "/audio/pt_onde_tem.wav",        transcript: "Onde tem bastante.",        en: "Where there's plenty.",     attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "phrase",  focus: "nasal_em" },
+    { id: "pt_pao",             url: "/audio/pt_pao.wav",             transcript: "pão",                       en: "bread",                     attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "nasal",   focus: "nasal_ao" },
+    { id: "pt_coracao",         url: "/audio/pt_coracao.ogg",         transcript: "coração",                   en: "heart",                     attribution: "Malafaya / Wikimedia Commons",                   license: "CC BY-SA 3.0", category: "nasal",   focus: "nasal_ao" },
+    { id: "pt_maca",            url: "/audio/pt_maca.ogg",            transcript: "maçã",                      en: "apple",                     attribution: "Malafaya / Wikimedia Commons",                   license: "CC BY-SA 3.0", category: "nasal",   focus: "nasal_a" },
+    { id: "pt_informacao",      url: "/audio/pt_informacao.wav",      transcript: "informação",                en: "information",               attribution: "Santamarcanda / Wikimedia / Lingua Libre",        license: "CC BY-SA 4.0", category: "nasal",   focus: "stress" },
+    { id: "pt_professor",       url: "/audio/pt_professor.wav",       transcript: "professor",                 en: "teacher",                   attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "stress",  focus: "stress" },
+    { id: "pt_trabalhar",       url: "/audio/pt_trabalhar.wav",       transcript: "trabalhar",                 en: "to work",                   attribution: "Nelson Ricardo 2500 / Wikimedia / Lingua Libre", license: "CC BY-SA 4.0", category: "stress",  focus: "stress" },
+    { id: "pt_cafe",            url: "/audio/pt_cafe.wav",            transcript: "café",                      en: "coffee",                    attribution: "Santamarcanda / Wikimedia / Lingua Libre",        license: "CC BY-SA 4.0", category: "word",    focus: "open_e" },
+    { id: "pt_agua",            url: "/audio/pt_agua.ogg",            transcript: "água",                      en: "water",                     attribution: "Malafaya / Wikimedia Commons",                    license: "CC BY-SA 3.0", category: "word",    focus: "schwa" },
+  ];
+
+  /* Update global OUVIDO_DATA */
+  window.OUVIDO_DATA = { minimal_pairs: OUVIDO_MINIMAL_PAIRS, natural: OUVIDO_NATURAL };
+
+  /* ── Ouvido state ── */
+  let _ouvido = {
+    panel: "pm",    // "pm" | "fr"
+    pmState: {
+      voiceIdx: 0,  // alternates 0=joana,1=paulo
+      pair: null,   // current pair { a, b, hint }
+      played: null, // "a" | "b" (what was played)
+      answered: false,
+    },
+    frSpeed: { [null]: 1.0 }, // per-clip playbackRate
+    frCurrentAudio: null,
+  };
+
+  function _ouvido_pmScore() {
+    try { return JSON.parse(localStorage.getItem("dezasseis:v1.ouvido_min_pairs") || '{"correct":0,"wrong":0}'); }
+    catch(e) { return {correct:0, wrong:0}; }
+  }
+  function _ouvido_pmSave(score) {
+    try { localStorage.setItem("dezasseis:v1.ouvido_min_pairs", JSON.stringify(score)); } catch(e) {}
+  }
+
+  function renderOuvido() {
+    const t = document.getElementById("tool");
+    t.innerHTML = `
+      <button class="tool-back" id="ouv-back-btn">← Voltar</button>
+      <div class="tool-name">Ouvido</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">treino auditivo · pares mínimos + gravações reais</div>
+      <div class="ouvido-panels">
+        <button class="ouvido-panel-btn${_ouvido.panel === "pm" ? " active" : ""}" data-ouv-panel="pm">🎵 Pares Mínimos</button>
+        <button class="ouvido-panel-btn${_ouvido.panel === "fr" ? " active" : ""}" data-ouv-panel="fr">🎙 Fala Real</button>
+      </div>
+      <div id="ouv-panel-content"></div>
+    `;
+    t.querySelector("#ouv-back-btn").onclick = goHome;
+    t.querySelector(".ouvido-panels").addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-ouv-panel]");
+      if (!btn) return;
+      _ouvido.panel = btn.dataset.ouvPanel;
+      t.querySelectorAll(".ouvido-panel-btn").forEach(b => b.classList.toggle("active", b === btn));
+      _renderOuvidoPanel();
+    });
+    _renderOuvidoPanel();
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function _renderOuvidoPanel() {
+    const el = document.getElementById("ouv-panel-content");
+    if (_ouvido.panel === "pm") _renderParesMinimoPanel(el);
+    else _renderFalaRealPanel(el);
+  }
+
+  /* ── Pares Mínimos Panel ── */
+  function _renderParesMinimoPanel(el) {
+    const score = _ouvido_pmScore();
+    const total = score.correct + score.wrong;
+    const pct = total > 0 ? Math.round(score.correct / total * 100) : 0;
+    const state = _ouvido.pmState;
+
+    // Pick new pair if needed
+    if (!state.pair) {
+      const idx = Math.floor(Math.random() * OUVIDO_MINIMAL_PAIRS.length);
+      state.pair = OUVIDO_MINIMAL_PAIRS[idx];
+      state.played = null;
+      state.answered = false;
+    }
+
+    const voiceName = state.voiceIdx === 0 ? "Joana" : "Paulo";
+    const voiceVal = state.voiceIdx === 0 ? "joana" : "paulo";
+
+    el.innerHTML = `
+      <div class="pm-score-bar">
+        <span class="pm-score-correct">${score.correct}✓</span>
+        <span class="pm-score-wrong">${score.wrong}✗</span>
+        ${total > 0 ? `<span style="color:var(--muted)">${pct}%</span>` : ""}
+        <button id="pm-reset-btn" style="margin-left:auto;font-size:11px;color:var(--muted);background:none;border:none;cursor:pointer;padding:2px 6px;border-radius:4px;border:1px solid var(--line)" title="Reiniciar pontuação">↺</button>
+      </div>
+      <div class="pm-card">
+        <div class="pm-prompt">Carrega ▶ para ouvir — depois clica a palavra correcta</div>
+        <button class="pm-play-btn" id="pm-play-btn" title="Ouvir">▶</button>
+        <div class="pm-voice-badge" id="pm-voice-badge">voz: ${voiceName}</div>
+        <div class="pm-choices">
+          <button class="pm-choice" id="pm-choice-a" data-which="a">${state.pair.a}</button>
+          <button class="pm-choice" id="pm-choice-b" data-which="b">${state.pair.b}</button>
+        </div>
+        <div class="pm-hint" id="pm-hint"></div>
+      </div>
+      ${state.answered ? `<button id="pm-next-btn" style="width:100%;padding:13px;border-radius:12px;font-size:15px;font-weight:700;background:var(--verde);color:#fff;border:none;cursor:pointer">Próximo →</button>` : ""}
+    `;
+
+    const playBtn = el.querySelector("#pm-play-btn");
+    const choiceA = el.querySelector("#pm-choice-a");
+    const choiceB = el.querySelector("#pm-choice-b");
+    const hintEl  = el.querySelector("#pm-hint");
+
+    // If already answered from a previous re-render, restore state
+    if (state.answered && state.played) {
+      choiceA.disabled = true;
+      choiceB.disabled = true;
+      const correctWhich = state.played;
+      const wrongWhich = correctWhich === "a" ? "b" : "a";
+      el.querySelector("#pm-choice-" + correctWhich).classList.add("correct");
+      hintEl.textContent = state.pair.hint;
+    }
+
+    playBtn.onclick = () => {
+      if (state.answered) {
+        // Allow replaying after answer
+        const w = state.played;
+        speak(state.pair[w], { voiceOverride: voiceVal });
+        return;
+      }
+      // Randomly pick a or b
+      const which = Math.random() < 0.5 ? "a" : "b";
+      state.played = which;
+      speak(state.pair[which], { voiceOverride: voiceVal });
+    };
+
+    el.querySelector(".pm-choices").addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-which]");
+      if (!btn || state.answered || !state.played) {
+        if (!state.played) hintEl.textContent = "Clica ▶ primeiro para ouvir!";
+        return;
+      }
+      const chosen = btn.dataset.which;
+      const correct = state.played;
+      const isCorrect = chosen === correct;
+      const s = _ouvido_pmScore();
+      if (isCorrect) s.correct++; else s.wrong++;
+      _ouvido_pmSave(s);
+
+      state.answered = true;
+      choiceA.disabled = true;
+      choiceB.disabled = true;
+      el.querySelector("#pm-choice-" + correct).classList.add("correct");
+      if (!isCorrect) btn.classList.add("wrong");
+      hintEl.textContent = state.pair.hint;
+
+      // Alternate voice for next round
+      state.voiceIdx = 1 - state.voiceIdx;
+
+      _renderParesMinimoPanel(el);
+    });
+
+    const nextBtn = el.querySelector("#pm-next-btn");
+    if (nextBtn) {
+      nextBtn.onclick = () => {
+        state.pair = null;
+        state.played = null;
+        state.answered = false;
+        _renderParesMinimoPanel(el);
+      };
+    }
+
+    const resetBtn = el.querySelector("#pm-reset-btn");
+    if (resetBtn) {
+      resetBtn.onclick = () => {
+        _ouvido_pmSave({correct:0, wrong:0});
+        _renderParesMinimoPanel(el);
+      };
+    }
+  }
+
+  /* ── Fala Real Panel ── */
+  function _renderFalaRealPanel(el) {
+    if (!OUVIDO_NATURAL || OUVIDO_NATURAL.length === 0) {
+      el.innerHTML = `<div class="fr-unavail">Sem gravações disponíveis de momento.</div>`;
+      return;
+    }
+
+    const items = OUVIDO_NATURAL.map(clip => {
+      const speed = _ouvido.frSpeed[clip.id] || 1.0;
+      return `
+        <div class="fr-item" data-clip-id="${clip.id}">
+          <div class="fr-meta">
+            <span class="fr-cat">${clip.category}</span>
+            <span class="fr-focus">${clip.focus}</span>
+          </div>
+          <div class="fr-transcript">${_esc(clip.transcript)}</div>
+          <div class="fr-translation">${_esc(clip.en)}</div>
+          <div class="fr-controls">
+            <button class="fr-play-btn" data-clip-url="${_attr(clip.url)}" data-clip-id="${clip.id}">▶ Ouvir</button>
+            <div class="fr-speed-group" data-clip-id="${clip.id}">
+              ${[0.7, 1.0, 1.3].map(sp => `
+                <button class="fr-speed-btn${speed === sp ? " active" : ""}" data-speed="${sp}" data-clip-id="${clip.id}">${sp}×</button>
+              `).join("")}
+            </div>
+          </div>
+          <div class="fr-attribution">${_esc(clip.attribution)} · ${clip.license}</div>
+        </div>
+      `;
+    }).join("");
+
+    el.innerHTML = `
+      <div style="font-size:13px;color:var(--muted);margin-bottom:12px;">
+        15 gravações de nativos pt-PT · clica ▶ para ouvir · ajusta a velocidade
+      </div>
+      <div class="fr-list" id="fr-list">${items}</div>
+      <div style="margin-top:16px;padding:12px 14px;background:var(--bg2);border:1px solid var(--line);border-radius:10px;font-size:11px;color:var(--muted)">
+        <strong style="color:var(--verde3)">Atribuições (CC BY-SA):</strong><br>
+        Nelson Ricardo 2500, Santamarcanda — Lingua Libre / Wikimedia Commons (CC BY-SA 4.0)<br>
+        Malafaya — Wikimedia Commons (CC BY-SA 3.0)
+      </div>
+    `;
+
+    // Delegated play button handler
+    el.querySelector("#fr-list").addEventListener("click", (e) => {
+      const playBtn = e.target.closest(".fr-play-btn");
+      const speedBtn = e.target.closest(".fr-speed-btn");
+
+      if (speedBtn) {
+        const clipId = speedBtn.dataset.clipId;
+        const newSpeed = parseFloat(speedBtn.dataset.speed);
+        _ouvido.frSpeed[clipId] = newSpeed;
+        // Update active state in speed group
+        const grp = el.querySelector(`.fr-speed-group[data-clip-id="${clipId}"]`);
+        if (grp) grp.querySelectorAll(".fr-speed-btn").forEach(b => {
+          b.classList.toggle("active", parseFloat(b.dataset.speed) === newSpeed);
+        });
+        // If audio is playing for this clip, adjust rate
+        if (_ouvido.frCurrentAudio && _ouvido.frCurrentAudio._clipId === clipId) {
+          _ouvido.frCurrentAudio.playbackRate = newSpeed;
+        }
+        return;
+      }
+
+      if (playBtn) {
+        const url = playBtn.dataset.clipUrl;
+        const clipId = playBtn.dataset.clipId;
+        // Stop current if playing
+        if (_ouvido.frCurrentAudio) {
+          _ouvido.frCurrentAudio.pause();
+          _ouvido.frCurrentAudio = null;
+        }
+        const audio = new Audio(url);
+        audio.playbackRate = _ouvido.frSpeed[clipId] || 1.0;
+        audio._clipId = clipId;
+        _ouvido.frCurrentAudio = audio;
+        audio.play().catch(() => showToast("Erro ao reproduzir áudio"));
+      }
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     SITUAÇÃO — Task 2.3 — 6 scripted micro-dialogues
+     ══════════════════════════════════════════════════════════════ */
+
+  const SITUACAO_DATA = [
+    {
+      id: "cafe",
+      title: "No café",
+      icon: "☕",
+      turns: [
+        { speaker: "atendente", text: "Bom dia! Faz favor?", en: "Good morning! How can I help?" },
+        { speaker: "user", options: [
+          { text: "Um café, se faz favor.", en: "A coffee, please.", correct: true },
+          { text: "Quiero un café.", en: "I want a coffee.", correct: false, note: "isso é espanhol — usa 'queria um café'" },
+        ]},
+        { speaker: "atendente", text: "Uma bica ou um abatanado?", en: "An espresso or an Americano?" },
+        { speaker: "user", options: [
+          { text: "Uma bica, se faz favor.", en: "An espresso, please.", correct: true },
+          { text: "Um café com leite.", en: "A white coffee.", correct: true },
+          { text: "Não sei o que é isso.", en: "I don't know what that is.", correct: false, note: "bica = espresso pt-PT; abatanado = Americano" },
+        ]},
+        { speaker: "atendente", text: "Aqui tem. Mais alguma coisa?", en: "Here you go. Anything else?" },
+        { speaker: "user", options: [
+          { text: "A conta, se faz favor.", en: "The bill, please.", correct: true },
+          { text: "El cuenta, por favor.", en: "The bill (Spanish).", correct: false, note: "em português: 'a conta, se faz favor'" },
+        ]},
+      ],
+    },
+    {
+      id: "metro",
+      title: "No metro",
+      icon: "🚇",
+      turns: [
+        { speaker: "atendente", text: "Boa tarde! Em que posso ajudar?", en: "Good afternoon! How can I help?" },
+        { speaker: "user", options: [
+          { text: "Um bilhete para o Marquês, se faz favor.", en: "A ticket to Marquês, please.", correct: true },
+          { text: "Quero ir a Marquês.", en: "I want to go to Marquês.", correct: false, note: "mais natural: 'queria um bilhete para…'" },
+        ]},
+        { speaker: "atendente", text: "Simples ou diário?", en: "Single or day pass?" },
+        { speaker: "user", options: [
+          { text: "Simples, se faz favor.", en: "Single, please.", correct: true },
+          { text: "O diário — quanto custa?", en: "The day pass — how much is it?", correct: true },
+        ]},
+        { speaker: "atendente", text: "São dois euros.", en: "That's two euros." },
+        { speaker: "user", options: [
+          { text: "Obrigado. Qual é a linha para o Marquês?", en: "Thank you. Which line is it for Marquês?", correct: true },
+          { text: "Muito caro!", en: "Very expensive!", correct: false, note: "dois euros é razoável — não ofendas o atendente!" },
+        ]},
+      ],
+    },
+    {
+      id: "mercearia",
+      title: "Na mercearia",
+      icon: "🛒",
+      turns: [
+        { speaker: "atendente", text: "Bom dia! O que deseja?", en: "Good morning! What would you like?" },
+        { speaker: "user", options: [
+          { text: "Queria um quilo de tomates, se faz favor.", en: "I'd like a kilo of tomatoes, please.", correct: true },
+          { text: "Dá-me tomates.", en: "Give me tomatoes.", correct: false, note: "correto mas brusco — prefere 'queria' para educação" },
+        ]},
+        { speaker: "atendente", text: "Com certeza. Mais alguma coisa?", en: "Of course. Anything else?" },
+        { speaker: "user", options: [
+          { text: "Tem pão de forma?", en: "Do you have sliced bread?", correct: true },
+          { text: "Tiene pan de molde?", en: "Sliced bread? (Spanish)", correct: false, note: "em português: 'tem pão de forma?'" },
+        ]},
+        { speaker: "atendente", text: "Sim, temos. São três euros ao todo.", en: "Yes, we do. That's three euros total." },
+        { speaker: "user", options: [
+          { text: "Aceita Multibanco?", en: "Do you accept Multibanco?", correct: true },
+          { text: "Posso pagar com cartão?", en: "Can I pay by card?", correct: true },
+        ]},
+      ],
+    },
+    {
+      id: "farmacia",
+      title: "Na farmácia",
+      icon: "💊",
+      turns: [
+        { speaker: "atendente", text: "Boa tarde! Posso ajudar?", en: "Good afternoon! Can I help?" },
+        { speaker: "user", options: [
+          { text: "Tenho dores de cabeça. O que recomenda?", en: "I have a headache. What do you recommend?", correct: true },
+          { text: "Quero medicina para cabeça.", en: "I want medicine for head.", correct: false, note: "melhor: 'tenho dores de cabeça — tem algo para isso?'" },
+        ]},
+        { speaker: "atendente", text: "Posso dar-lhe paracetamol ou ibuprofeno. Tem alergia?", en: "I can give you paracetamol or ibuprofen. Do you have any allergies?" },
+        { speaker: "user", options: [
+          { text: "Não tenho alergias. Paracetamol, se faz favor.", en: "No allergies. Paracetamol, please.", correct: true },
+          { text: "Sou alérgico à penicilina.", en: "I am allergic to penicillin.", correct: true },
+        ]},
+        { speaker: "atendente", text: "Aqui tem. Tome dois comprimidos de oito em oito horas.", en: "Here you are. Take two tablets every eight hours." },
+        { speaker: "user", options: [
+          { text: "Obrigado. Quanto custa?", en: "Thank you. How much is it?", correct: true },
+          { text: "Preciso de receita?", en: "Do I need a prescription?", correct: true },
+        ]},
+      ],
+    },
+    {
+      id: "taxi",
+      title: "No táxi",
+      icon: "🚕",
+      turns: [
+        { speaker: "atendente", text: "Boa noite! Para onde vai?", en: "Good evening! Where to?" },
+        { speaker: "user", options: [
+          { text: "Para o Aeroporto de Lisboa, se faz favor.", en: "To Lisbon Airport, please.", correct: true },
+          { text: "Aeroporto!", en: "Airport!", correct: false, note: "correto mas brusco — acrescenta 'se faz favor'" },
+        ]},
+        { speaker: "atendente", text: "Com certeza. A esta hora deve demorar uns vinte minutos.", en: "Sure. At this time it should take about twenty minutes." },
+        { speaker: "user", options: [
+          { text: "Está bem. Pode ligar o taxímetro?", en: "Alright. Can you turn on the meter?", correct: true },
+          { text: "É longe?", en: "Is it far?", correct: true },
+        ]},
+        { speaker: "atendente", text: "Chegámos. São dezoito euros.", en: "We've arrived. That's eighteen euros." },
+        { speaker: "user", options: [
+          { text: "Aqui tem vinte euros. Fique com o troco.", en: "Here's twenty euros. Keep the change.", correct: true },
+          { text: "Posso pagar com MB Way?", en: "Can I pay with MB Way?", correct: true },
+          { text: "Dezoito euros?! Muito caro!", en: "Eighteen euros?! Too expensive!", correct: false, note: "pode reclamar mas 'fique com o troco' é mais simpático" },
+        ]},
+      ],
+    },
+    {
+      id: "emergencia",
+      title: "Emergência",
+      icon: "🚨",
+      turns: [
+        { speaker: "atendente", text: "112, qual é a emergência?", en: "112, what is the emergency?" },
+        { speaker: "user", options: [
+          { text: "Há um acidente na Avenida da Liberdade.", en: "There's an accident on Avenida da Liberdade.", correct: true },
+          { text: "Estou a ligar para o 112.", en: "I'm calling 112.", correct: false, note: "o operador já sabe — diz logo a emergência" },
+        ]},
+        { speaker: "atendente", text: "Há feridos?", en: "Are there any injured people?" },
+        { speaker: "user", options: [
+          { text: "Sim, há uma pessoa inconsciente.", en: "Yes, there is an unconscious person.", correct: true },
+          { text: "Não sei. Venham depressa!", en: "I don't know. Come quickly!", correct: true },
+        ]},
+        { speaker: "atendente", text: "Estamos a enviar uma ambulância. Qual é o seu nome?", en: "We are sending an ambulance. What is your name?" },
+        { speaker: "user", options: [
+          { text: "Chamo-me Ilya. Estou no número 45.", en: "My name is Ilya. I'm at number 45.", correct: true },
+          { text: "Não falo bem português.", en: "I don't speak Portuguese well.", correct: true },
+        ]},
+      ],
+    },
+  ];
+
+  window.SITUACAO_DATA = SITUACAO_DATA;
+
+  /* ── Situação state ── */
+  let _sitState = {
+    scenarioId: null,
+    turnIdx: 0,
+    answered: false,
+    showScript: false,
+  };
+
+  function renderSituacao() {
+    const t = document.getElementById("tool");
+    t.innerHTML = `
+      <button class="tool-back" id="sit-back-btn">← Voltar</button>
+      <div class="tool-name">Situação</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">6 diálogos de sobrevivência · escolhe uma situação</div>
+      <div class="sit-picker" id="sit-picker"></div>
+    `;
+    t.querySelector("#sit-back-btn").onclick = goHome;
+    const picker = t.querySelector("#sit-picker");
+    picker.innerHTML = SITUACAO_DATA.map(sc => `
+      <button class="sit-tile" data-sit-id="${sc.id}">
+        <span class="sit-tile-icon">${sc.icon}</span>
+        <span class="sit-tile-title">${_esc(sc.title)}</span>
+      </button>
+    `).join("");
+    picker.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-sit-id]");
+      if (!btn) return;
+      _sitState.scenarioId = btn.dataset.sitId;
+      _sitState.turnIdx = 0;
+      _sitState.answered = false;
+      _sitState.showScript = false;
+      renderSituacaoDialogue();
+    });
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function renderSituacaoDialogue() {
+    const sc = SITUACAO_DATA.find(s => s.id === _sitState.scenarioId);
+    if (!sc) { renderSituacao(); return; }
+
+    const t = document.getElementById("tool");
+    t.innerHTML = `
+      <div class="sit-dialogue-header">
+        <button class="sit-action-btn" id="sit-back-to-picker">← Situações</button>
+        <span class="sit-dialogue-title">${sc.icon} ${_esc(sc.title)}</span>
+        <div class="sit-actions">
+          <button class="sit-action-btn${_sitState.showScript ? " primary" : ""}" id="sit-script-btn">📋 Guião</button>
+          <button class="sit-action-btn primary" id="sit-restart-btn">↺ Recomeçar</button>
+        </div>
+      </div>
+      <div id="sit-content"></div>
+    `;
+
+    t.querySelector("#sit-back-to-picker").onclick = renderSituacao;
+    t.querySelector("#sit-restart-btn").onclick = () => {
+      _sitState.turnIdx = 0;
+      _sitState.answered = false;
+      _sitState.showScript = false;
+      renderSituacaoDialogue();
+    };
+    t.querySelector("#sit-script-btn").onclick = () => {
+      _sitState.showScript = !_sitState.showScript;
+      renderSituacaoDialogue();
+    };
+
+    _renderSituacaoContent(sc);
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function _renderSituacaoContent(sc) {
+    const el = document.getElementById("sit-content");
+
+    if (_sitState.showScript) {
+      // Show full script
+      const rows = sc.turns.map((turn, i) => {
+        if (turn.speaker !== "user") {
+          return `<div class="sit-script-turn">
+            <span class="sit-script-speaker">${turn.speaker === "atendente" ? "👤 Atendente" : turn.speaker}</span>
+            <div><div class="sit-script-text">${_esc(turn.text)}</div><div class="sit-script-en">${_esc(turn.en)}</div></div>
+          </div>`;
+        } else {
+          const correctOpt = turn.options.find(o => o.correct);
+          return `<div class="sit-script-turn sit-script-correct">
+            <span class="sit-script-speaker">👤 Tu</span>
+            <div><div class="sit-script-text">${correctOpt ? _esc(correctOpt.text) : "—"}</div><div class="sit-script-en">${correctOpt ? _esc(correctOpt.en) : ""}</div></div>
+          </div>`;
+        }
+      }).join("");
+      el.innerHTML = `<div class="sit-script">${rows}</div>`;
+      return;
+    }
+
+    // Determine counter voice (alternates by turn index for variety)
+    const counterVoice = (_sitState.turnIdx % 4 < 2) ? "joana" : "paulo";
+
+    // Build completed turns
+    const completedTurns = sc.turns.slice(0, _sitState.turnIdx);
+    const turnsHtml = completedTurns.map((turn, i) => {
+      if (turn.speaker === "user") {
+        // Find what was chosen (stored in turn._chosen)
+        const chosen = turn._chosen;
+        if (!chosen) return "";
+        return `<div class="sit-turn user-turn">
+          <span class="sit-avatar">👤</span>
+          <div class="sit-bubble">
+            <div class="sit-bubble-pt">${_esc(chosen.text)}</div>
+            <div class="sit-bubble-en">${_esc(chosen.en)}</div>
+            <button class="sit-bubble-speak" data-speak-pt="${_attr(chosen.text)}">🔊</button>
+          </div>
+        </div>`;
+      } else {
+        const voice = (i % 4 < 2) ? "joana" : "paulo";
+        return `<div class="sit-turn">
+          <span class="sit-avatar">${turn.speaker === "atendente" ? "🏪" : "👤"}</span>
+          <div class="sit-bubble">
+            <div class="sit-bubble-pt">${_esc(turn.text)}</div>
+            <div class="sit-bubble-en">${_esc(turn.en)}</div>
+            <button class="sit-bubble-speak" data-speak-pt="${_attr(turn.text)}">🔊</button>
+          </div>
+        </div>`;
+      }
+    }).join("");
+
+    // Current turn
+    const currentTurn = sc.turns[_sitState.turnIdx];
+    let currentHtml = "";
+
+    if (_sitState.turnIdx >= sc.turns.length) {
+      // Completed!
+      el.innerHTML = `
+        <div class="sit-turns">${turnsHtml}</div>
+        <div class="sit-complete">
+          <div class="sit-complete-icon">🎉</div>
+          <div class="sit-complete-msg">Diálogo concluído!</div>
+          <button class="sit-action-btn primary" id="sit-done-restart">↺ Repetir</button>
+        </div>
+      `;
+      el.querySelector("#sit-done-restart").onclick = () => {
+        _sitState.turnIdx = 0;
+        _sitState.answered = false;
+        sc.turns.forEach(t => delete t._chosen);
+        renderSituacaoDialogue();
+      };
+      _wireSitSpeakBtns(el);
+      return;
+    }
+
+    if (currentTurn.speaker !== "user") {
+      // Counter-party turn — show bubble + auto-play
+      currentHtml = `<div class="sit-turn">
+        <span class="sit-avatar">🏪</span>
+        <div class="sit-bubble">
+          <div class="sit-bubble-pt">${_esc(currentTurn.text)}</div>
+          <div class="sit-bubble-en">${_esc(currentTurn.en)}</div>
+          <button class="sit-bubble-speak" data-speak-pt="${_attr(currentTurn.text)}">🔊</button>
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <button class="sit-next-btn" id="sit-continue-btn" style="display:block">Continuar →</button>
+      </div>`;
+    } else {
+      // User choice turn
+      const opts = shuffleArr([...currentTurn.options]);
+      const optsHtml = opts.map((opt, i) => `
+        <button class="sit-choice${_sitState.answered ? (opt.correct ? " correct" : (opt === currentTurn._chosen ? " wrong" : "")) : ""}"
+          data-opt-idx="${i}"
+          ${_sitState.answered ? "disabled" : ""}>
+          ${_esc(opt.text)}
+          <span style="font-size:12px;color:var(--muted);font-weight:400;display:block;margin-top:3px">${_esc(opt.en)}</span>
+          ${(_sitState.answered && !opt.correct && opt.note) ? `<span class="sit-choice-note">ℹ ${_esc(opt.note)}</span>` : ""}
+        </button>
+      `).join("");
+      currentHtml = `
+        <div class="sit-choices" id="sit-choices">${optsHtml}</div>
+        ${_sitState.answered ? `<button class="sit-next-btn" id="sit-next-btn" style="display:block">Próximo →</button>` : ""}
+      `;
+    }
+
+    el.innerHTML = `
+      <div class="sit-turns">${turnsHtml}</div>
+      ${currentHtml}
+    `;
+
+    // Wire speak buttons on completed turns
+    _wireSitSpeakBtns(el);
+
+    // Wire continue button (counter-party turns)
+    const contBtn = el.querySelector("#sit-continue-btn");
+    if (contBtn) {
+      // Auto-play the counter-party speech
+      speak(currentTurn.text, { voiceOverride: counterVoice });
+      contBtn.onclick = () => {
+        _sitState.turnIdx++;
+        _sitState.answered = false;
+        _renderSituacaoContent(sc);
+      };
+    }
+
+    // Wire choice buttons (user turns)
+    const choicesEl = el.querySelector("#sit-choices");
+    if (choicesEl && !_sitState.answered) {
+      choicesEl.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-opt-idx]");
+        if (!btn) return;
+        const idx = +btn.dataset.optIdx;
+        const chosen = opts[idx];
+        currentTurn._chosen = chosen;
+        _sitState.answered = true;
+        if (chosen.correct) speak(chosen.text);
+        _renderSituacaoContent(sc);
+      });
+    }
+
+    // Wire next button (after user choice)
+    const nextBtn = el.querySelector("#sit-next-btn");
+    if (nextBtn) {
+      nextBtn.onclick = () => {
+        _sitState.turnIdx++;
+        _sitState.answered = false;
+        _renderSituacaoContent(sc);
+      };
+    }
+  }
+
+  function _wireSitSpeakBtns(el) {
+    el.querySelectorAll("[data-speak-pt]").forEach(btn => {
+      btn.onclick = (e) => {
+        e.stopPropagation();
+        speak(btn.dataset.speakPt);
+      };
+    });
+  }
+
   /* ── openTool('estudo') handler — note: this redefines openTool (hoisted last, wins) ── */
   function openTool(name) {
     document.getElementById('home').hidden = true;
@@ -4712,6 +5545,10 @@
       renderFalsos();
     } else if (name === 'do-espanhol') {
       renderDoEspanhol();
+    } else if (name === 'ouvido') {
+      renderOuvido();
+    } else if (name === 'situacao') {
+      renderSituacao();
     } else {
       t.innerHTML = `
         <button class="tool-back" onclick="goHome()">← Voltar</button>
@@ -4743,7 +5580,9 @@
     FALSE_FRIENDS_DATA: v => Array.isArray(v)
       && v.every(x => x.pt && x.gloss && (typeof x.showInBridge === 'boolean') && x.category),
     OUVIDO_DATA: v => v && Array.isArray(v.minimal_pairs) && v.minimal_pairs.length >= 5
-      && v.minimal_pairs.every(p => p.a && p.b && p.gloss),
+      && v.minimal_pairs.every(p => p.a && p.b && p.hint),
+    SITUACAO_DATA: v => Array.isArray(v) && v.length >= 6
+      && v.every(sc => sc.id && sc.title && sc.icon && Array.isArray(sc.turns) && sc.turns.length >= 4),
   };
   function validateAll() {
     const failed = [];
