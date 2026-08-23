@@ -1060,6 +1060,127 @@
     .falsos-arrow { color: #f97316; font-weight: 700; }
     .falsos-es-word { color: #9db5cc; font-style: italic; }
     .falsos-es-gloss { color: var(--muted); }
+
+    /* ── Do Espanhol bridge tool ── */
+    .bridge-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+    .bridge-tab {
+      padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 700;
+      background: var(--bg2); border: 1px solid var(--line); color: var(--muted);
+      cursor: pointer; transition: background .15s, color .15s, border-color .15s;
+    }
+    .bridge-tab.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+    .bridge-tab:hover:not(.active) { background: var(--bg3); border-color: var(--verde2); }
+    .bridge-panel { display: none; }
+    .bridge-panel.active { display: block; }
+
+    /* Tab 1 – Sound Shifts */
+    .shift-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+    .shift-table th {
+      font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); padding: 8px 10px; text-align: left;
+      border-bottom: 2px solid var(--line);
+    }
+    .shift-table td { padding: 10px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    .shift-rule { font-size: 13px; font-weight: 700; color: var(--verde3); font-family: monospace; }
+    .shift-word { font-size: 15px; font-weight: 600; color: var(--chalk); }
+    .shift-en { font-size: 12px; color: var(--muted); }
+    .shift-speak-btn {
+      background: none; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px;
+      font-size: 13px; cursor: pointer; color: var(--chalk); transition: background .12s;
+      margin-left: 4px;
+    }
+    .shift-speak-btn:hover { background: var(--bg3); }
+    .shift-note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 2px; display: block; }
+
+    /* Tab 2 – Vogais Nasais */
+    .nasal-intro { font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.6; }
+    .nasal-pairs { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .nasal-pair {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 14px 16px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    }
+    .nasal-pair-label { font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; min-width: 60px; }
+    .nasal-word-btn {
+      font-size: 18px; font-weight: 700; color: var(--chalk); background: var(--bg3);
+      border: 1px solid var(--line); border-radius: 8px; padding: 6px 14px; cursor: pointer;
+      transition: background .12s, border-color .12s;
+    }
+    .nasal-word-btn:hover { background: var(--verde); border-color: var(--verde2); }
+    .nasal-vs { color: var(--muted); font-size: 14px; }
+    .nasal-gloss { font-size: 12px; color: var(--muted); flex-basis: 100%; margin-top: 2px; }
+    .nasal-random-section { margin-top: 8px; }
+    .nasal-random-btn {
+      background: var(--verde); border: none; border-radius: 10px; color: #fff;
+      font-size: 15px; font-weight: 700; padding: 12px 24px; cursor: pointer;
+      transition: background .15s; width: 100%; margin-bottom: 16px;
+    }
+    .nasal-random-btn:hover { background: var(--verde2); }
+    .nasal-guess-panel {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 20px; text-align: center; display: none;
+    }
+    .nasal-guess-panel.active { display: block; }
+    .nasal-guess-prompt { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+    .nasal-guess-choices { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .nasal-guess-choice {
+      font-size: 18px; font-weight: 700; background: var(--bg3); border: 2px solid var(--line);
+      border-radius: 10px; padding: 10px 22px; cursor: pointer; color: var(--chalk);
+      transition: background .12s, border-color .12s;
+    }
+    .nasal-guess-choice:hover { background: var(--verde); border-color: var(--verde2); }
+    .nasal-guess-choice.correct { border-color: var(--verde3); background: #0b3a1a; }
+    .nasal-guess-choice.wrong { border-color: var(--vermelho); background: #2d0a09; }
+    .nasal-score { font-size: 13px; color: var(--muted); margin-top: 12px; }
+
+    /* Tab 3 – Grammar Delta flip-cards */
+    .delta-intro { font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+    .delta-cards { display: flex; flex-direction: column; gap: 12px; }
+    .delta-card {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; cursor: pointer;
+    }
+    .delta-card.danger { border-left: 4px solid var(--vermelho); }
+    .delta-card-header {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 16px;
+    }
+    .delta-card-icon { font-size: 18px; }
+    .delta-card-title { font-size: 15px; font-weight: 700; color: var(--chalk); flex: 1; }
+    .delta-card-badge { font-size: 11px; font-weight: 700; background: var(--vermelho); color: #fff; border-radius: 5px; padding: 2px 7px; }
+    .delta-card-chevron { color: var(--muted); font-size: 12px; transition: transform .2s; }
+    .delta-card.open .delta-card-chevron { transform: rotate(180deg); }
+    .delta-card-body {
+      display: none; padding: 0 16px 16px; border-top: 1px solid var(--line);
+    }
+    .delta-card.open .delta-card-body { display: block; }
+    .delta-card-explain { font-size: 14px; color: var(--muted); margin: 12px 0 10px; line-height: 1.6; }
+    .delta-example { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
+    .delta-ex-pt { font-size: 15px; font-weight: 600; color: var(--chalk); }
+    .delta-ex-en { font-size: 13px; color: var(--verde3); }
+    .delta-ex-warn { font-size: 12px; color: #f97316; }
+
+    /* Tab 4 – Bridge Falsos */
+    .bff-intro { font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.5; }
+    .bff-list { display: flex; flex-direction: column; gap: 8px; }
+    .bff-item {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 12px 14px;
+    }
+    .bff-item.hot { border-left: 3px solid #f97316; }
+    .bff-row1 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+    .bff-es-word { font-size: 16px; font-weight: 700; color: #9db5cc; }
+    .bff-arrow { color: #f97316; font-weight: 700; font-size: 14px; }
+    .bff-pt-word { font-size: 16px; font-weight: 700; color: var(--chalk); }
+    .bff-hot-badge { font-size: 12px; }
+    .bff-row2 { font-size: 13px; color: var(--muted); display: flex; gap: 6px; flex-wrap: wrap; align-items: baseline; }
+    .bff-es-gloss { color: #9db5cc; font-style: italic; }
+    .bff-pt-gloss { color: var(--verde3); font-weight: 600; }
+    .bff-trap { font-size: 12px; color: #f97316; margin-top: 4px; }
+    .bff-speak-btn {
+      background: none; border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px;
+      font-size: 12px; cursor: pointer; color: var(--chalk); transition: background .12s;
+    }
+    .bff-speak-btn:hover { background: var(--bg3); }
   </style>
 </head>
 <body>
@@ -4159,6 +4280,421 @@
     t.scrollTop = 0; window.scrollTo(0, 0);
   }
 
+  /* ══════════════════════════════════════════════════════════════
+     DO ESPANHOL — Task 1.10
+     ES→PT bridge: sound shifts, nasal drill, grammar deltas, false friends
+     ══════════════════════════════════════════════════════════════ */
+
+  const SOUND_SHIFTS = [
+    { rule: '-ción → -ção',     es: 'nación',   pt: 'nação',    en: 'nation',       note: null },
+    { rule: '-dad → -dade',     es: 'verdad',   pt: 'verdade',  en: 'truth',        note: null },
+    { rule: '-ción → -ção',     es: 'acción',   pt: 'ação',     en: 'action',       note: null },
+    { rule: 'ñ → nh',           es: 'señor',    pt: 'senhor',   en: 'sir / Mr',     note: null },
+    { rule: 'ñ → nh',           es: 'año',      pt: 'ano',      en: 'year',         note: 'PT drops the nasal diacritic but shifts the sound' },
+    { rule: 'll → lh',          es: 'billete',  pt: 'bilhete',  en: 'ticket',       note: 'Only inside words — initial ll in ES = different sound' },
+    { rule: 'h- → f-',          es: 'hacer',    pt: 'fazer',    en: 'to do / make', note: 'Latin F- → ES h- (silent), PT kept F-' },
+    { rule: 'h- → f-',          es: 'hijo',     pt: 'filho',    en: 'son',          note: null },
+    { rule: 'h- → f-',          es: 'hablar',   pt: 'falar',    en: 'to speak',     note: null },
+    { rule: '-ue- → -o-',       es: 'bueno',    pt: 'bom',      en: 'good',         note: 'ES diphthong collapses in PT' },
+    { rule: '-ue- → -o-',       es: 'puedo',    pt: 'posso',    en: 'I can',        note: null },
+    { rule: '-ue- → -o-',       es: 'muerte',   pt: 'morte',    en: 'death',        note: null },
+    { rule: '-ie- → -e-',       es: 'tiene',    pt: 'tem',      en: 'has / have',   note: 'ES diphthong collapses in PT' },
+    { rule: '-ie- → -e-',       es: 'pierdo',   pt: 'perco',    en: 'I lose',       note: null },
+    { rule: '-eño/-ño → -enho', es: 'pequeño',  pt: 'pequenino',en: 'small / little',note: 'PT often uses -inho diminutive instead' },
+  ];
+
+  // Dedupe display: collapse same-rule rows into grouped display
+  // Raw data kept expanded for flexibility; renderDoEspanhol groups them.
+
+  const MINIMAL_PAIRS = [
+    { a: 'pão',  b: 'pau',   gloss: 'bread vs stick/pole' },
+    { a: 'mão',  b: 'mau',   gloss: 'hand vs bad (m)' },
+    { a: 'põe',  b: 'pôr',   gloss: 'puts vs to put (inf)' },
+    { a: 'pães', b: 'país',  gloss: 'breads vs country' },
+    { a: 'são',  b: 'sã',    gloss: 'healthy (m) vs healthy (f) / saint' },
+    { a: 'vão',  b: 'vão',   gloss: 'they go vs hollow/empty — context pair' },
+    { a: 'lã',   b: 'lá',    gloss: 'wool vs there' },
+    { a: 'irmã', b: 'irma',  gloss: 'sister (nasal) vs sister (spoken fast — note vowel quality)' },
+  ];
+
+  window.OUVIDO_DATA = { minimal_pairs: MINIMAL_PAIRS };
+
+  const GRAMMAR_DELTAS = [
+    {
+      id: 'inf-pessoal',
+      icon: '🔀',
+      title: 'Infinitivo Pessoal',
+      danger: false,
+      explain: 'PT has an inflected infinitive — the infinitive conjugates by person. No equivalent in ES. Used after prepositions and in certain clauses.',
+      examples: [
+        { pt: 'para eu falar',     en: 'for me to speak',    warn: null },
+        { pt: 'antes de eles irem', en: 'before they go',   warn: null },
+        { pt: 'É importante falares devagar.', en: 'It\'s important for you to speak slowly.', warn: null },
+      ],
+    },
+    {
+      id: 'ter-auxiliar',
+      icon: '⚠️',
+      title: 'Ter como auxiliar',
+      danger: true,
+      explain: 'DANGER ZONE. In PT, "tenho comido" ≠ Spanish "he comido". It means a recently-repeated or ongoing action — NOT simple past. For simple past use Pretérito Perfeito Simples: "comi" not "tenho comido".',
+      examples: [
+        { pt: 'tenho comido muito',    en: 'I\'ve been eating a lot (recently, repeated habit)', warn: '≠ ES "he comido" (just means I ate)' },
+        { pt: 'comi ontem',            en: 'I ate yesterday',       warn: 'Use THIS for simple past, not tenho comido' },
+        { pt: 'tenho visto esse filme', en: 'I\'ve been watching that film (several times recently)', warn: null },
+      ],
+    },
+    {
+      id: 'enclise',
+      icon: '📎',
+      title: 'Ênclise vs Próclise',
+      danger: false,
+      explain: 'Default word order puts pronouns AFTER the verb (ênclise). But negatives, subordinators, and certain words trigger BEFORE the verb (próclise). ES almost always uses próclise.',
+      examples: [
+        { pt: 'Dá-me o sal.',      en: 'Give me the salt. (ênclise)',      warn: null },
+        { pt: 'Chamo-me Paulo.',   en: 'My name is Paulo. (ênclise)',       warn: null },
+        { pt: 'Não me digas isso.', en: 'Don\'t tell me that. (próclise — triggered by não)', warn: null },
+      ],
+    },
+    {
+      id: 'futuro-conjuntivo',
+      icon: '🔮',
+      title: 'Futuro do Conjuntivo',
+      danger: false,
+      explain: 'Portuguese has a living Future Subjunctive — dead in modern ES (only in legal/archaic texts). Used after "quando", "se", "enquanto" for future actions. ES speakers typically use Presente Indicativo instead — PT speakers notice and correct.',
+      examples: [
+        { pt: 'Quando fores a Lisboa…',   en: 'When you go to Lisbon…',   warn: 'ES: "cuando vayas" (present subj.) — same effect, different form' },
+        { pt: 'Se puderes, liga.',         en: 'If you can, call.',         warn: null },
+        { pt: 'Enquanto viveres, aprende.', en: 'While you live, learn.',  warn: null },
+      ],
+    },
+    {
+      id: 'contracoes',
+      icon: '🔗',
+      title: 'Contrações Obrigatórias',
+      danger: false,
+      explain: 'PT contracts prepositions with articles obligatorily. These are NOT optional — missing them sounds foreign. "de + o = do", "em + a = na", "a + a = à" (grave accent marks the contraction with feminine def. art.).',
+      examples: [
+        { pt: 'do mercado (de + o)',   en: 'from the market',      warn: null },
+        { pt: 'na mesa (em + a)',      en: 'on the table',         warn: null },
+        { pt: 'pelo parque (por + o)', en: 'through the park',     warn: null },
+        { pt: 'à porta (a + a)',       en: 'at the door',          warn: 'Grave accent distinguishes à (contraction) from a (preposition)' },
+      ],
+    },
+    {
+      id: 'ortografia',
+      icon: '✍️',
+      title: 'Ortografia Diferente',
+      danger: false,
+      explain: 'PT uses nh/lh instead of ñ/ll. Adds ã/õ (nasal diphthongs) and â/ê/ô (circumflex). Uses ç before a/o/u. No double consonants (except rr/ss). IPA: same word, different spelling.',
+      examples: [
+        { pt: 'senhor / senhora',   en: 'ES: señor / señora',   warn: null },
+        { pt: 'filho / filha',      en: 'ES: hijo / hija',      warn: null },
+        { pt: 'maçã, irmão, leão', en: 'nasal vowels with tilde', warn: 'ã/ão are nasal — no ES equivalent' },
+      ],
+    },
+    {
+      id: 'x-pronunciations',
+      icon: '❌',
+      title: '"x" tem 4 pronúncias',
+      danger: false,
+      explain: 'The letter "x" in PT is notoriously unpredictable — four possible sounds. Must be learned word-by-word or guessed from etymology.',
+      examples: [
+        { pt: 'xarope [ʃ]',      en: 'syrup — like "sh"',       warn: null },
+        { pt: 'táxi [ks]',       en: 'taxi — like English "x"', warn: null },
+        { pt: 'exemplo [z]',     en: 'example — "gz" sound',    warn: null },
+        { pt: 'próximo [s]',     en: 'next — plain "s"',        warn: null },
+      ],
+    },
+  ];
+
+  /* ── nasal game state (session only) ── */
+  const _nasalState = {
+    score: 0, total: 0, currentPair: null, currentWord: null,
+  };
+  function _nasalScore() {
+    return JSON.parse(localStorage.getItem('dezasseis:nasal_score') || '{"s":0,"t":0}');
+  }
+  function _nasalSaveScore(s, t) {
+    localStorage.setItem('dezasseis:nasal_score', JSON.stringify({s, t}));
+  }
+
+  function renderDoEspanhol() {
+    const t = document.getElementById('tool');
+
+    // Build the initial HTML (Tab 1 active by default)
+    t.innerHTML = `
+      <button class="tool-back" id="de-back-btn">← Voltar</button>
+      <div class="tool-name">Do Espanhol</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:18px;">ES→PT bridge · transformações, sons, gramática, armadilhas</div>
+
+      <div class="bridge-tabs" id="bridge-tab-bar">
+        <button class="bridge-tab active" data-bridge-tab="shifts">🔊 Sons</button>
+        <button class="bridge-tab" data-bridge-tab="nasais">👃 Nasais</button>
+        <button class="bridge-tab" data-bridge-tab="gramatica">🧠 Gramática</button>
+        <button class="bridge-tab" data-bridge-tab="falsos">🔥 Falsos Amigos</button>
+      </div>
+
+      <div id="bridge-panel-shifts" class="bridge-panel active">
+        ${_renderShifts()}
+      </div>
+
+      <div id="bridge-panel-nasais" class="bridge-panel">
+        ${_renderNasais()}
+      </div>
+
+      <div id="bridge-panel-gramatica" class="bridge-panel">
+        ${_renderGramatica()}
+      </div>
+
+      <div id="bridge-panel-falsos" class="bridge-panel">
+        ${_renderBridgeFalsos()}
+      </div>
+    `;
+
+    // Back button
+    t.querySelector('#de-back-btn').addEventListener('click', goHome);
+
+    // Tab switching
+    t.querySelector('#bridge-tab-bar').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-bridge-tab]');
+      if (!btn) return;
+      const tab = btn.dataset.bridgeTab;
+      t.querySelectorAll('.bridge-tab').forEach(b => b.classList.toggle('active', b === btn));
+      t.querySelectorAll('.bridge-panel').forEach(p => {
+        p.classList.toggle('active', p.id === `bridge-panel-${tab}`);
+      });
+    });
+
+    // Sound shift speak buttons (delegated)
+    t.querySelector('#bridge-panel-shifts').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-shift-speak]');
+      if (!btn) return;
+      e.stopPropagation();
+      const voice = btn.dataset.shiftVoice || null;
+      speak(btn.dataset.shiftSpeak, voice ? { voiceOverride: voice } : {});
+    });
+
+    // Nasal word buttons (delegated)
+    t.querySelector('#bridge-panel-nasais').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-nasal-word]');
+      if (btn) { e.stopPropagation(); speak(btn.dataset.nasalWord); return; }
+      const rbtn = e.target.closest('#nasal-random-btn');
+      if (rbtn) { _nasalStartRound(t); return; }
+      const choice = e.target.closest('[data-nasal-choice]');
+      if (choice) { _nasalGuess(t, choice.dataset.nasalChoice); return; }
+    });
+
+    // Grammar delta cards (delegated)
+    t.querySelector('#bridge-panel-gramatica').addEventListener('click', (e) => {
+      const card = e.target.closest('.delta-card');
+      if (card) {
+        const exBtn = e.target.closest('[data-delta-speak]');
+        if (exBtn) {
+          e.stopPropagation();
+          speak(exBtn.dataset.deltaSpeak);
+          return;
+        }
+        card.classList.toggle('open');
+      }
+    });
+
+    // Bridge false friends speak (delegated)
+    t.querySelector('#bridge-panel-falsos').addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-bff-speak]');
+      if (!btn) return;
+      e.stopPropagation();
+      const voice = btn.dataset.bffVoice || null;
+      speak(btn.dataset.bffSpeak, voice ? { voiceOverride: voice } : {});
+    });
+
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function _renderShifts() {
+    // Group rows by rule, show first example per unique rule
+    const seen = new Set();
+    const rows = SOUND_SHIFTS.filter(s => {
+      const k = s.rule + s.es;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+
+    const rowsHtml = rows.map(s => `
+      <tr>
+        <td><span class="shift-rule">${_esc(s.rule)}</span></td>
+        <td>
+          <span class="shift-word">${_esc(s.es)}</span>
+          <button class="shift-speak-btn" data-shift-speak="${_attr(s.es)}" data-shift-voice="sarah" title="Ouvir em ES">🔊</button>
+          <span class="shift-en">${_esc(s.en)}</span>
+          ${s.note ? `<span class="shift-note">${_esc(s.note)}</span>` : ''}
+        </td>
+        <td>
+          <span class="shift-word">${_esc(s.pt)}</span>
+          <button class="shift-speak-btn" data-shift-speak="${_attr(s.pt)}" title="Ouvir em PT">🔊</button>
+        </td>
+      </tr>
+    `).join('');
+
+    return `
+      <p style="font-size:14px;color:var(--muted);margin-bottom:14px;line-height:1.5;">
+        Transformações sistemáticas de ES→PT. Tap 🔊 para ouvir cada palavra.
+        <span style="color:#9db5cc">ES</span> usa Sarah · <span style="color:var(--chalk)">PT</span> usa Joana.
+      </p>
+      <table class="shift-table">
+        <thead>
+          <tr>
+            <th>Regra</th>
+            <th><span style="color:#9db5cc">ES</span></th>
+            <th>PT</th>
+          </tr>
+        </thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+    `;
+  }
+
+  function _renderNasais() {
+    const sc = _nasalScore();
+    const pairsHtml = MINIMAL_PAIRS.map(p => `
+      <div class="nasal-pair">
+        <span class="nasal-pair-label">Nasal</span>
+        <button class="nasal-word-btn" data-nasal-word="${_attr(p.a)}">${_esc(p.a)}</button>
+        <span class="nasal-vs">vs</span>
+        <button class="nasal-word-btn" data-nasal-word="${_attr(p.b)}">${_esc(p.b)}</button>
+        <span class="nasal-gloss">${_esc(p.gloss)}</span>
+      </div>
+    `).join('');
+
+    return `
+      <p class="nasal-intro">
+        Pares mínimos — a única diferença é a vogal nasal. Tap em qualquer palavra para ouvir.
+        Depois usa o modo aleatório para treinar.
+      </p>
+      <div class="nasal-pairs">${pairsHtml}</div>
+      <div class="nasal-random-section">
+        <button class="nasal-random-btn" id="nasal-random-btn">▶ Jogar — ouvir e adivinhar</button>
+        <div class="nasal-guess-panel" id="nasal-guess-panel">
+          <div class="nasal-guess-prompt" id="nasal-guess-prompt">Ouve e escolhe…</div>
+          <div class="nasal-guess-choices" id="nasal-guess-choices"></div>
+          <div class="nasal-score" id="nasal-score">Pontuação: ${sc.s}/${sc.t}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function _nasalStartRound(t) {
+    const pair = MINIMAL_PAIRS[Math.floor(Math.random() * MINIMAL_PAIRS.length)];
+    const words = [pair.a, pair.b];
+    const target = words[Math.floor(Math.random() * 2)];
+    _nasalState.currentPair = pair;
+    _nasalState.currentWord = target;
+
+    const panel = t.querySelector('#nasal-guess-panel');
+    panel.classList.add('active');
+    t.querySelector('#nasal-guess-prompt').textContent = 'A tocar… escolhe a palavra que ouviste:';
+    const choicesEl = t.querySelector('#nasal-guess-choices');
+    choicesEl.innerHTML = words.map(w =>
+      `<button class="nasal-guess-choice" data-nasal-choice="${_attr(w)}">${_esc(w)}</button>`
+    ).join('');
+
+    speak(target);
+  }
+
+  function _nasalGuess(t, chosen) {
+    const correct = chosen === _nasalState.currentWord;
+    const sc = _nasalScore();
+    sc.t++;
+    if (correct) sc.s++;
+    _nasalSaveScore(sc.s, sc.t);
+
+    t.querySelectorAll('[data-nasal-choice]').forEach(btn => {
+      if (btn.dataset.nasalChoice === _nasalState.currentWord) btn.classList.add('correct');
+      else if (btn.dataset.nasalChoice === chosen && !correct) btn.classList.add('wrong');
+      btn.style.pointerEvents = 'none';
+    });
+    t.querySelector('#nasal-score').textContent = `Pontuação: ${sc.s}/${sc.t}`;
+
+    // Auto-next after 1.4s
+    setTimeout(() => {
+      t.querySelectorAll('[data-nasal-choice]').forEach(btn => {
+        btn.classList.remove('correct', 'wrong');
+        btn.style.pointerEvents = '';
+      });
+      _nasalStartRound(t);
+    }, 1400);
+  }
+
+  function _renderGramatica() {
+    const cardsHtml = GRAMMAR_DELTAS.map(card => {
+      const exHtml = card.examples.map(ex => `
+        <div class="delta-example">
+          <span class="delta-ex-pt">${_esc(ex.pt)}</span>
+          <button class="shift-speak-btn" data-delta-speak="${_attr(ex.pt)}" title="Ouvir">🔊</button>
+          <span class="delta-ex-en">"${_esc(ex.en)}"</span>
+          ${ex.warn ? `<span class="delta-ex-warn">⚠ ${_esc(ex.warn)}</span>` : ''}
+        </div>
+      `).join('');
+
+      return `<div class="delta-card${card.danger ? ' danger' : ''}" data-delta-id="${card.id}">
+        <div class="delta-card-header">
+          <span class="delta-card-icon">${card.icon}</span>
+          <span class="delta-card-title">${_esc(card.title)}</span>
+          ${card.danger ? '<span class="delta-card-badge">DANGER</span>' : ''}
+          <span class="delta-card-chevron">▼</span>
+        </div>
+        <div class="delta-card-body">
+          <p class="delta-card-explain">${card.explain}</p>
+          ${exHtml}
+        </div>
+      </div>`;
+    }).join('');
+
+    return `
+      <p class="delta-intro">Tap em cada carta para abrir. As principais diferenças gramaticais entre ES e PT.</p>
+      <div class="delta-cards">${cardsHtml}</div>
+    `;
+  }
+
+  function _renderBridgeFalsos() {
+    const items = FALSE_FRIENDS_DATA.filter(x => x.showInBridge && x.esWord);
+    const html = items.map(item => `
+      <div class="bff-item${item.hot ? ' hot' : ''}">
+        <div class="bff-row1">
+          ${item.hot ? '<span class="bff-hot-badge">🔥</span>' : ''}
+          <span class="bff-es-word">${_esc(item.esWord)}</span>
+          <button class="bff-speak-btn" data-bff-speak="${_attr(item.esWord)}" data-bff-voice="sarah" title="Ouvir ES">🔊 ES</button>
+          <span class="bff-arrow">→</span>
+          <span class="bff-pt-word">${_esc(item.pt)}</span>
+          <button class="bff-speak-btn" data-bff-speak="${_attr(item.pt)}" title="Ouvir PT">🔊 PT</button>
+        </div>
+        <div class="bff-row2">
+          <span>ES <span class="bff-es-gloss">"${_esc(item.esGloss)}"</span></span>
+          <span>·</span>
+          <span>PT <span class="bff-pt-gloss">"${_esc(item.gloss)}"</span></span>
+        </div>
+        ${item.hot ? `<div class="bff-trap">⚠ Armadilha frequente — significados completamente diferentes</div>` : ''}
+      </div>
+    `).join('');
+
+    return `
+      <p class="bff-intro">
+        Palavras que ES speakers assumem erradas. 🔥 = armadilha frequente.
+        Tap 🔊 ES para ouvir em espanhol (Sarah) · 🔊 PT para português (Joana).
+      </p>
+      <div class="bff-list">${html}</div>
+    `;
+  }
+
+  /* ── HTML escape helpers ── */
+  function _esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function _attr(s) {
+    return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
   /* ── openTool('estudo') handler — note: this redefines openTool (hoisted last, wins) ── */
   function openTool(name) {
     document.getElementById('home').hidden = true;
@@ -4174,6 +4710,8 @@
       renderObjetos();
     } else if (name === 'falsos') {
       renderFalsos();
+    } else if (name === 'do-espanhol') {
+      renderDoEspanhol();
     } else {
       t.innerHTML = `
         <button class="tool-back" onclick="goHome()">← Voltar</button>
@@ -4204,6 +4742,8 @@
         && cat.items.every(n => n.article && n.noun && n.en && typeof n.esGenderDiffers === 'boolean')),
     FALSE_FRIENDS_DATA: v => Array.isArray(v)
       && v.every(x => x.pt && x.gloss && (typeof x.showInBridge === 'boolean') && x.category),
+    OUVIDO_DATA: v => v && Array.isArray(v.minimal_pairs) && v.minimal_pairs.length >= 5
+      && v.minimal_pairs.every(p => p.a && p.b && p.gloss),
   };
   function validateAll() {
     const failed = [];
