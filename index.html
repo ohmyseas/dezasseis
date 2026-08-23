@@ -6187,6 +6187,720 @@
     `).join("");
   }
 
+  /* ══════════════════════════════════════════════════════
+     TASK 3.1 — NÚMEROS
+     ══════════════════════════════════════════════════════ */
+
+  /* pt-PT number-to-words engine */
+  const _PT_ONES = ["", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove",
+    "dez", "onze", "doze", "treze", "catorze", "quinze", "dezasseis", "dezassete", "dezoito", "dezanove"];
+  const _PT_TENS = ["", "", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"];
+  const _PT_HUNDREDS_M = ["", "cento", "duzentos", "trezentos", "quatrocentos", "quinhentos",
+    "seiscentos", "setecentos", "oitocentos", "novecentos"];
+  const _PT_HUNDREDS_F = ["", "cento", "duzentas", "trezentas", "quatrocentas", "quinhentas",
+    "seiscentas", "setecentas", "oitocentas", "novecentas"];
+
+  function numberToPtWords(n, feminine) {
+    n = Math.floor(n);
+    if (n < 0 || n > 999999999) return "fora do intervalo";
+    if (n === 0) return "zero";
+    if (n === 100) return feminine ? "cem" : "cem";
+
+    function _below1000(x, fem) {
+      if (x === 0) return "";
+      if (x === 100) return "cem";
+      const h = Math.floor(x / 100);
+      const rem = x % 100;
+      const hundreds = h > 0 ? (fem ? _PT_HUNDREDS_F[h] : _PT_HUNDREDS_M[h]) : "";
+      let lower = "";
+      if (rem > 0) {
+        if (rem < 20) {
+          // ones: apply gender only to 1 and 2
+          if (rem === 1) lower = fem ? "uma" : "um";
+          else if (rem === 2) lower = fem ? "duas" : "dois";
+          else lower = _PT_ONES[rem];
+        } else {
+          const t = Math.floor(rem / 10);
+          const o = rem % 10;
+          let tensStr = _PT_TENS[t];
+          let onesStr = "";
+          if (o === 1) onesStr = fem ? "uma" : "um";
+          else if (o === 2) onesStr = fem ? "duas" : "dois";
+          else if (o > 0) onesStr = _PT_ONES[o];
+          lower = o > 0 ? tensStr + " e " + onesStr : tensStr;
+        }
+      }
+      if (hundreds && lower) return hundreds + " e " + lower;
+      return hundreds || lower;
+    }
+
+    const parts = [];
+    const millions = Math.floor(n / 1000000);
+    const thousands = Math.floor((n % 1000000) / 1000);
+    const remainder = n % 1000;
+
+    if (millions > 0) {
+      const mWord = _below1000(millions, false);
+      if (millions === 1) parts.push("um milhão");
+      else parts.push(mWord + " milhões");
+    }
+
+    if (thousands > 0) {
+      if (thousands === 1) {
+        parts.push("mil");
+      } else {
+        parts.push(_below1000(thousands, false) + " mil");
+      }
+    }
+
+    if (remainder > 0) {
+      // After millions+de the remainder joins without 'e' (milhão de euros handles differently)
+      // But between mil and remainder we need 'e' if remainder < 100 or remainder has no hundreds
+      parts.push(_below1000(remainder, feminine));
+    }
+
+    // Join: standard PT uses 'e' between all components except after milhão
+    if (parts.length === 1) return parts[0];
+
+    // Between millions and rest: use space (the 'de' is for units after milhão, not numeric joining)
+    // Between thousands and remainder: use 'e' if remainder < 100 or remainder's hundreds portion is zero
+    if (parts.length === 2) {
+      const needsE = millions > 0
+        ? false  // "dois milhões trezentos" — no e at this junction (PT convention)
+        : (remainder < 100 || remainder % 100 !== 0) && thousands > 0
+          ? true
+          : false;
+      return needsE ? parts[0] + " e " + parts[1] : parts[0] + " " + parts[1];
+    }
+
+    // 3 parts: millions thousands remainder
+    const joinThousRem = (remainder < 100 || remainder % 100 !== 0) ? " e " : " ";
+    return parts[0] + " " + parts[1] + joinThousRem + parts[2];
+  }
+
+  const NUMBERS_LANDMARKS = [
+    { n: 10,  label: "10" }, { n: 21, label: "21" }, { n: 100, label: "100" },
+    { n: 101, label: "101" }, { n: 200, label: "200" }, { n: 999, label: "999" },
+    { n: 1000, label: "1 000" }, { n: 1999, label: "1 999" },
+    { n: 100000, label: "100 000" }, { n: 1000000, label: "1 000 000" },
+  ];
+  window.NUMBERS_LANDMARKS = NUMBERS_LANDMARKS;
+
+  const ORDINALS_PT = [
+    { n: "1º", pt: "primeiro", f: "primeira" },
+    { n: "2º", pt: "segundo",  f: "segunda"  },
+    { n: "3º", pt: "terceiro", f: "terceira" },
+    { n: "4º", pt: "quarto",   f: "quarta"   },
+    { n: "5º", pt: "quinto",   f: "quinta"   },
+    { n: "6º", pt: "sexto",    f: "sexta"    },
+    { n: "7º", pt: "sétimo",   f: "sétima"   },
+    { n: "8º", pt: "oitavo",   f: "oitava"   },
+    { n: "9º", pt: "nono",     f: "nona"     },
+    { n: "10º", pt: "décimo",  f: "décima"   },
+  ];
+  window.ORDINALS_PT = ORDINALS_PT;
+
+  function renderNumeros() {
+    const t = document.getElementById("tool");
+    t.innerHTML = `
+      <button class="tool-back" id="num-back-btn">← Voltar</button>
+      <div class="tool-name">Números</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:18px;">Conversor infinito 0–999.999.999 · pt-PT</div>
+
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px;">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px;">
+          <input id="num-input" type="number" min="0" max="999999999" placeholder="Escreve um número…"
+            style="flex:1;min-width:160px;background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:16px;font-family:inherit;color:var(--chalk);outline:none;transition:border-color .15s;">
+          <label style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);white-space:nowrap;cursor:pointer;">
+            <input type="checkbox" id="num-fem" style="width:16px;height:16px;accent-color:var(--verde);">
+            feminino
+          </label>
+        </div>
+        <div id="num-output" style="font-size:22px;font-weight:700;color:var(--verde3);min-height:32px;margin-bottom:10px;word-break:break-word;"></div>
+        <button id="num-speak-btn" style="display:none;background:var(--verde);border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;padding:9px 18px;cursor:pointer;">🔊 Ouvir</button>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Atalhos rápidos</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;" id="num-landmarks"></div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:20px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--verde3);margin-bottom:12px;">Regras pt-PT</div>
+        <div style="font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px;line-height:1.6;">
+          <div>· <b style="color:var(--chalk)">cem</b> (exatamente 100) vs <b style="color:var(--chalk)">cento</b> (101+)</div>
+          <div>· Género 200–900: <b style="color:var(--chalk)">duzentas casas</b> / <b style="color:var(--chalk)">duzentos livros</b></div>
+          <div>· <b style="color:var(--chalk)">mil</b> não tem plural — "dois mil", nunca "dois mils"</div>
+          <div>· <b style="color:var(--chalk)">um milhão de euros</b> — "de" obrigatório antes da unidade</div>
+          <div>· <b style="color:var(--chalk)">e</b> obrigatório entre componentes: "vinte e um", "mil e duzentos"</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--verde3);margin-bottom:12px;">Ordinais 1º–10º</div>
+        <div style="display:flex;flex-direction:column;gap:4px;" id="num-ordinals"></div>
+      </div>
+    `;
+    t.querySelector("#num-back-btn").onclick = goHome;
+
+    // Landmarks
+    const landmarksEl = t.querySelector("#num-landmarks");
+    NUMBERS_LANDMARKS.forEach(lm => {
+      const btn = document.createElement("button");
+      btn.textContent = lm.label;
+      btn.style.cssText = "padding:5px 12px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--bg3);color:var(--chalk);cursor:pointer;transition:background .12s,border-color .12s;";
+      btn.onclick = () => {
+        t.querySelector("#num-input").value = lm.n;
+        updateOutput();
+      };
+      landmarksEl.appendChild(btn);
+    });
+
+    // Ordinals
+    const ordinalsEl = t.querySelector("#num-ordinals");
+    ordinalsEl.innerHTML = ORDINALS_PT.map(o =>
+      `<div style="display:flex;align-items:center;gap:10px;padding:5px 0;border-bottom:1px solid #111922;">
+        <span style="width:36px;font-size:13px;color:var(--muted);">${o.n}</span>
+        <span style="font-size:15px;font-weight:600;color:var(--chalk);flex:1;">${o.pt} / ${o.f}</span>
+        <button data-speak-ordinal="${o.pt}" style="background:transparent;border:1px solid transparent;border-radius:6px;padding:3px 7px;color:#3a5268;cursor:pointer;font-size:14px;transition:background .12s,color .12s;" title="Ouvir">🔊</button>
+      </div>`
+    ).join("");
+
+    function updateOutput() {
+      const raw = t.querySelector("#num-input").value.trim();
+      const fem = t.querySelector("#num-fem").checked;
+      const outEl = t.querySelector("#num-output");
+      const speakBtn = t.querySelector("#num-speak-btn");
+      if (raw === "") { outEl.textContent = ""; speakBtn.style.display = "none"; return; }
+      const n = parseInt(raw, 10);
+      if (isNaN(n) || n < 0 || n > 999999999) {
+        outEl.textContent = "Número fora do intervalo (0–999 999 999)";
+        outEl.style.color = "#f87171";
+        speakBtn.style.display = "none";
+        return;
+      }
+      const words = numberToPtWords(n, fem);
+      outEl.textContent = words;
+      outEl.style.color = "var(--verde3)";
+      speakBtn.style.display = "inline-flex";
+      speakBtn.dataset.speakNum = words;
+    }
+
+    t.querySelector("#num-input").addEventListener("input", updateOutput);
+    t.querySelector("#num-fem").addEventListener("change", updateOutput);
+    t.querySelector("#num-speak-btn").addEventListener("click", () => {
+      const btn = t.querySelector("#num-speak-btn");
+      if (btn.dataset.speakNum) speak(btn.dataset.speakNum);
+    });
+
+    t.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-speak-ordinal]");
+      if (btn) speak(btn.dataset.speakOrdinal);
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════
+     TASK 3.2 — TEMPO E DATAS
+     ══════════════════════════════════════════════════════ */
+
+  const TIME_DATA = [
+    {
+      category: "Dias da semana",
+      note: "Em pt-PT os dias são numerados a partir de segunda (=2ª feira). Domingo = 1º dia litúrgico mas 7º na semana civil.",
+      items: [
+        { pt: "segunda-feira", en: "Monday (2nd day)", note: "Abrev: 2ª" },
+        { pt: "terça-feira",   en: "Tuesday (3rd day)", note: "Abrev: 3ª" },
+        { pt: "quarta-feira",  en: "Wednesday (4th day)", note: "Abrev: 4ª" },
+        { pt: "quinta-feira",  en: "Thursday (5th day)", note: "Abrev: 5ª" },
+        { pt: "sexta-feira",   en: "Friday (6th day)", note: "Abrev: 6ª" },
+        { pt: "sábado",        en: "Saturday", note: "fim de semana" },
+        { pt: "domingo",       en: "Sunday", note: "fim de semana" },
+      ],
+    },
+    {
+      category: "Meses",
+      note: "Os meses escrevem-se em minúscula em português.",
+      items: [
+        { pt: "janeiro", en: "January" }, { pt: "fevereiro", en: "February" },
+        { pt: "março", en: "March" }, { pt: "abril", en: "April" },
+        { pt: "maio", en: "May" }, { pt: "junho", en: "June" },
+        { pt: "julho", en: "July" }, { pt: "agosto", en: "August" },
+        { pt: "setembro", en: "September" }, { pt: "outubro", en: "October" },
+        { pt: "novembro", en: "November" }, { pt: "dezembro", en: "December" },
+      ],
+    },
+    {
+      category: "Períodos do dia",
+      items: [
+        { pt: "de manhã", en: "in the morning" },
+        { pt: "de tarde", en: "in the afternoon" },
+        { pt: "à noite", en: "at night / in the evening" },
+        { pt: "de madrugada", en: "in the early hours / before dawn" },
+        { pt: "ao meio-dia", en: "at noon" },
+        { pt: "à meia-noite", en: "at midnight" },
+      ],
+    },
+    {
+      category: "Construção de datas",
+      note: "Usa-se cardinal (não ordinal) em linguagem corrente. Só o 1º do mês pode ser 'primeiro'.",
+      items: [
+        { pt: "5 de setembro de 2026", en: "5 September 2026" },
+        { pt: "1 de janeiro", en: "1 January (or 'o primeiro de janeiro')" },
+        { pt: "Estamos a 22 de agosto.", en: "Today is 22 August." },
+        { pt: "Que dia é hoje?", en: "What day is it today?" },
+        { pt: "Que dia é amanhã?", en: "What day is tomorrow?" },
+        { pt: "em que mês estamos?", en: "what month are we in?" },
+      ],
+    },
+    {
+      category: "Horas",
+      note: "Usa-se 'são' para plural, 'é' para 1h e meio-dia/meia-noite.",
+      items: [
+        { pt: "São duas horas.", en: "It is two o'clock." },
+        { pt: "É uma hora.", en: "It is one o'clock." },
+        { pt: "São cinco e meia.", en: "It is half past five." },
+        { pt: "São três e um quarto.", en: "It is quarter past three." },
+        { pt: "Um quarto para as três.", en: "Quarter to three." },
+        { pt: "São dez para as oito.", en: "It is ten to eight." },
+        { pt: "É meio-dia.", en: "It is noon." },
+        { pt: "É meia-noite.", en: "It is midnight." },
+        { pt: "a que horas?", en: "at what time?" },
+        { pt: "às oito em ponto", en: "at eight o'clock sharp" },
+      ],
+    },
+    {
+      category: "Temporais",
+      note: "'Já' pode significar 'right now' ou 'already' dependendo do contexto.",
+      items: [
+        { pt: "agora", en: "now" },
+        { pt: "já", en: "right now / already" },
+        { pt: "logo", en: "soon / later (ambíguo — contexto define)" },
+        { pt: "amanhã", en: "tomorrow" },
+        { pt: "depois de amanhã", en: "the day after tomorrow" },
+        { pt: "ontem", en: "yesterday" },
+        { pt: "anteontem", en: "the day before yesterday" },
+        { pt: "daqui a pouco", en: "in a little while" },
+        { pt: "daqui a uma semana", en: "in a week's time" },
+        { pt: "há três dias", en: "three days ago" },
+        { pt: "há dois anos", en: "two years ago" },
+        { pt: "de vez em quando", en: "from time to time" },
+        { pt: "muitas vezes", en: "often / many times" },
+        { pt: "raramente", en: "rarely" },
+        { pt: "sempre", en: "always" },
+        { pt: "nunca", en: "never" },
+        { pt: "às vezes", en: "sometimes" },
+        { pt: "ainda", en: "still / yet" },
+        { pt: "já não", en: "no longer / not anymore" },
+      ],
+    },
+  ];
+  window.TIME_DATA = TIME_DATA;
+
+  let _tempoTab = 0;
+
+  function renderTempo() {
+    const t = document.getElementById("tool");
+    t.innerHTML = `
+      <button class="tool-back" id="tempo-back-btn">← Voltar</button>
+      <div class="tool-name">Tempo e Datas</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:16px;">Dias · Meses · Horas · Datas · Temporais · cada item fala 🔊</div>
+      <div class="frases-tabs" id="tempo-tabs"></div>
+      <div id="tempo-content"></div>
+    `;
+    t.querySelector("#tempo-back-btn").onclick = goHome;
+
+    function renderTempoPanel() {
+      const tabsEl = t.querySelector("#tempo-tabs");
+      tabsEl.innerHTML = TIME_DATA.map((cat, i) =>
+        `<button class="frases-tab${i === _tempoTab ? " active" : ""}" data-tempo-tab="${i}">${cat.category}</button>`
+      ).join("");
+
+      const cat = TIME_DATA[_tempoTab];
+      const contentEl = t.querySelector("#tempo-content");
+      contentEl.innerHTML = `
+        ${cat.note ? `<div style="font-size:13px;color:#6aadcc;background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--verde);border-radius:0 var(--radius) var(--radius) 0;padding:10px 14px;margin-bottom:12px;line-height:1.5;">${cat.note}</div>` : ""}
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          ${cat.items.map((item, idx) =>
+            `<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;">
+              <div style="flex:1;display:flex;flex-direction:column;gap:3px;">
+                <span style="font-size:16px;font-weight:600;color:var(--chalk);">${item.pt}</span>
+                <span style="font-size:12px;color:var(--muted);">${item.en}</span>
+                ${item.note ? `<span style="font-size:11px;color:#6aadcc;font-style:italic;">${item.note}</span>` : ""}
+              </div>
+              <button data-speak-tempo="${item.pt.replace(/"/g, "&quot;")}" style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:4px 8px;font-size:15px;cursor:pointer;flex-shrink:0;">🔊</button>
+            </div>`
+          ).join("")}
+        </div>
+      `;
+    }
+
+    renderTempoPanel();
+
+    t.querySelector("#tempo-tabs").addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-tempo-tab]");
+      if (!btn) return;
+      _tempoTab = parseInt(btn.dataset.tempoTab, 10);
+      t.querySelectorAll(".frases-tab").forEach(b => b.classList.toggle("active", parseInt(b.dataset.tempoTab, 10) === _tempoTab));
+      renderTempoPanel();
+    });
+
+    t.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-speak-tempo]");
+      if (btn) speak(btn.dataset.speakTempo);
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════
+     TASK 3.3 — COLA GRAMATICAL
+     ══════════════════════════════════════════════════════ */
+
+  const GLUE_DATA = [
+    {
+      category: "Adição",
+      items: [
+        { term: "além disso", gloss: "moreover / besides", example_pt: "Gosto de ler. Além disso, aprendo muito.", example_en: "I like reading. Moreover, I learn a lot.", high_freq: true },
+        { term: "também", gloss: "also / too", example_pt: "Ela também fala francês.", example_en: "She also speaks French.", high_freq: true },
+        { term: "ainda", gloss: "still / also / even", example_pt: "Ainda tens dúvidas?", example_en: "Do you still have doubts?", high_freq: true },
+        { term: "bem como", gloss: "as well as", example_pt: "Trouxe fruta bem como pão.", example_en: "I brought fruit as well as bread.", high_freq: false },
+        { term: "para além de", gloss: "beyond / in addition to", example_pt: "Para além do trabalho, tem três filhos.", example_en: "In addition to work, she has three children.", high_freq: false },
+        { term: "e mais", gloss: "and more", example_pt: "Havia livros, revistas e mais.", example_en: "There were books, magazines and more.", high_freq: false },
+        { term: "acrescentando", gloss: "adding to that", example_pt: "Acrescentando, o preço é acessível.", example_en: "Adding to that, the price is reasonable.", high_freq: false },
+        { term: "igualmente", gloss: "equally / likewise", example_pt: "O diretor esteve igualmente presente.", example_en: "The director was likewise present.", high_freq: false },
+        { term: "de igual modo", gloss: "in the same way", example_pt: "De igual modo, o projeto avançou.", example_en: "In the same way, the project moved forward.", high_freq: false },
+        { term: "outrossim", gloss: "furthermore (formal)", example_pt: "Outrossim, o contrato deve ser revisto.", example_en: "Furthermore, the contract must be revised.", high_freq: false },
+        { term: "não só… mas também", gloss: "not only… but also", example_pt: "Não só fala inglês, mas também japonês.", example_en: "She not only speaks English, but also Japanese.", high_freq: true },
+        { term: "nem", gloss: "neither / nor", example_pt: "Não tenho tempo nem dinheiro.", example_en: "I have neither time nor money.", high_freq: true },
+        { term: "e", gloss: "and (basic additive)", example_pt: "Comprei pão e manteiga.", example_en: "I bought bread and butter.", high_freq: true },
+        { term: "tanto… como", gloss: "both… and", example_pt: "Tanto o pai como a mãe vieram.", example_en: "Both the father and the mother came.", high_freq: false },
+        { term: "a par disso", gloss: "alongside this", example_pt: "A par disso, há outras soluções.", example_en: "Alongside this, there are other solutions.", high_freq: false },
+      ],
+    },
+    {
+      category: "Contraste",
+      items: [
+        { term: "mas", gloss: "but", example_pt: "Quero ir, mas estou cansado.", example_en: "I want to go, but I am tired.", high_freq: true },
+        { term: "contudo", gloss: "however / yet", example_pt: "Estudou muito. Contudo, não passou.", example_en: "He studied hard. However, he did not pass.", high_freq: true },
+        { term: "todavia", gloss: "nevertheless / yet", example_pt: "A tarefa era difícil; todavia, conseguimos.", example_en: "The task was hard; nevertheless, we managed.", high_freq: false },
+        { term: "no entanto", gloss: "however / nonetheless", example_pt: "Não chovia. No entanto, trouxe guarda-chuva.", example_en: "It was not raining. However, I brought an umbrella.", high_freq: true },
+        { term: "porém", gloss: "however / but (literary)", example_pt: "Era caro; porém, valia a pena.", example_en: "It was expensive; however, it was worth it.", high_freq: false },
+        { term: "apesar de", gloss: "despite / in spite of", example_pt: "Apesar da chuva, fomos à praia.", example_en: "Despite the rain, we went to the beach.", high_freq: true },
+        { term: "ao passo que", gloss: "whereas / while", example_pt: "Ela é extrovertida ao passo que ele é tímido.", example_en: "She is extroverted whereas he is shy.", high_freq: false },
+        { term: "enquanto que", gloss: "whereas", example_pt: "Gosto de jazz enquanto que ela prefere rock.", example_en: "I like jazz whereas she prefers rock.", high_freq: false },
+        { term: "em contrapartida", gloss: "on the other hand", example_pt: "Em contrapartida, o custo é menor.", example_en: "On the other hand, the cost is lower.", high_freq: false },
+        { term: "pelo contrário", gloss: "on the contrary", example_pt: "Não estou triste. Pelo contrário, estou feliz.", example_en: "I am not sad. On the contrary, I am happy.", high_freq: true },
+        { term: "em vez de", gloss: "instead of", example_pt: "Em vez de reclamar, age.", example_en: "Instead of complaining, act.", high_freq: true },
+        { term: "se bem que", gloss: "even though / although", example_pt: "Se bem que chovesse, saímos.", example_en: "Even though it was raining, we went out.", high_freq: false },
+        { term: "só que", gloss: "but (colloquial)", example_pt: "Queria ir, só que tinha trabalho.", example_en: "I wanted to go, but I had work.", high_freq: true },
+        { term: "de qualquer forma", gloss: "anyway / in any case", example_pt: "De qualquer forma, vou tentar.", example_en: "In any case, I will try.", high_freq: false },
+        { term: "por outro lado", gloss: "on the other hand", example_pt: "Por outro lado, há vantagens.", example_en: "On the other hand, there are advantages.", high_freq: false },
+      ],
+    },
+    {
+      category: "Causa",
+      items: [
+        { term: "porque", gloss: "because", example_pt: "Fiquei em casa porque estava doente.", example_en: "I stayed home because I was sick.", high_freq: true },
+        { term: "pois", gloss: "because / for (literary)", example_pt: "Não saí, pois chovia muito.", example_en: "I did not go out, for it was raining hard.", high_freq: true },
+        { term: "visto que", gloss: "since / given that", example_pt: "Visto que não há bilhetes, ficamos.", example_en: "Since there are no tickets, we stay.", high_freq: false },
+        { term: "dado que", gloss: "given that", example_pt: "Dado que és especialista, decides tu.", example_en: "Given that you are an expert, you decide.", high_freq: false },
+        { term: "uma vez que", gloss: "since / as (reason)", example_pt: "Uma vez que chegaste tarde, perdeste.", example_en: "Since you arrived late, you missed it.", high_freq: true },
+        { term: "por causa de", gloss: "because of", example_pt: "Atrasámo-nos por causa do trânsito.", example_en: "We were late because of the traffic.", high_freq: true },
+        { term: "já que", gloss: "since / as long as", example_pt: "Já que estás aqui, ajuda-me.", example_en: "Since you are here, help me.", high_freq: true },
+        { term: "por isso", gloss: "therefore / that is why", example_pt: "Choveu muito, por isso ficámos.", example_en: "It rained a lot, that is why we stayed.", high_freq: true },
+        { term: "devido a", gloss: "due to", example_pt: "Cancelaram o voo devido ao nevoeiro.", example_en: "They cancelled the flight due to fog.", high_freq: false },
+        { term: "por motivo de", gloss: "by reason of", example_pt: "Ausente por motivo de doença.", example_en: "Absent by reason of illness.", high_freq: false },
+        { term: "como", gloss: "as / since (cause)", example_pt: "Como não havia táxis, fui a pé.", example_en: "As there were no taxis, I walked.", high_freq: true },
+        { term: "em virtude de", gloss: "by virtue of / owing to", example_pt: "Em virtude das circunstâncias, adiarei.", example_en: "Owing to the circumstances, I will postpone.", high_freq: false },
+        { term: "na medida em que", gloss: "insofar as / to the extent that", example_pt: "Na medida em que é possível, ajuda.", example_en: "Insofar as it is possible, help.", high_freq: false },
+        { term: "tendo em conta que", gloss: "taking into account that", example_pt: "Tendo em conta que é novo, fez bem.", example_en: "Taking into account that he is new, he did well.", high_freq: false },
+        { term: "por razões de", gloss: "for reasons of", example_pt: "Não comentamos por razões de privacidade.", example_en: "We do not comment for reasons of privacy.", high_freq: false },
+      ],
+    },
+    {
+      category: "Consequência",
+      items: [
+        { term: "portanto", gloss: "therefore / so", example_pt: "Não estudou; portanto, chumbou.", example_en: "He did not study; therefore, he failed.", high_freq: true },
+        { term: "por conseguinte", gloss: "consequently / thus", example_pt: "Houve greve; por conseguinte, adiou-se.", example_en: "There was a strike; consequently, it was postponed.", high_freq: false },
+        { term: "logo", gloss: "therefore / thus (logic)", example_pt: "Penso, logo existo.", example_en: "I think, therefore I am.", high_freq: true },
+        { term: "daí que", gloss: "hence / that is why (+ subj)", example_pt: "Daí que seja importante estudar.", example_en: "Hence the importance of studying.", high_freq: false },
+        { term: "assim", gloss: "thus / so / this way", example_pt: "Seguiste as instruções; assim, resultou.", example_en: "You followed the instructions; thus it worked.", high_freq: true },
+        { term: "de modo que", gloss: "so that / in such a way that", example_pt: "Arranjei tudo de modo que funcione.", example_en: "I arranged everything so that it would work.", high_freq: false },
+        { term: "de maneira que", gloss: "in such a way that", example_pt: "Fala devagar de maneira que eu perceba.", example_en: "Speak slowly so that I understand.", high_freq: false },
+        { term: "pelo que", gloss: "which is why / for which reason", example_pt: "Estava ocupado, pelo que não respondi.", example_en: "I was busy, which is why I did not reply.", high_freq: true },
+        { term: "por isso mesmo", gloss: "that is exactly why", example_pt: "Por isso mesmo não quis ir.", example_en: "That is exactly why I did not want to go.", high_freq: false },
+        { term: "então", gloss: "then / so", example_pt: "Não há bilhetes? Então ficamos.", example_en: "No tickets? Then we stay.", high_freq: true },
+        { term: "logo que", gloss: "as soon as (→ consequence)", example_pt: "Logo que chegares, avisa.", example_en: "As soon as you arrive, let me know.", high_freq: false },
+        { term: "tanto que", gloss: "so much that", example_pt: "Riu tanto que chorou.", example_en: "He laughed so much that he cried.", high_freq: false },
+        { term: "a ponto de", gloss: "to the point of", example_pt: "Trabalhou a ponto de desmaiar.", example_en: "He worked to the point of fainting.", high_freq: false },
+        { term: "de tal forma que", gloss: "in such a way that", example_pt: "Falou de tal forma que convenceu todos.", example_en: "He spoke in such a way that he convinced everyone.", high_freq: false },
+        { term: "daí", gloss: "hence / from there", example_pt: "Daí vem a confusão.", example_en: "Hence the confusion.", high_freq: false },
+      ],
+    },
+    {
+      category: "Tempo",
+      items: [
+        { term: "quando", gloss: "when", example_pt: "Quando chegares, telefona.", example_en: "When you arrive, call.", high_freq: true },
+        { term: "enquanto", gloss: "while / as long as", example_pt: "Enquanto ele dormia, ela trabalhava.", example_en: "While he slept, she worked.", high_freq: true },
+        { term: "assim que", gloss: "as soon as", example_pt: "Assim que acabares, avisa.", example_en: "As soon as you finish, let me know.", high_freq: true },
+        { term: "logo que", gloss: "as soon as (formal variant)", example_pt: "Logo que possa, respondo.", example_en: "As soon as I can, I will reply.", high_freq: false },
+        { term: "mal", gloss: "as soon as / no sooner than", example_pt: "Mal entrei, percebi o problema.", example_en: "As soon as I walked in, I noticed the problem.", high_freq: true },
+        { term: "antes de", gloss: "before (+ inf)", example_pt: "Antes de sair, desliga a luz.", example_en: "Before leaving, turn off the light.", high_freq: true },
+        { term: "depois de", gloss: "after (+ inf)", example_pt: "Depois de comer, vou ao ginásio.", example_en: "After eating, I go to the gym.", high_freq: true },
+        { term: "desde que", gloss: "since (point in time)", example_pt: "Não o vejo desde que saiu.", example_en: "I have not seen him since he left.", high_freq: false },
+        { term: "até que", gloss: "until", example_pt: "Esperámos até que chegasse.", example_en: "We waited until he arrived.", high_freq: false },
+        { term: "sempre que", gloss: "whenever / every time", example_pt: "Sempre que posso, viajo.", example_en: "Whenever I can, I travel.", high_freq: false },
+        { term: "à medida que", gloss: "as / as ... goes along", example_pt: "À medida que crescemos, aprendemos.", example_en: "As we grow, we learn.", high_freq: false },
+        { term: "no momento em que", gloss: "at the moment when", example_pt: "No momento em que saí, choveu.", example_en: "At the moment I left, it rained.", high_freq: false },
+        { term: "por fim", gloss: "finally / at last", example_pt: "Por fim, chegámos ao destino.", example_en: "Finally, we reached our destination.", high_freq: false },
+        { term: "entretanto", gloss: "meanwhile / in the meantime", example_pt: "Entretanto, preparei o jantar.", example_en: "Meanwhile, I prepared dinner.", high_freq: false },
+        { term: "de repente", gloss: "suddenly", example_pt: "De repente, parou de chover.", example_en: "Suddenly, it stopped raining.", high_freq: false },
+      ],
+    },
+    {
+      category: "Concessão",
+      items: [
+        { term: "embora", gloss: "although / even though (+ subj)", example_pt: "Embora chovesse, fomos passear.", example_en: "Although it was raining, we went for a walk.", high_freq: true },
+        { term: "mesmo que", gloss: "even if (+ subj)", example_pt: "Mesmo que seja difícil, tentarei.", example_en: "Even if it is difficult, I will try.", high_freq: true },
+        { term: "ainda que", gloss: "even though / even if (+ subj)", example_pt: "Ainda que não queiras, deves ir.", example_en: "Even if you do not want to, you must go.", high_freq: false },
+        { term: "nem que", gloss: "even if / not even if", example_pt: "Não vou, nem que me paguem.", example_en: "I will not go, even if they pay me.", high_freq: false },
+        { term: "por mais que", gloss: "no matter how much", example_pt: "Por mais que tente, não consigo.", example_en: "No matter how much I try, I cannot.", high_freq: false },
+        { term: "por muito que", gloss: "however much", example_pt: "Por muito que custe, é necessário.", example_en: "However painful it is, it is necessary.", high_freq: false },
+        { term: "apesar de que", gloss: "in spite of the fact that", example_pt: "Apesar de que disseste o contrário.", example_en: "In spite of what you said to the contrary.", high_freq: false },
+        { term: "conquanto", gloss: "although / provided that (formal)", example_pt: "Conquanto seja difícil, é possível.", example_en: "Although it is difficult, it is possible.", high_freq: false },
+        { term: "por pior que", gloss: "however bad", example_pt: "Por pior que esteja, segue em frente.", example_en: "However bad things are, press on.", high_freq: false },
+        { term: "seja como for", gloss: "be that as it may", example_pt: "Seja como for, não desisto.", example_en: "Be that as it may, I will not give up.", high_freq: false },
+        { term: "de qualquer modo", gloss: "in any event", example_pt: "De qualquer modo, está decidido.", example_en: "In any event, it is decided.", high_freq: false },
+        { term: "a despeito de", gloss: "despite / in defiance of", example_pt: "A despeito das críticas, avançou.", example_en: "Despite the criticism, she pressed on.", high_freq: false },
+        { term: "sem embargo de", gloss: "notwithstanding (formal)", example_pt: "Sem embargo das dificuldades, concluímos.", example_en: "Notwithstanding the difficulties, we concluded.", high_freq: false },
+        { term: "posto que", gloss: "although / granted that", example_pt: "Posto que seja caro, paga-se.", example_en: "Granted it is expensive, it is worth paying.", high_freq: false },
+        { term: "não obstante", gloss: "notwithstanding / nonetheless", example_pt: "Não obstante os riscos, prosseguimos.", example_en: "Notwithstanding the risks, we proceeded.", high_freq: false },
+      ],
+    },
+    {
+      category: "Reformulação",
+      items: [
+        { term: "ou seja", gloss: "that is / in other words", example_pt: "Chegou tarde, ou seja, perdeu a reunião.", example_en: "He arrived late, in other words, he missed the meeting.", high_freq: true },
+        { term: "isto é", gloss: "that is / i.e.", example_pt: "Há três opções, isto é, A, B e C.", example_en: "There are three options, that is, A, B and C.", high_freq: true },
+        { term: "por outras palavras", gloss: "in other words", example_pt: "Por outras palavras, não é possível.", example_en: "In other words, it is not possible.", high_freq: true },
+        { term: "quer dizer", gloss: "that is to say / I mean", example_pt: "Vem amanhã, quer dizer, se puderes.", example_en: "Come tomorrow, that is to say, if you can.", high_freq: true },
+        { term: "aliás", gloss: "moreover / incidentally / actually", example_pt: "É bom aluno. Aliás, o melhor da turma.", example_en: "He is a good student. Actually, the best in class.", high_freq: true },
+        { term: "na verdade", gloss: "in truth / actually", example_pt: "Na verdade, não sei a resposta.", example_en: "In truth, I do not know the answer.", high_freq: true },
+        { term: "de facto", gloss: "in fact (pt-PT spelling)", example_pt: "De facto, a situação piorou.", example_en: "In fact, the situation has worsened.", high_freq: true },
+        { term: "melhor dizendo", gloss: "to put it better / more precisely", example_pt: "Cometeu um erro — melhor dizendo, vários.", example_en: "He made a mistake — more precisely, several.", high_freq: false },
+        { term: "em suma", gloss: "in sum / to sum up", example_pt: "Em suma, o projeto foi um sucesso.", example_en: "In sum, the project was a success.", high_freq: false },
+        { term: "em resumo", gloss: "in summary", example_pt: "Em resumo, aqui está o que decidimos.", example_en: "In summary, here is what we decided.", high_freq: false },
+        { term: "em poucas palavras", gloss: "in a few words / in short", example_pt: "Em poucas palavras, não funciona.", example_en: "In short, it does not work.", high_freq: false },
+        { term: "a saber", gloss: "namely", example_pt: "Há dois problemas, a saber: custo e tempo.", example_en: "There are two problems, namely: cost and time.", high_freq: false },
+        { term: "dito de outro modo", gloss: "put another way", example_pt: "Dito de outro modo, é impossível.", example_en: "Put another way, it is impossible.", high_freq: false },
+        { term: "mais concretamente", gloss: "more specifically", example_pt: "Mais concretamente, refiro-me ao capítulo 3.", example_en: "More specifically, I am referring to chapter 3.", high_freq: false },
+        { term: "precisamente", gloss: "precisely / exactly", example_pt: "Precisamente. Foi isso que quis dizer.", example_en: "Precisely. That is what I meant.", high_freq: false },
+      ],
+    },
+  ];
+  window.GLUE_DATA = GLUE_DATA;
+
+  let _colaTab = 0;
+
+  function renderCola() {
+    const t = document.getElementById("tool");
+    t.innerHTML = `
+      <button class="tool-back" id="cola-back-btn">← Voltar</button>
+      <div class="tool-name">Cola Gramatical</div>
+      <div style="font-size:13px;color:var(--muted);background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--verde);border-radius:0 var(--radius) var(--radius) 0;padding:12px 16px;margin-bottom:16px;line-height:1.6;">
+        108 conectivos em 7 categorias. Os itens com <span style="display:inline-block;padding:1px 6px;border-radius:8px;background:rgba(9,184,84,.18);border:1px solid var(--verde3);color:var(--verde3);font-size:11px;font-weight:700;">freq</span> são de alta frequência — domina estes primeiro.
+      </div>
+      <div class="frases-tabs" id="cola-tabs"></div>
+      <div id="cola-content"></div>
+    `;
+    t.querySelector("#cola-back-btn").onclick = goHome;
+
+    function renderColaPanel() {
+      const tabsEl = t.querySelector("#cola-tabs");
+      tabsEl.innerHTML = GLUE_DATA.map((cat, i) =>
+        `<button class="frases-tab${i === _colaTab ? " active" : ""}" data-cola-tab="${i}">${cat.category}</button>`
+      ).join("");
+
+      const cat = GLUE_DATA[_colaTab];
+      const contentEl = t.querySelector("#cola-content");
+      contentEl.innerHTML = `
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          ${cat.items.map((item, idx) =>
+            `<div style="background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px;">
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <span style="font-size:16px;font-weight:700;color:var(--chalk);">${item.term}</span>
+                  <span style="font-size:12px;color:var(--muted);font-style:italic;">${item.gloss}</span>
+                  ${item.high_freq ? `<span style="padding:1px 6px;border-radius:8px;background:rgba(9,184,84,.18);border:1px solid var(--verde3);color:var(--verde3);font-size:11px;font-weight:700;">freq</span>` : ""}
+                </div>
+                <button data-speak-cola="${item.term.replace(/"/g, "&quot;")}" style="background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:3px 8px;font-size:14px;cursor:pointer;flex-shrink:0;">🔊</button>
+              </div>
+              <div style="font-size:13px;color:var(--chalk);margin-bottom:3px;cursor:pointer;" data-speak-cola-ex="${item.example_pt.replace(/"/g, "&quot;")}">
+                ${item.example_pt}
+              </div>
+              <div style="font-size:12px;color:var(--muted);">${item.example_en}</div>
+            </div>`
+          ).join("")}
+        </div>
+      `;
+    }
+
+    renderColaPanel();
+
+    t.querySelector("#cola-tabs").addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-cola-tab]");
+      if (!btn) return;
+      _colaTab = parseInt(btn.dataset.colaTab, 10);
+      t.querySelectorAll("#cola-tabs .frases-tab").forEach(b => b.classList.toggle("active", parseInt(b.dataset.colaTab, 10) === _colaTab));
+      renderColaPanel();
+    });
+
+    t.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-speak-cola]");
+      if (btn) { speak(btn.dataset.speakCola); return; }
+      const ex = e.target.closest("[data-speak-cola-ex]");
+      if (ex) speak(ex.dataset.speakColaEx);
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════
+     TASK 3.4 — POR VS PARA
+     ══════════════════════════════════════════════════════ */
+
+  const POR_PARA_DATA = {
+    intro: "\"Por\" e \"para\" causam confusão mesmo a falantes avançados. A chave: <em>por</em> olha para trás (causa, duração, troca, passagem) e <em>para</em> olha para a frente (destino, propósito, beneficiário, prazo).",
+    contractions: [
+      { form: "pelo",  parts: "por + o",  example: "Passei pelo jardim.", example_en: "I passed by the garden." },
+      { form: "pela",  parts: "por + a",  example: "Obrigado pela ajuda.", example_en: "Thank you for the help." },
+      { form: "pelos", parts: "por + os", example: "Fui pelos campos.", example_en: "I went through the fields." },
+      { form: "pelas", parts: "por + as", example: "Caminhei pelas ruas.", example_en: "I walked through the streets." },
+    ],
+    rules: {
+      por: [
+        "Causa / motivo — Ficou em casa por doença.",
+        "Duração — Estudei por três horas.",
+        "Troca — Paguei cem euros por este livro.",
+        "Passagem / movimento — Passei pelo porto.",
+        "Agente (voz passiva) — O bolo foi feito pela Ana.",
+        "Favor / em nome de — Fiz isso por ti.",
+      ],
+      para: [
+        "Destino — Parto para Lisboa amanhã.",
+        "Propósito / finalidade — Comprei tinta para pintar.",
+        "Beneficiário — Este presente é para a minha mãe.",
+        "Prazo / deadline — Preciso disto para sexta-feira.",
+        "Opinião / perspectiva — Para mim, está errado.",
+        "Destino final de objeto — Coloca isso para o lixo.",
+      ],
+    },
+    pairs: [
+      { por: "Fiz isso por amor.", por_en: "I did it for love. (cause/motivation)", para: "Fiz isso para te agradar.", para_en: "I did it to please you. (purpose)" },
+      { por: "Ficou em casa por doença.", por_en: "She stayed home because of illness. (cause)", para: "Ficou em casa para descansar.", para_en: "She stayed home to rest. (purpose)" },
+      { por: "Parto por Lisboa. (via)", por_en: "I leave via Lisbon. (route through)", para: "Parto para Lisboa.", para_en: "I leave for Lisbon. (destination)" },
+      { por: "Obrigado por vires.", por_en: "Thank you for coming. (because you came)", para: "Isto é para ti.", para_en: "This is for you. (recipient)" },
+      { por: "Comprei por dez euros.", por_en: "I bought it for ten euros. (exchange)", para: "Poupei para comprar.", para_en: "I saved up to buy it. (purpose)" },
+      { por: "Trabalhei por três horas.", por_en: "I worked for three hours. (duration)", para: "Termina para as três.", para_en: "Finish by three. (deadline)" },
+      { por: "Falei por telefone.", por_en: "I spoke by phone. (means)", para: "Ligo para o telefone.", para_en: "I call to the phone. (direction)" },
+      { por: "O jantar foi preparado pelo cozinheiro.", por_en: "Dinner was prepared by the cook. (agent)", para: "Fiz o jantar para os convidados.", para_en: "I made dinner for the guests. (beneficiary)" },
+      { por: "Por mim está bem.", por_en: "As far as I am concerned, it is fine. (perspective)", para: "Para mim é difícil.", para_en: "For me / in my opinion it is hard. (opinion)" },
+      { por: "Passei pela estação.", por_en: "I passed through the station. (movement through)", para: "Fui para a estação.", para_en: "I went to the station. (destination)" },
+      { por: "Trocar por algo melhor.", por_en: "To exchange for something better. (exchange)", para: "Guardar para o futuro.", para_en: "To keep for the future. (purpose)" },
+      { por: "Lutou por liberdade.", por_en: "He fought for freedom. (cause/value)", para: "Lutou para sobreviver.", para_en: "He fought to survive. (purpose/goal)" },
+      { por: "Enviou a carta por correio.", por_en: "She sent the letter by post. (means)", para: "Enviou a carta para Lisboa.", para_en: "She sent the letter to Lisbon. (destination)" },
+      { por: "Caminhei por horas.", por_en: "I walked for hours. (duration)", para: "Caminhei para o parque.", para_en: "I walked to the park. (destination)" },
+      { por: "Fiquei por cá.", por_en: "I stayed around here. (area/approximation)", para: "Fui para lá.", para_en: "I went over there. (destination)" },
+      { por: "Estou aqui por acaso.", por_en: "I am here by chance. (cause)", para: "Estou aqui para ajudar.", para_en: "I am here to help. (purpose)" },
+      { por: "Paga vinte por cento.", por_en: "Pay twenty per cent. (ratio)", para: "Guarda vinte por cento para mim.", para_en: "Keep twenty per cent for me. (beneficiary)" },
+      { por: "Ele vive por si mesmo.", por_en: "He lives by himself. (on his own behalf)", para: "Ele vive para a família.", para_en: "He lives for his family. (purpose/dedication)" },
+      { por: "Compraram por um preço justo.", por_en: "They bought it for a fair price. (exchange)", para: "Compraram para revender.", para_en: "They bought it to resell. (purpose)" },
+      { por: "Votei por ele.", por_en: "I voted for him. (in his favor)", para: "Votei para eleger o melhor.", para_en: "I voted to elect the best. (purpose)" },
+      { por: "Perguntou por mim.", por_en: "He asked about me / after me. (inquiry about)", para: "Perguntou para mim. ✗", para_en: "NOT used this way — 'por mim' is correct here." },
+      { por: "Escreve por extenso.", por_en: "Write in full / spelled out. (manner)", para: "Escreve para aprender.", para_en: "Write to learn. (purpose)" },
+      { por: "Ficou por fazer.", por_en: "It remained undone. (state left)", para: "Ficou para fazer depois.", para_en: "It was left to do later. (future purpose)" },
+      { por: "Vender por menos.", por_en: "To sell for less. (exchange value)", para: "Vender para lucrar.", para_en: "To sell in order to profit. (purpose)" },
+      { por: "Por enquanto está bem.", por_en: "For now it is fine. (for the time being)", para: "Para sempre.", para_en: "Forever / for always. (permanent destination)" },
+      { por: "Estou por perceber.", por_en: "I am about to understand / still trying to understand.", para: "Estou para sair.", para_en: "I am about to leave. (imminent action, pt-PT idiom)" },
+      { por: "Por acaso és português?", por_en: "Are you Portuguese by any chance? (coincidence)", para: "Para que serves?", para_en: "What are you good for? / What is your purpose?" },
+      { por: "Passou por dificuldades.", por_en: "He went through difficulties. (experience/passage)", para: "Passou para a fase seguinte.", para_en: "He moved on to the next stage. (forward movement)" },
+      { por: "Obrigada por tudo.", por_en: "Thank you for everything. (cause/reason)", para: "Obrigada para a vida.", para_en: "Incorrect — use 'por' here. Common error.", },
+      { por: "Ficou por Lisboa.", por_en: "He stayed around Lisbon / in the Lisbon area. (vague location)", para: "Foi para Lisboa definitivamente.", para_en: "He went to Lisbon for good. (definitive destination)" },
+    ],
+  };
+  window.POR_PARA_DATA = POR_PARA_DATA;
+
+  function renderPorPara() {
+    const t = document.getElementById("tool");
+    const contrHtml = POR_PARA_DATA.contractions.map(c =>
+      `<tr>
+        <td style="font-size:17px;font-weight:700;color:var(--verde3);padding:9px 12px;">${c.form}</td>
+        <td style="font-size:13px;color:var(--muted);padding:9px 12px;">${c.parts}</td>
+        <td style="font-size:13px;color:var(--chalk);padding:9px 12px;cursor:pointer;" data-speak-pp="${c.example.replace(/"/g, "&quot;")}">${c.example} <span style="color:var(--muted);font-size:11px;">${c.example_en}</span></td>
+        <td style="padding:9px 12px;"><button data-speak-pp="${c.example.replace(/"/g, "&quot;")}" style="background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:3px 7px;font-size:13px;cursor:pointer;">🔊</button></td>
+      </tr>`
+    ).join("");
+
+    const pairsHtml = POR_PARA_DATA.pairs.map((pair, idx) =>
+      `<div style="background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="border-right:1px solid var(--line);padding-right:12px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#6aadcc;margin-bottom:6px;">POR</div>
+          <div style="font-size:14px;font-weight:600;color:var(--chalk);margin-bottom:3px;cursor:pointer;" data-speak-pp="${pair.por.replace(/"/g, "&quot;")}">${pair.por}</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.4;">${pair.por_en}</div>
+          <button data-speak-pp="${pair.por.replace(/"/g, "&quot;")}" style="margin-top:6px;background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:2px 7px;font-size:12px;cursor:pointer;">🔊</button>
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f0a060;margin-bottom:6px;">PARA</div>
+          <div style="font-size:14px;font-weight:600;color:var(--chalk);margin-bottom:3px;cursor:pointer;" data-speak-pp="${pair.para.replace(/"/g, "&quot;")}">${pair.para}</div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.4;">${pair.para_en}</div>
+          <button data-speak-pp="${pair.para.replace(/"/g, "&quot;")}" style="margin-top:6px;background:var(--bg3);border:1px solid var(--line);border-radius:6px;padding:2px 7px;font-size:12px;cursor:pointer;">🔊</button>
+        </div>
+      </div>`
+    ).join("");
+
+    t.innerHTML = `
+      <button class="tool-back" id="pp-back-btn">← Voltar</button>
+      <div class="tool-name">Por vs Para</div>
+      <div style="font-size:13px;color:var(--muted);background:var(--bg2);border:1px solid var(--line);border-left:3px solid var(--verde);border-radius:0 var(--radius) var(--radius) 0;padding:12px 16px;margin-bottom:16px;line-height:1.6;">
+        ${POR_PARA_DATA.intro}
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--verde3);margin-bottom:12px;">Regras rápidas</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6aadcc;margin-bottom:8px;">POR — olha para trás</div>
+            ${POR_PARA_DATA.rules.por.map(r => `<div style="font-size:13px;color:var(--chalk);margin-bottom:5px;line-height:1.4;">· ${r}</div>`).join("")}
+          </div>
+          <div style="border-left:1px solid var(--line);padding-left:12px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f0a060;margin-bottom:8px;">PARA — olha para a frente</div>
+            ${POR_PARA_DATA.rules.para.map(r => `<div style="font-size:13px;color:var(--chalk);margin-bottom:5px;line-height:1.4;">· ${r}</div>`).join("")}
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--verde3);padding:12px 16px 6px;">Contrações com artigos</div>
+        <table style="width:100%;border-collapse:collapse;">
+          <thead><tr>
+            <th style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);">Forma</th>
+            <th style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);">Origem</th>
+            <th style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);">Exemplo</th>
+            <th style="border-bottom:1px solid var(--line);"></th>
+          </tr></thead>
+          <tbody>${contrHtml}</tbody>
+        </table>
+      </div>
+
+      <div style="font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--verde3);margin-bottom:10px;">30 pares lado a lado</div>
+      <div style="display:flex;flex-direction:column;gap:8px;" id="pp-pairs">
+        ${pairsHtml}
+      </div>
+    `;
+    t.querySelector("#pp-back-btn").onclick = goHome;
+
+    t.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-speak-pp]");
+      if (btn) speak(btn.dataset.speakPp);
+    });
+  }
+
   /* ── openTool('estudo') handler — note: this redefines openTool (hoisted last, wins) ── */
   function openTool(name) {
     document.getElementById('home').hidden = true;
@@ -6216,6 +6930,14 @@
       renderSerEstar();
     } else if (name === 'conjuntivo') {
       renderConjuntivo();
+    } else if (name === 'numeros') {
+      renderNumeros();
+    } else if (name === 'tempo') {
+      renderTempo();
+    } else if (name === 'cola') {
+      renderCola();
+    } else if (name === 'por-para') {
+      renderPorPara();
     } else {
       t.innerHTML = `
         <button class="tool-back" onclick="goHome()">← Voltar</button>
@@ -6263,6 +6985,18 @@
     SUBJ_DATA: v => v && typeof v.intro === "string"
       && Array.isArray(v.examples) && v.examples.length >= 18
       && v.examples.every(e => e.trigger && e.sentence_pt && e.tense),
+    NUMBERS_LANDMARKS: v => Array.isArray(v) && v.length >= 10
+      && v.every(lm => typeof lm.n === "number" && lm.label),
+    TIME_DATA: v => Array.isArray(v) && v.length >= 6
+      && v.every(cat => cat.category && Array.isArray(cat.items) && cat.items.length >= 5
+        && cat.items.every(item => item.pt && item.en)),
+    GLUE_DATA: v => Array.isArray(v) && v.length === 7
+      && v.every(cat => cat.category && Array.isArray(cat.items) && cat.items.length >= 10
+        && cat.items.every(item => item.term && item.gloss && item.example_pt && item.example_en)),
+    POR_PARA_DATA: v => v && typeof v.intro === "string"
+      && Array.isArray(v.contractions) && v.contractions.length === 4
+      && Array.isArray(v.pairs) && v.pairs.length >= 30
+      && v.pairs.every(p => p.por && p.para),
   };
   function validateAll() {
     const failed = [];
@@ -6289,7 +7023,9 @@
       FALSE_FRIENDS_DATA: 'falsos', PHRASES_DATA: 'frases', OUVIDO_DATA: 'ouvido',
       SITUACAO_DATA: 'situacao',
       SLANG_DATA: 'calao', CULTURAL_DATA: 'ditados',
-      SER_ESTAR_DATA: 'ser-estar', SUBJ_DATA: 'conjuntivo', /* etc */
+      SER_ESTAR_DATA: 'ser-estar', SUBJ_DATA: 'conjuntivo',
+      NUMBERS_LANDMARKS: 'numeros', TIME_DATA: 'tempo',
+      GLUE_DATA: 'cola', POR_PARA_DATA: 'por-para',
     };
     const tool = toolFromBlock[dataBlockName];
     if (tool) document.querySelectorAll(`[data-tool="${tool}"]`).forEach(b => b.hidden = true);
