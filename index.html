@@ -938,21 +938,21 @@
         <div class="form-row${isVos ? ' form-vos' : ''}">
           <span class="form-pronoun">${pronoun}${isVos ? '<span class="vos-hint">(arc.)</span>' : ''}</span>
           <span class="form-word">${form}</span>
-          <button class="form-speak-btn" onclick="speak(${JSON.stringify(form)})" aria-label="ouvir '${form}' em português">🔊</button>
+          <button class="form-speak-btn" data-speak-form="${form.replace(/"/g, '&quot;')}" aria-label="ouvir '${form}' em português">🔊</button>
         </div>`;
     }).join('');
 
     const formsArray = JSON.stringify(forms);
     return `
       <div class="tense-section ${sectionClass}" id="ts-${tenseKey}">
-        <div class="tense-header" onclick="toggleTenseSection('${tenseKey}')">
+        <div class="tense-header" data-tense-key="${tenseKey}">
           <div class="tense-header-left">
             <span class="tense-label">${meta.label}</span>
             ${!isDrilled ? `<span class="tense-recognize-badge">reconhecer</span>` : ''}
           </div>
           <div class="tense-header-right">
-            <button class="tense-info-btn" onclick="event.stopPropagation(); toggleTheory('${tenseKey}')" aria-label="sobre este tempo">ℹ</button>
-            <button class="tense-listen-btn" onclick="event.stopPropagation(); speakAllForms(${formsArray})" aria-label="ouvir todas as formas">▶ Ouvir tudo</button>
+            <button class="tense-info-btn" data-theory-key="${tenseKey}" aria-label="sobre este tempo">ℹ</button>
+            <button class="tense-listen-btn" data-speak-all="${formsArray.replace(/"/g, '&quot;')}" aria-label="ouvir todas as formas">▶ Ouvir tudo</button>
             <span class="tense-toggle-arrow">▾</span>
           </div>
         </div>
@@ -995,6 +995,20 @@
     `;
     t.scrollTop = 0;
     window.scrollTo(0, 0);
+    // Wire delegated handlers (replaces inline onclick to avoid HTML quote-escaping bugs)
+    t.querySelectorAll('.form-speak-btn[data-speak-form]').forEach(btn => {
+      btn.onclick = () => speak(btn.dataset.speakForm);
+    });
+    t.querySelectorAll('.tense-header[data-tense-key]').forEach(hdr => {
+      hdr.onclick = () => toggleTenseSection(hdr.dataset.tenseKey);
+    });
+    t.querySelectorAll('.tense-info-btn[data-theory-key]').forEach(btn => {
+      btn.onclick = (e) => { e.stopPropagation(); toggleTheory(btn.dataset.theoryKey); };
+    });
+    t.querySelectorAll('.tense-listen-btn[data-speak-all]').forEach(btn => {
+      btn.onclick = (e) => { e.stopPropagation(); speakAllForms(JSON.parse(btn.dataset.speakAll)); };
+    });
+    t.querySelector('.tool-back').onclick = renderVerbMachine;
   }
 
   /* Verb list view */
@@ -1026,7 +1040,7 @@
     const cardsHtml = filtered.map(v => {
       const catLabel = (VERB_CATEGORIES_PT.find(c => c.key === v.category) || {}).label || v.category;
       return `
-        <button class="vm-card" onclick="renderVerb(${JSON.stringify(v.infinitive)})">
+        <button class="vm-card" data-verb-inf="${v.infinitive.replace(/"/g, '&quot;')}">
           <div class="vm-card-left">
             <span class="vm-card-inf">${v.infinitive}</span>
             <span class="vm-card-en">${v.en}</span>
@@ -1050,6 +1064,10 @@
       <div class="vm-count">${filtered.length} verb${filtered.length !== 1 ? 'os' : 'o'}</div>
       <div class="vm-list">${cardsHtml || '<div style="color:var(--muted);padding:16px 0">Nenhum verbo encontrado.</div>'}</div>
     `;
+    // Wire delegated handlers for verb cards (replaces inline onclick to avoid HTML quote-escaping bugs)
+    t.querySelectorAll('.vm-card[data-verb-inf]').forEach(btn => {
+      btn.onclick = () => renderVerb(btn.dataset.verbInf);
+    });
     // Focus search box
     const s = document.getElementById('vm-search');
     if (s && !_vmFilter.query) s.focus();
