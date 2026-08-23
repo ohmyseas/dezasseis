@@ -165,13 +165,205 @@
       padding: 14px 18px;
       margin-top: 16px;
     }
+
+    /* ── Audio Setup Modal ── */
+    #audio-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(4px);
+      padding: 16px;
+    }
+    #audio-modal[hidden] { display: none; }
+    #audio-modal-panel {
+      width: 100%;
+      max-width: 480px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 20px 20px 16px 16px;
+      padding: 24px 20px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-header h2 {
+      font-size: 18px;
+      font-weight: 800;
+    }
+    .modal-close {
+      font-size: 22px;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 8px;
+      color: var(--muted);
+      background: var(--bg3);
+      border: 1px solid var(--line);
+    }
+    .modal-close:hover { color: var(--chalk); }
+
+    /* Voice toggle */
+    .voice-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .voice-group label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .voice-options {
+      display: flex;
+      gap: 8px;
+    }
+    .voice-option {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--bg3);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: border-color .15s, background .15s;
+    }
+    .voice-option:has(input:checked) {
+      border-color: var(--verde2);
+      background: rgba(5,136,63,.12);
+    }
+    .voice-option input[type="radio"] { display: none; }
+
+    /* API key input */
+    .key-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .key-group label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .key-group .key-hint {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .key-group input[type="text"] {
+      width: 100%;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+      color: var(--chalk);
+      outline: none;
+      transition: border-color .15s;
+    }
+    .key-group input[type="text"]::placeholder { color: var(--muted); }
+    .key-group input[type="text"]:focus { border-color: var(--verde2); }
+
+    /* Action buttons row */
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-test {
+      flex: 1;
+      padding: 13px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      background: var(--verde);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-test:hover { background: var(--verde2); }
+    .btn-test:active { transform: scale(.97); }
+    .btn-forvo {
+      padding: 13px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--bg3);
+      color: var(--chalk);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      transition: background .15s;
+    }
+    .btn-forvo:hover { background: var(--bg); }
+
+    /* Diagnostic panel */
+    #audio-diag {
+      font-size: 12px;
+      font-family: 'Courier New', monospace;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 14px;
+      min-height: 36px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    #audio-diag.ok { color: var(--verde3); border-color: var(--verde); }
+    #audio-diag.err { color: #f87171; border-color: #7f1d1d; }
+
+    /* ── Toast ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1e2d3d;
+      color: var(--chalk);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 200;
+      opacity: 0;
+      transition: opacity .2s ease, transform .2s ease;
+      pointer-events: none;
+      white-space: nowrap;
+      max-width: calc(100vw - 32px);
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
   </style>
 </head>
 <body>
 <div id="app">
   <header>
     <h1>Dezasseis <span class="badge">🇵🇹 pt-PT</span></h1>
-    <div id="audio-chip" onclick="openTool('audio-setup')">🔊 Áudio</div>
+    <div id="audio-chip" role="button" tabindex="0" aria-haspopup="dialog">🔊 Áudio</div>
   </header>
 
   <main id="home">
@@ -225,7 +417,97 @@
   <main id="tool" hidden></main>
 </div>
 
+<!-- ── Audio Setup Modal ── -->
+<div id="audio-modal" hidden role="dialog" aria-modal="true" aria-labelledby="audio-modal-title">
+  <div id="audio-modal-panel">
+    <div class="modal-header">
+      <h2 id="audio-modal-title">🔊 Configuração de Áudio</h2>
+      <button class="modal-close" id="audio-modal-close" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="voice-group">
+      <label>Voz</label>
+      <div class="voice-options">
+        <label class="voice-option">
+          <input type="radio" name="dezasseis-voice" value="joana" id="voice-joana">
+          👩 Joana <span style="font-size:11px;color:var(--muted)">(padrão)</span>
+        </label>
+        <label class="voice-option">
+          <input type="radio" name="dezasseis-voice" value="paulo" id="voice-paulo">
+          👨 Paulo PT
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-test" id="audio-test-btn">▶ Testar — os pães são bons</button>
+      <a class="btn-forvo" href="https://forvo.com/word/bom_dia/#pt" target="_blank" rel="noopener">📖 Forvo</a>
+    </div>
+
+    <div class="key-group">
+      <label>Chave API (opcional — depuração local)</label>
+      <input type="text" id="tts-key-input" placeholder="sk-…" autocomplete="off" spellcheck="false">
+      <span class="key-hint">Deixe em branco — a app usa a chave do servidor. Só necessário para testes locais.</span>
+    </div>
+
+    <div id="audio-diag">Pronto.</div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
 <script>
+  /* ── Toast ── */
+  let _toastTimer;
+  function showToast(msg, duration = 3500) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(() => el.classList.remove('show'), duration);
+  }
+
+  /* ── TTS helper ── */
+  async function speak(text, opts = {}) {
+    const voice = opts.voiceOverride
+      || localStorage.getItem('dezasseis:voice')
+      || 'joana';
+    const diag = document.getElementById('audio-diag');
+    if (diag) {
+      diag.className = '';
+      diag.textContent = `A enviar… voz=${voice}`;
+    }
+    let r;
+    try {
+      r = await fetch('/api/speak', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, voice }),
+      });
+    } catch (e) {
+      const msg = `Erro de rede: ${e.message}`;
+      showToast(`🔇 ${msg}`);
+      if (diag) { diag.className = 'err'; diag.textContent = msg; }
+      return;
+    }
+    if (!r.ok) {
+      const msg = `TTS erro: ${r.status} ${r.statusText}`;
+      showToast(`🔇 ${msg}`);
+      if (diag) { diag.className = 'err'; diag.textContent = msg; }
+      return;
+    }
+    if (r.headers.get('X-Voice-Fallback') === 'sarah') {
+      showToast('Voz principal indisponível — a usar Sarah');
+      if (diag) diag.textContent = 'Fallback para Sarah (voz principal indisponível)';
+    } else if (diag) {
+      diag.className = 'ok';
+      diag.textContent = `OK — voz=${voice}, ${r.headers.get('Content-Length') || '?'} bytes`;
+    }
+    const blob = await r.blob();
+    const audio = new Audio(URL.createObjectURL(blob));
+    audio.play();
+  }
+
   /* ── Navigation ── */
   function openTool(name) {
     document.getElementById('home').hidden = true;
@@ -244,6 +526,66 @@
   document.querySelectorAll('[data-tool]').forEach(b => {
     b.onclick = () => openTool(b.dataset.tool);
   });
+
+  /* ── Audio Setup Modal ── */
+  function openAudioModal() {
+    // Restore saved voice preference into radio buttons
+    const savedVoice = localStorage.getItem('dezasseis:voice') || 'joana';
+    const radio = document.querySelector(`input[name="dezasseis-voice"][value="${savedVoice}"]`);
+    if (radio) radio.checked = true;
+
+    // Restore saved API key (optional debug field)
+    const savedKey = localStorage.getItem('dezasseis:ttsKey') || '';
+    const keyInput = document.getElementById('tts-key-input');
+    if (keyInput) keyInput.value = savedKey;
+
+    // Reset diagnostic
+    const diag = document.getElementById('audio-diag');
+    if (diag) { diag.className = ''; diag.textContent = 'Pronto.'; }
+
+    document.getElementById('audio-modal').hidden = false;
+    document.getElementById('audio-modal-close').focus();
+  }
+  function closeAudioModal() {
+    document.getElementById('audio-modal').hidden = true;
+  }
+
+  // Wire #audio-chip → open modal (overrides the openTool call in the onclick attr)
+  document.getElementById('audio-chip').onclick = (e) => {
+    e.preventDefault();
+    openAudioModal();
+  };
+
+  document.getElementById('audio-modal-close').onclick = closeAudioModal;
+
+  // Close on backdrop click
+  document.getElementById('audio-modal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('audio-modal')) closeAudioModal();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !document.getElementById('audio-modal').hidden) closeAudioModal();
+  });
+
+  // Voice toggle → persist to localStorage
+  document.querySelectorAll('input[name="dezasseis-voice"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (radio.checked) localStorage.setItem('dezasseis:voice', radio.value);
+    });
+  });
+
+  // Optional API key → persist to localStorage on blur
+  document.getElementById('tts-key-input').addEventListener('blur', () => {
+    const val = document.getElementById('tts-key-input').value.trim();
+    if (val) localStorage.setItem('dezasseis:ttsKey', val);
+    else localStorage.removeItem('dezasseis:ttsKey');
+  });
+
+  // Test button → speak pt-PT test sentence
+  document.getElementById('audio-test-btn').onclick = () => {
+    speak('os pães são bons');
+  };
 
   /* ── Schema validation stub ── */
   const SCHEMAS = {
