@@ -18,6 +18,42 @@
   <p>App under construction. First tool ships week 1.</p>
   <button id="test">Test TTS</button>
   <script>
+    const SCHEMAS = {
+      // Blocks register their schemas here as they get authored.
+      // Example (added later):
+      // VERBS: v => Array.isArray(v) && v.every(x => x.infinitive && x.conjugations && Object.keys(x.conjugations).length === 9 && Object.values(x.conjugations).every(t => t.length === 6)),
+    };
+    function validateAll() {
+      const failed = [];
+      for (const [name, schema] of Object.entries(SCHEMAS)) {
+        try {
+          if (!schema(window[name])) failed.push(name);
+        } catch (e) {
+          console.error(`Schema exception ${name}:`, e);
+          failed.push(name);
+        }
+      }
+      if (failed.length) {
+        console.error(`SCHEMA FAILURES: ${failed.join(', ')}`);
+        document.body.insertAdjacentHTML('afterbegin',
+          `<div style="background:#a00;color:#fff;padding:8px;text-align:center;font-family:monospace;">
+           ⚠️ Erro de dados: ${failed.join(', ')} — tools escondidas.</div>`);
+        failed.forEach(name => hideToolFor(name));
+      }
+    }
+    function hideToolFor(dataBlockName) {
+      // Map from data-block name to tool tile[data-tool] to hide.
+      const toolFromBlock = {
+        VERBS: 'verbos', OBJETOS_DATA: 'objetos', SLANG_DATA: 'calao',
+        FALSE_FRIENDS_DATA: 'falsos', OUVIDO_DATA: 'ouvido',
+        SITUACAO_DATA: 'situacao', /* etc */
+      };
+      const tool = toolFromBlock[dataBlockName];
+      if (tool) document.querySelectorAll(`[data-tool="${tool}"]`).forEach(b => b.hidden = true);
+    }
+    // Call after all data blocks defined:
+    window.addEventListener('DOMContentLoaded', validateAll);
+
     document.getElementById('test').onclick = async () => {
       const r = await fetch('/api/speak', {
         method:'POST',
