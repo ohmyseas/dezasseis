@@ -1353,6 +1353,153 @@
       font-size: 12px; cursor: pointer; color: var(--chalk); transition: background .12s;
     }
     .bff-speak-btn:hover { background: var(--bg3); }
+
+    /* ── Calão de Portugal ── */
+    .calao-filter-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .calao-chip {
+      padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      border: 1px solid var(--line); background: var(--bg2); color: var(--muted);
+      cursor: pointer; transition: background .15s, border-color .15s, color .15s;
+    }
+    .calao-chip:hover { border-color: var(--verde2); color: var(--chalk); }
+    .calao-chip.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+
+    .calao-list { display: flex; flex-direction: column; gap: 8px; }
+    .calao-item {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 12px 14px; display: flex; align-items: flex-start; gap: 10px;
+    }
+    .calao-item-left { flex: 1; }
+    .calao-term { font-size: 16px; font-weight: 700; color: var(--chalk); }
+    .calao-gloss { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    .calao-note { font-size: 11px; color: #6aadcc; font-style: italic; margin-top: 3px; }
+    .calao-badges { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-top: 4px; }
+    .reg-badge {
+      font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: 5px; border: 1px solid;
+    }
+    .reg-safe    { background: #0b3a1a; color: #5fde8a; border-color: #1a6a30; }
+    .reg-informal { background: #1a2d00; color: #c8e070; border-color: #3a5500; }
+    .reg-crude   { background: #3a0a00; color: #f87171; border-color: #7a2000; }
+    .calao-verify { font-size: 11px; font-weight: 600; padding: 1px 5px; border-radius: 5px; background: #2a1a00; color: #f0c040; border: 1px solid #5a3a00; }
+    .calao-br-badge { font-size: 11px; font-weight: 600; padding: 1px 5px; border-radius: 5px; background: #0a1a3a; color: #6aadcc; border: 1px solid #1a3060; }
+    .calao-speak { font-size: 16px; padding: 4px 8px; border-radius: 8px; background: var(--bg3); border: 1px solid var(--line); cursor: pointer; flex-shrink: 0; }
+    .calao-speak:hover { background: var(--verde); border-color: var(--verde2); }
+
+    /* ── Ditados e Cultura ── */
+    .ditados-tabs { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+    .ditados-tab {
+      padding: 8px 18px; border-radius: 20px; border: 1px solid var(--line);
+      background: var(--bg2); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .ditados-tab.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+    .ditados-tab:hover:not(.active) { background: var(--bg3); border-color: var(--verde2); color: var(--chalk); }
+
+    .ditado-card {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 14px 16px; margin-bottom: 8px;
+    }
+    .ditado-pt { font-size: 15px; font-weight: 700; color: var(--chalk); display: flex; align-items: center; gap: 8px; }
+    .ditado-en { font-size: 13px; color: var(--muted); margin-top: 4px; font-style: italic; }
+    .ditado-meaning { font-size: 12px; color: #6aadcc; margin-top: 4px; }
+    .ditado-shared { font-size: 11px; color: #f97316; font-weight: 700; }
+
+    .cultura-card {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 14px 16px; margin-bottom: 8px;
+    }
+    .cultura-term { font-size: 15px; font-weight: 700; color: var(--verde3); display: flex; align-items: center; gap: 8px; }
+    .cultura-cat-badge { font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 6px; background: var(--bg3); border: 1px solid var(--line); color: var(--muted); }
+    .cultura-desc { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+    .cultura-speak { font-size: 15px; padding: 3px 7px; border-radius: 7px; background: var(--bg3); border: 1px solid var(--line); cursor: pointer; }
+    .cultura-speak:hover { background: var(--verde); border-color: var(--verde2); }
+
+    /* ── Ser vs Estar ── */
+    .se-rules-card {
+      background: var(--bg2); border: 1px solid var(--verde); border-left: 4px solid var(--verde);
+      border-radius: var(--radius); padding: 16px 18px; margin-bottom: 20px;
+    }
+    .se-rules-title { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--verde3); margin-bottom: 12px; }
+    .se-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 480px) { .se-cols { grid-template-columns: 1fr; } }
+    .se-col-head { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+    .se-ser-head { color: var(--verde3); }
+    .se-estar-head { color: #6aadcc; }
+    .se-rule-item { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    .se-list { display: flex; flex-direction: column; gap: 6px; }
+    .se-example {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px 14px; display: flex; align-items: center; gap: 10px;
+    }
+    .se-example.ser-ex { border-left: 3px solid var(--verde); }
+    .se-example.estar-ex { border-left: 3px solid #6aadcc; }
+    .se-example.contrast-ex { border-left: 3px solid #f97316; }
+    .se-ex-left { flex: 1; }
+    .se-ex-pt { font-size: 15px; font-weight: 600; color: var(--chalk); }
+    .se-ex-en { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .se-ex-note { font-size: 11px; color: #f97316; margin-top: 3px; font-style: italic; }
+    .se-badge {
+      font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 5px; flex-shrink: 0;
+    }
+    .se-badge.ser { background: #0b3a1a; color: #5fde8a; border: 1px solid #1a6a30; }
+    .se-badge.estar { background: #0a1a3a; color: #6aadcc; border: 1px solid #1a3060; }
+    .se-badge.contrast { background: #3a1a00; color: #f97316; border: 1px solid #6a3000; }
+    .se-speak { font-size: 14px; padding: 3px 7px; border-radius: 7px; background: var(--bg3); border: 1px solid var(--line); cursor: pointer; flex-shrink: 0; }
+    .se-speak:hover { background: var(--verde); border-color: var(--verde2); }
+
+    .se-drill-area { margin-top: 24px; }
+    .se-drill-btn {
+      width: 100%; padding: 13px; border-radius: 12px; font-size: 15px; font-weight: 700;
+      background: var(--verde); color: #fff; border: none; cursor: pointer;
+      transition: background .15s; margin-bottom: 16px;
+    }
+    .se-drill-btn:hover { background: var(--verde2); }
+    .se-drill-card {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 20px; margin-bottom: 12px;
+    }
+    .se-drill-prompt { font-size: 18px; font-weight: 700; color: var(--chalk); margin-bottom: 16px; line-height: 1.4; }
+    .se-drill-choices { display: flex; gap: 10px; }
+    .se-drill-choice {
+      flex: 1; padding: 12px; border-radius: 10px; font-size: 15px; font-weight: 700;
+      background: var(--bg3); border: 2px solid var(--line); color: var(--chalk);
+      cursor: pointer; transition: background .12s, border-color .12s; text-align: center;
+    }
+    .se-drill-choice:hover:not(:disabled) { background: var(--verde); border-color: var(--verde2); }
+    .se-drill-choice.correct { border-color: var(--verde3); background: #0b3a1a; color: #5fde8a; }
+    .se-drill-choice.wrong { border-color: var(--vermelho); background: #2d0a09; color: #f87171; }
+    .se-drill-expl { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
+    .se-drill-next { width: 100%; padding: 11px; border-radius: 10px; font-size: 14px; font-weight: 700; background: var(--verde); color: #fff; border: none; cursor: pointer; margin-top: 10px; }
+
+    /* ── Conjuntivo ── */
+    .conj-intro {
+      background: var(--bg2); border: 1px solid var(--line); border-left: 4px solid var(--verde);
+      border-radius: var(--radius); padding: 14px 16px; margin-bottom: 20px;
+      font-size: 13px; color: var(--muted); line-height: 1.6;
+    }
+    .conj-intro strong { color: var(--chalk); }
+    .conj-intro code { font-family: 'Courier New', monospace; background: #1a2233; padding: 1px 5px; border-radius: 4px; font-size: 12px; color: var(--verde3); }
+    .conj-tabs { display: flex; gap: 6px; margin-bottom: 18px; }
+    .conj-tab {
+      padding: 8px 18px; border-radius: 20px; border: 1px solid var(--line);
+      background: var(--bg2); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .conj-tab.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+    .conj-tab:hover:not(.active) { background: var(--bg3); border-color: var(--verde2); color: var(--chalk); }
+    .conj-trigger-group { margin-bottom: 20px; }
+    .conj-trigger-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--verde3); margin-bottom: 8px; }
+    .conj-example-card {
+      background: var(--bg2); border: 1px solid var(--line); border-radius: 10px;
+      padding: 12px 14px; margin-bottom: 6px; display: flex; align-items: flex-start; gap: 10px;
+    }
+    .conj-ex-left { flex: 1; }
+    .conj-trigger-word { font-size: 11px; font-weight: 700; color: #f0c040; background: #2a2000; border: 1px solid #5a4000; border-radius: 5px; padding: 1px 6px; display: inline-block; margin-bottom: 4px; }
+    .conj-ex-pt { font-size: 15px; font-weight: 600; color: var(--chalk); }
+    .conj-ex-en { font-size: 12px; color: var(--muted); margin-top: 3px; }
+    .conj-speak { font-size: 14px; padding: 3px 7px; border-radius: 7px; background: var(--bg3); border: 1px solid var(--line); cursor: pointer; flex-shrink: 0; }
+    .conj-speak:hover { background: var(--verde); border-color: var(--verde2); }
   </style>
 </head>
 <body>
@@ -5528,6 +5675,514 @@
     });
   }
 
+  /* ══════════════════════════════════════════════════════════════
+     CALÃO DE PORTUGAL — Task 2.4
+     55 pt-PT slang items, native-critic-informed
+     ══════════════════════════════════════════════════════════════ */
+
+  const SLANG_DATA = [
+    // Interjeições
+    { term: "pá",           gloss: "dude / man (vocative filler)", register: "informal", category: "Interjeições", ptBrDiff: false, verify: true },
+    { term: "epá",          gloss: "hey / oh man (softer pá)", register: "informal", category: "Interjeições", ptBrDiff: false, verify: true },
+    { term: "pó",           gloss: "dust / hey (very soft)", register: "safe", category: "Interjeições", ptBrDiff: false, verify: true, note: "Softest of the pá-epá-pó family" },
+    { term: "caramba",      gloss: "damn! / wow!", register: "safe", category: "Interjeições", ptBrDiff: false, verify: true },
+    { term: "bolas",        gloss: "dammit / darn (mild)", register: "safe", category: "Interjeições", ptBrDiff: false, verify: true },
+    { term: "raios",        gloss: "damn it / blast (mild)", register: "safe", category: "Interjeições", ptBrDiff: false, verify: true },
+    { term: "merda",        gloss: "shit (expletive)", register: "crude", category: "Interjeições", ptBrDiff: false, verify: true },
+    { term: "foda-se",      gloss: "fuck it / universal pressure valve", register: "crude", category: "Interjeições", ptBrDiff: false, verify: true, note: "Extremely common; context determines force" },
+    // Pessoas
+    { term: "gajo",         gloss: "guy / bloke", register: "informal", category: "Pessoas", ptBrDiff: true, verify: true, note: "pt-BR: cara" },
+    { term: "gaja",         gloss: "girl / woman (informal)", register: "informal", category: "Pessoas", ptBrDiff: true, verify: true, note: "pt-BR: mina / garota" },
+    { term: "miúdo",        gloss: "kid / young person (m)", register: "safe", category: "Pessoas", ptBrDiff: true, verify: true, note: "pt-BR: menino / moleque" },
+    { term: "miúda",        gloss: "girl / young woman (f)", register: "safe", category: "Pessoas", ptBrDiff: true, verify: true },
+    { term: "puto",         gloss: "kid / boy (pt-PT: neutral)", register: "informal", category: "Pessoas", ptBrDiff: true, verify: true, note: "pt-BR: crude slur — NEVER use in Brazil" },
+    { term: "tótó",         gloss: "idiot / dimwit", register: "informal", category: "Pessoas", ptBrDiff: false, verify: true },
+    { term: "parvo",        gloss: "idiot / stupid", register: "informal", category: "Pessoas", ptBrDiff: false, verify: true },
+    { term: "malandro",     gloss: "rogue / street-smart schemer", register: "informal", category: "Pessoas", ptBrDiff: false, verify: true },
+    // Fixe & aprovação
+    { term: "fixe",         gloss: "cool / great", register: "safe", category: "Fixe & Aprovação", ptBrDiff: true, verify: true, note: "pt-BR uses legal" },
+    { term: "porreiro",     gloss: "decent / cool (approving)", register: "informal", category: "Fixe & Aprovação", ptBrDiff: true, verify: true },
+    { term: "giro",         gloss: "cute / nice-looking (skews older/female speech)", register: "safe", category: "Fixe & Aprovação", ptBrDiff: true, verify: true, note: "pt-BR: bonitinho" },
+    { term: "nice",         gloss: "nice (borrowed English, common in youth)", register: "informal", category: "Fixe & Aprovação", ptBrDiff: false, verify: true },
+    { term: "top",          gloss: "top / awesome (borrowed English)", register: "informal", category: "Fixe & Aprovação", ptBrDiff: false, verify: true },
+    // Intensifiers
+    { term: "bué",          gloss: "a lot / very (Lisbon origin)", register: "informal", category: "Intensificadores", ptBrDiff: true, verify: true, note: "pt-BR: muito / demais" },
+    { term: "à brava",      gloss: "by force / a hell of a lot", register: "informal", category: "Intensificadores", ptBrDiff: false, verify: true },
+    { term: "ganda",        gloss: "huge / massive (intensifier)", register: "informal", category: "Intensificadores", ptBrDiff: false, verify: true, note: "ganda cena = huge thing" },
+    // Dinheiro
+    { term: "guito",        gloss: "money / dough", register: "informal", category: "Dinheiro", ptBrDiff: true, verify: true, note: "pt-BR: grana" },
+    { term: "massa",        gloss: "money / dough (also slang)", register: "informal", category: "Dinheiro", ptBrDiff: true, verify: true, note: "pt-BR: grana / bufunfa" },
+    { term: "cêntimos",     gloss: "cents / peanuts (dismissive)", register: "safe", category: "Dinheiro", ptBrDiff: false, verify: true },
+    // Acções
+    { term: "bazar",        gloss: "to leave / to split", register: "informal", category: "Acções", ptBrDiff: true, verify: true, note: "pt-BR: vazar / ir embora" },
+    { term: "curtir",       gloss: "to enjoy / to like (pt-PT)", register: "safe", category: "Acções", ptBrDiff: true, verify: true, note: "pt-BR same meaning. NOT endure (= aturar)" },
+    { term: "aturar",       gloss: "to endure / to put up with", register: "safe", category: "Acções", ptBrDiff: false, verify: true },
+    { term: "passar-se",    gloss: "to freak out / to lose it", register: "informal", category: "Acções", ptBrDiff: false, verify: true },
+    { term: "dar em doido", gloss: "to go crazy / to go nuts", register: "informal", category: "Acções", ptBrDiff: false, verify: true },
+    { term: "lixar",        gloss: "to screw over / to annoy", register: "informal", category: "Acções", ptBrDiff: false, verify: true },
+    { term: "chatear",      gloss: "to bother / to annoy", register: "informal", category: "Acções", ptBrDiff: false, verify: true },
+    // Indiferença
+    { term: "estar-se nas tintas", gloss: "to not care at all / couldn't care less", register: "informal", category: "Indiferença", ptBrDiff: false, verify: true },
+    { term: "estar-se a marimbar", gloss: "to not give a damn", register: "informal", category: "Indiferença", ptBrDiff: false, verify: true },
+    // Burocracia & aborrecimento
+    { term: "chatice",      gloss: "annoyance / hassle", register: "informal", category: "Burocracia", ptBrDiff: false, verify: true },
+    { term: "seca",         gloss: "bore / drag", register: "informal", category: "Burocracia", ptBrDiff: false, verify: true },
+    { term: "chato",        gloss: "boring / annoying (person or thing)", register: "informal", category: "Burocracia", ptBrDiff: false, verify: true },
+    // Fillers
+    { term: "tipo",         gloss: "like / sort of (filler)", register: "informal", category: "Fillers", ptBrDiff: false, verify: true },
+    { term: "estilo",       gloss: "like / kind of (filler)", register: "informal", category: "Fillers", ptBrDiff: false, verify: true },
+    { term: "à toa",        gloss: "for no reason / aimlessly", register: "informal", category: "Fillers", ptBrDiff: false, verify: true },
+    { term: "basicamente",  gloss: "basically (over-used filler)", register: "safe", category: "Fillers", ptBrDiff: false, verify: true },
+    // Saudações & gestos
+    { term: "dar dois beijinhos", gloss: "cheek-kiss greeting (right cheek first)", register: "safe", category: "Saudações", ptBrDiff: false, verify: true, note: "NOT dar bacalhau — that means a limp handshake" },
+    { term: "dar um abraço", gloss: "give a hug / 'cheers' (sign-off)", register: "safe", category: "Saudações", ptBrDiff: false, verify: true },
+    { term: "deprê",        gloss: "depressing / down (borrowed from French déprimé)", register: "informal", category: "Saudações", ptBrDiff: false, verify: true },
+    // Situações
+    { term: "sarilhos",     gloss: "trouble / mess", register: "informal", category: "Situações", ptBrDiff: false, verify: true },
+    { term: "bronca",       gloss: "trouble / fight / scold", register: "informal", category: "Situações", ptBrDiff: false, verify: true },
+    { term: "esquema",      gloss: "scheme / plan / arrangement", register: "informal", category: "Situações", ptBrDiff: false, verify: true },
+    { term: "cena",         gloss: "thing / scene / situation", register: "informal", category: "Situações", ptBrDiff: false, verify: true, note: "Very versatile: 'que cena!' = what a thing!" },
+    { term: "pica",         gloss: "vibe / buzz / spark", register: "informal", category: "Situações", ptBrDiff: false, verify: true },
+    { term: "lixo",         gloss: "trash / rubbish (literally and figuratively)", register: "safe", category: "Situações", ptBrDiff: false, verify: true },
+    { term: "mau",          gloss: "bad / rough (colloquial emphasis)", register: "informal", category: "Situações", ptBrDiff: false, verify: true },
+    { term: "roda",         gloss: "circle / gang / crew (of friends)", register: "safe", category: "Situações", ptBrDiff: false, verify: true },
+    { term: "bestial",      gloss: "awesome / fantastic (slightly old-school)", register: "informal", category: "Situações", ptBrDiff: false, verify: true },
+    { term: "fixar",        gloss: "to memorize / to notice / to stare at", register: "safe", category: "Situações", ptBrDiff: false, verify: true },
+  ];
+
+  /* ── Render Calão ── */
+  let _calaoFilter = "Todos";
+  const CALAO_CATS = ["Todos", "Interjeições", "Pessoas", "Fixe & Aprovação", "Intensificadores", "Dinheiro", "Acções", "Indiferença", "Burocracia", "Fillers", "Saudações", "Situações"];
+  const REG_LABEL = { safe: "🟢 seguro", informal: "🟡 informal", crude: "🔴 cru" };
+
+  function renderCalao() {
+    const t = document.getElementById("tool");
+    t.innerHTML = `
+      <button class="tool-back" id="calao-back-btn">← Voltar</button>
+      <div class="tool-name">Calão de Portugal</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:14px;">🟢 seguro &nbsp;🟡 informal &nbsp;🔴 cru &nbsp;·&nbsp; ⚠ verificar &nbsp;·&nbsp; 🇧🇷 difere do pt-BR</div>
+      <div class="calao-filter-bar" id="calao-filter-bar"></div>
+      <div class="calao-list" id="calao-list"></div>
+    `;
+    t.querySelector("#calao-back-btn").onclick = goHome;
+    _calaoFilter = "Todos";
+    _renderCalaoList(t);
+
+    t.querySelector("#calao-filter-bar").addEventListener("click", (e) => {
+      const chip = e.target.closest("[data-calao-cat]");
+      if (!chip) return;
+      _calaoFilter = chip.dataset.calaoCat;
+      _renderCalaoList(t);
+    });
+
+    t.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-speak-calao]");
+      if (btn) speak(btn.dataset.speakCalao);
+    });
+
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function _renderCalaoList(t) {
+    const filterBar = t.querySelector("#calao-filter-bar");
+    filterBar.innerHTML = CALAO_CATS.map(cat => `
+      <button class="calao-chip${_calaoFilter === cat ? " active" : ""}" data-calao-cat="${cat}">${cat}</button>
+    `).join("");
+
+    const visible = _calaoFilter === "Todos" ? SLANG_DATA : SLANG_DATA.filter(i => i.category === _calaoFilter);
+    const list = t.querySelector("#calao-list");
+    list.innerHTML = visible.map(item => `
+      <div class="calao-item">
+        <div class="calao-item-left">
+          <div class="calao-term">${item.term}</div>
+          <div class="calao-gloss">${item.gloss}</div>
+          ${item.note ? `<div class="calao-note">${item.note}</div>` : ""}
+          <div class="calao-badges">
+            <span class="reg-badge reg-${item.register}">${REG_LABEL[item.register]}</span>
+            ${item.verify ? `<span class="calao-verify">⚠ verificar</span>` : ""}
+            ${item.ptBrDiff ? `<span class="calao-br-badge">🇧🇷 difere</span>` : ""}
+          </div>
+        </div>
+        <button class="calao-speak" data-speak-calao="${item.term.replace(/"/g, "&quot;")}">🔊</button>
+      </div>
+    `).join("");
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     DITADOS E CULTURA — Task 2.5
+     15 proverbs + 25 cultural cargo items
+     ══════════════════════════════════════════════════════════════ */
+
+  const CULTURAL_DATA = {
+    ditados: [
+      { pt: "Quem madruga, Deus ajuda", en: "The early bird gets the worm", meaning: "Those who rise early and work hard are rewarded", es_shared: true },
+      { pt: "Mais vale tarde que nunca", en: "Better late than never", meaning: "It is better to do something late than not at all", es_shared: true },
+      { pt: "Cada macaco no seu galho", en: "To each their own / every monkey on its own branch", meaning: "Everyone should mind their own affairs", es_shared: false },
+      { pt: "Devagar se vai ao longe", en: "Slow and steady wins the race", meaning: "Steady progress beats reckless haste", es_shared: false },
+      { pt: "Mais vale um pássaro na mão que dois a voar", en: "A bird in the hand is worth two in the bush", meaning: "Secure what you have rather than risk it for something better", es_shared: true },
+      { pt: "Água mole em pedra dura tanto bate até que fura", en: "Constant dripping wears the stone", meaning: "Persistence overcomes even the hardest obstacles", es_shared: false },
+      { pt: "Não vale a pena chorar sobre leite derramado", en: "No use crying over spilt milk", meaning: "Don't lament what cannot be undone", es_shared: true },
+      { pt: "Quem semeia ventos colhe tempestades", en: "You reap what you sow", meaning: "Bad actions have bad consequences", es_shared: true },
+      { pt: "A cavalo dado não se olha o dente", en: "Don't look a gift horse in the mouth", meaning: "Be grateful for gifts without criticizing them", es_shared: true },
+      { pt: "Deus ajuda a quem cedo madruga", en: "God helps those who help themselves (early-rising variant)", meaning: "Self-reliance and early effort bring divine favour", es_shared: false },
+      { pt: "Burro velho não aprende línguas", en: "You can't teach an old dog new tricks", meaning: "Old habits are hard to change", es_shared: false },
+      { pt: "O peixe morre pela boca", en: "Fish die by their mouths (loose lips sink ships)", meaning: "Talking too much leads to trouble", es_shared: false },
+      { pt: "Não é por muito madrugar que nasce o sol mais cedo", en: "The sun doesn't rise sooner just because you got up early", meaning: "Some things proceed on their own schedule regardless of your effort", es_shared: false },
+      { pt: "Em terra de cegos, quem tem um olho é rei", en: "In the land of the blind, the one-eyed man is king", meaning: "A small advantage makes you exceptional in a disadvantaged group", es_shared: true },
+      { pt: "Quando a esmola é grande, o pobre desconfia", en: "When the charity is too great, the poor man grows suspicious", meaning: "Be wary of things that seem too good to be true", es_shared: false },
+    ],
+    cultura: [
+      { term: "Saudade", en: "untranslatable longing", description: "A deep, melancholic longing for something or someone absent — present, past, or even imagined. Considered the defining emotion of Portuguese identity. There is no equivalent word in English or Spanish.", category: "língua" },
+      { term: "Fado", en: "fate / destiny", description: "Portugal's genre of melancholic song, rooted in Lisbon and Coimbra. Declared UNESCO Intangible Cultural Heritage in 2011. Expresses saudade, loss, and fate. Coimbra fado (sung by male students) differs from Lisbon fado.", category: "música" },
+      { term: "Desenrascar", en: "to MacGyver / to improvise", description: "The art of solving a problem with whatever you have at hand. A cultural virtue — praised as Portuguese resourcefulness. 'Desenrascanço' is the noun form.", category: "língua" },
+      { term: "Bacalhau", en: "salted codfish", description: "Portugal claims 365 ways to prepare bacalhau — one per day of the year. It's the national dish and deeply tied to history: cod was salted and brought back from Newfoundland since the 15th century.", category: "comida" },
+      { term: "Pastel de nata", en: "custard tart", description: "Iconic Portuguese custard pastry with a flaky shell and caramelized top. Originated at the Pastéis de Belém bakery in Lisbon (established 1837). Best eaten warm, dusted with cinnamon and powdered sugar.", category: "comida" },
+      { term: "Francesinha", en: "French girl (ironic name)", description: "Porto's artery-challenging sandwich: layers of ham, linguiça, fresh sausage and steak between bread, covered in melted cheese and bathed in a spicy-tomato-beer sauce. Not for the faint-hearted.", category: "comida" },
+      { term: "Azulejos", en: "blue-white ceramic tiles", description: "Tin-glazed ornamental ceramic tiles that cover buildings, churches, train stations and even furniture. A defining visual identity of Portugal — from geometric patterns to hand-painted narrative panels.", category: "arte" },
+      { term: "Calçada portuguesa", en: "Portuguese pavement", description: "Black-and-white limestone cobblestone patterns covering pavements across Portugal and former colonies. Beautiful but notoriously slippery when wet.", category: "arte" },
+      { term: "São João", en: "Feast of Saint John", description: "Porto's biggest party: 23-24 June. Traditions include hitting strangers with plastic hammers (malhos), releasing paper balloons, grilling sardines, and jumping over bonfires. The whole city is in the streets.", category: "festa" },
+      { term: "Santo António", en: "Feast of Saint Anthony", description: "Lisbon's biggest street party: 12-13 June. Grilled sardines on every corner, paper decorations, arraiais (street festivals) in every neighbourhood. Anthony is Lisbon's patron saint.", category: "festa" },
+      { term: "Fátima", en: "Fátima pilgrimage", description: "The Sanctuary of Fátima in the Cova da Iria is Portugal's most important Catholic pilgrimage site. Millions visit annually, especially on 13 May and 13 October — the apparition dates of 1917.", category: "religião" },
+      { term: "Capas negras", en: "black cloaks", description: "The traditional outfit of University of Coimbra students — a long black cape, black jacket, and trousers. Worn with pride, especially during Queima das Fitas.", category: "cidade" },
+      { term: "Queima das Fitas", en: "Burning of the Ribbons", description: "Coimbra's week-long academic celebration in May marking the end of the academic year. Students burn the coloured ribbons representing their faculty. Famous for its serenatas and parade.", category: "cidade" },
+      { term: "Tripeiros vs Alfacinhas", en: "Porto vs Lisbon rivalry", description: "Tripeiros (offal-eaters) = Porto inhabitants. Alfacinhas (lettuce-eaters) = Lisbon inhabitants. A friendly rivalry central to Portuguese identity. Ask a Portuguese which city is better and step back.", category: "cidade" },
+      { term: "Imperial vs Fino", en: "beer glass sizes", description: "In Lisbon, a small draft beer is called um imperial. In Porto, the same is called um fino. Ordering the wrong term in the wrong city earns a raised eyebrow.", category: "comida" },
+      { term: "Tasca", en: "small local eatery", description: "A humble, neighbourhood tavern serving home-cooked Portuguese food. Think grilled fish, petiscos (tapas), house wine in ceramic pitchers. The soul of Portuguese daily eating.", category: "comida" },
+      { term: "Multibanco", en: "ATM", description: "The Portuguese ATM network — more advanced than most EU counterparts. You can pay bills, buy concert tickets, and top up your phone at a Multibanco. Essential to daily life.", category: "quotidiano" },
+      { term: "Senha", en: "queue ticket / number", description: "The numbered paper ticket you take at Finanças, AIMA (immigration), health centres, and even some pharmacies. You wait until your number appears on the screen. Patience is mandatory.", category: "quotidiano" },
+      { term: "Finanças", en: "tax authority (AT)", description: "The Portuguese tax authority (Autoridade Tributária e Aduaneira). Every adult in Portugal must register, declare income, and visit — or at least their portal. The bane of every expat.", category: "quotidiano" },
+      { term: "AIMA", en: "immigration agency (former SEF)", description: "Agência para a Integração, Migrações e Asilo — replaced SEF in 2023. Handles residency permits, visas, and long-term stays. Infamous for appointment backlogs.", category: "quotidiano" },
+      { term: "Benfica / Sporting / FCP", en: "football holy trinity", description: "Sport Lisboa e Benfica (Lisbon), Sporting CP (Lisbon), and FC Porto (Porto) dominate Portuguese football. Almost every Portuguese supports one — and despises the other two. Do not confuse them.", category: "desporto" },
+      { term: "Alentejo", en: "southern wine & cork region", description: "Vast sun-baked plateau south of Lisbon. Produces Portugal's best red wines and supplies half the world's cork. Cork oaks dominate the landscape. Slow, warm, proud culture.", category: "cidade" },
+      { term: "Ola de coroa", en: "ice cream brand / culture", description: "Olá is Portugal's beloved ice cream brand (Unilever). 'Pagar uma Olá' means buying someone an ice cream — a gesture of generosity. The crown logo is instantly recognizable.", category: "quotidiano" },
+      { term: "Petiscos", en: "tapas / small plates", description: "Portuguese version of tapas: small plates shared at the bar or table. Chouriço assado (grilled chorizo), caracóis (snails), alheira frita, queijo da serra. Best with a copo de vinho.", category: "comida" },
+      { term: "Tejo vs Douro", en: "the two great rivers", description: "The Tejo (Tagus) flows through Lisbon to the Atlantic. The Douro flows through Porto, carving through port wine country. Each river is inseparable from its city's identity.", category: "cidade" },
+    ],
+  };
+
+  let _ditadosTab = "ditados";
+
+  function renderDitados() {
+    const t = document.getElementById("tool");
+    t.innerHTML = `
+      <button class="tool-back" id="ditados-back-btn">← Voltar</button>
+      <div class="tool-name">Ditados e Cultura</div>
+      <div class="ditados-tabs">
+        <button class="ditados-tab${_ditadosTab === "ditados" ? " active" : ""}" data-ditados-tab="ditados">Ditados (${CULTURAL_DATA.ditados.length})</button>
+        <button class="ditados-tab${_ditadosTab === "cultura" ? " active" : ""}" data-ditados-tab="cultura">Cultura (${CULTURAL_DATA.cultura.length})</button>
+      </div>
+      <div id="ditados-content"></div>
+    `;
+    t.querySelector("#ditados-back-btn").onclick = goHome;
+    _renderDitadosContent(t);
+
+    t.querySelector(".ditados-tabs").addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-ditados-tab]");
+      if (!btn) return;
+      _ditadosTab = btn.dataset.ditadosTab;
+      t.querySelectorAll(".ditados-tab").forEach(b => b.classList.toggle("active", b.dataset.ditadosTab === _ditadosTab));
+      _renderDitadosContent(t);
+    });
+
+    t.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-speak-ditado]");
+      if (btn) speak(btn.dataset.speakDitado);
+    });
+
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function _renderDitadosContent(t) {
+    const el = t.querySelector("#ditados-content");
+    if (_ditadosTab === "ditados") {
+      el.innerHTML = CULTURAL_DATA.ditados.map(d => `
+        <div class="ditado-card">
+          <div class="ditado-pt">
+            <button class="cultura-speak" data-speak-ditado="${d.pt.replace(/"/g, "&quot;")}">🔊</button>
+            ${d.pt}
+            ${d.es_shared ? `<span class="ditado-shared">ES ≈</span>` : ""}
+          </div>
+          <div class="ditado-en">"${d.en}"</div>
+          <div class="ditado-meaning">${d.meaning}</div>
+        </div>
+      `).join("");
+    } else {
+      el.innerHTML = CULTURAL_DATA.cultura.map(c => `
+        <div class="cultura-card">
+          <div class="cultura-term">
+            <button class="cultura-speak" data-speak-ditado="${c.term.replace(/"/g, "&quot;")}">🔊</button>
+            ${c.term}
+            <span class="cultura-cat-badge">${c.category}</span>
+          </div>
+          ${c.en ? `<div style="font-size:12px;color:var(--muted);margin-top:2px;font-style:italic">"${c.en}"</div>` : ""}
+          <div class="cultura-desc">${c.description}</div>
+        </div>
+      `).join("");
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     SER VS ESTAR — Task 2.6
+     Rules card + 30 examples + 20-item quick drill
+     ══════════════════════════════════════════════════════════════ */
+
+  const SER_ESTAR_DATA = {
+    rules: {
+      ser: [
+        "Identity: name, nationality, religion — O João é português",
+        "Essence / permanent trait: personality, appearance — Ela é inteligente",
+        "Origin / material: De onde és? É de madeira.",
+        "Time & date: São duas horas. Hoje é segunda.",
+        "Profession: Sou médico.",
+        "Possession: De quem é o carro? É meu.",
+        "Impersonal: É importante estudar.",
+      ],
+      estar: [
+        "Location (people & movable things): Estou em Lisboa.",
+        "Temporary state / condition: Estou cansado. Está doente.",
+        "Emotion (transient): Estou feliz hoje.",
+        "Progressive action: Estou a falar (pt-PT).",
+        "Result of change: A porta está aberta.",
+        "Spoken reduction: está → tá in daily speech",
+      ],
+    },
+    examples: [
+      // SER examples
+      { pt: "Eu sou português.", en: "I am Portuguese.", type: "ser", note: null },
+      { pt: "Ela é alta e simpática.", en: "She is tall and friendly.", type: "ser", note: "Permanent traits" },
+      { pt: "O João é médico.", en: "João is a doctor.", type: "ser", note: "Profession" },
+      { pt: "São cinco horas.", en: "It's five o'clock.", type: "ser", note: "Time" },
+      { pt: "Esta mesa é de madeira.", en: "This table is made of wood.", type: "ser", note: "Material" },
+      { pt: "De onde é o senhor?", en: "Where are you from, sir?", type: "ser", note: "Origin" },
+      { pt: "É importante estudar.", en: "It is important to study.", type: "ser", note: "Impersonal" },
+      { pt: "O carro é meu.", en: "The car is mine.", type: "ser", note: "Possession" },
+      { pt: "Hoje é segunda-feira.", en: "Today is Monday.", type: "ser", note: "Day / date" },
+      { pt: "Ele é muito curioso.", en: "He is very curious.", type: "ser", note: "Personality" },
+      // ESTAR examples
+      { pt: "Estou em Lisboa agora.", en: "I am in Lisbon now.", type: "estar", note: "Location" },
+      { pt: "Estás cansado?", en: "Are you tired?", type: "estar", note: "Temporary state" },
+      { pt: "A sopa está fria.", en: "The soup is cold.", type: "estar", note: "Result of change" },
+      { pt: "Estou a falar contigo.", en: "I'm talking to you. (pt-PT progressive)", type: "estar", note: null },
+      { pt: "Ela está doente esta semana.", en: "She is sick this week.", type: "estar", note: "Temporary condition" },
+      { pt: "Estou feliz hoje.", en: "I'm happy today.", type: "estar", note: "Transient emotion" },
+      { pt: "O banco está fechado.", en: "The bank is closed.", type: "estar", note: "Resulting state" },
+      { pt: "Estamos em 2026.", en: "We are in 2026.", type: "estar", note: "Estar with years in Portugal" },
+      { pt: "Tá bem.", en: "OK / that's fine. (tá = está)", type: "estar", note: "Spoken reduction" },
+      { pt: "Onde está o João?", en: "Where is João?", type: "estar", note: "Location of person" },
+      // CONTRAST pairs
+      { pt: "Ser casado = married (permanent state)", en: "versus Estar casado = currently married (implies possible change)", type: "contrast", note: "Ser vs Estar with adjectives changes meaning" },
+      { pt: "Ele é chato.", en: "He is annoying (personality trait).", type: "contrast", note: "Ser = permanent personality" },
+      { pt: "Ele está chato.", en: "He's being annoying right now.", type: "contrast", note: "Estar = temporary behavior" },
+      { pt: "A Ana é bonita.", en: "Ana is beautiful (intrinsically).", type: "contrast", note: "Ser = inherent quality" },
+      { pt: "A Ana está bonita.", en: "Ana looks beautiful today.", type: "contrast", note: "Estar = looks at this moment" },
+      { pt: "O vinho é doce.", en: "This wine is sweet (type of wine).", type: "contrast", note: "Ser = characteristic" },
+      { pt: "O café está quente.", en: "The coffee is hot (right now).", type: "estar", note: "Estar = current state" },
+      { pt: "Sou solteiro.", en: "I'm single (status/identity).", type: "ser", note: null },
+      { pt: "Estou solteiro.", en: "I'm currently single.", type: "estar", note: "Estar implies it could change" },
+      { pt: "A reunião é às três.", en: "The meeting is at three. (scheduled event)", type: "ser", note: "Events use ser" },
+    ],
+    drill: [
+      { prompt: "O João ___ português.", correct: "ser", explanation: "Nationality → ser" },
+      { prompt: "Ela ___ cansada hoje.", correct: "estar", explanation: "Temporary state → estar" },
+      { prompt: "___ duas horas.", correct: "ser", explanation: "Time → ser" },
+      { prompt: "Onde ___ o restaurante?", correct: "estar", explanation: "Location → estar" },
+      { prompt: "Ele ___ médico.", correct: "ser", explanation: "Profession → ser" },
+      { prompt: "A sopa ___ fria.", correct: "estar", explanation: "Resulting state → estar" },
+      { prompt: "Hoje ___ segunda-feira.", correct: "ser", explanation: "Day/date → ser" },
+      { prompt: "Estou a ___ em Lisboa.", correct: "estar", explanation: "'Estou a ___' is pt-PT progressive with estar" },
+      { prompt: "Ela ___ muito simpática.", correct: "ser", explanation: "Permanent personality → ser" },
+      { prompt: "Ele ___ doente esta semana.", correct: "estar", explanation: "Temporary illness → estar" },
+      { prompt: "O carro ___ meu.", correct: "ser", explanation: "Possession → ser" },
+      { prompt: "A porta ___ aberta.", correct: "estar", explanation: "Result of someone opening it → estar" },
+      { prompt: "A reunião ___ às três.", correct: "ser", explanation: "Scheduled events → ser" },
+      { prompt: "Tu ___ de Lisboa?", correct: "ser", explanation: "Origin → ser" },
+      { prompt: "Eles ___ felizes.", correct: "estar", explanation: "Transient emotion → estar (though ser feliz = happy by nature is also possible)" },
+      { prompt: "Ela ___ bonita hoje. (looks good today)", correct: "estar", explanation: "Appearance at this moment → estar" },
+      { prompt: "Ele ___ chato. (personality trait)", correct: "ser", explanation: "Permanent personality → ser" },
+      { prompt: "Isto ___ de madeira.", correct: "ser", explanation: "Material → ser" },
+      { prompt: "___ importante descansar.", correct: "ser", explanation: "Impersonal expressions → ser" },
+      { prompt: "Tá bem. = ___", correct: "estar", explanation: "Tá = está (spoken reduction of estar)" },
+    ],
+  };
+
+  let _seDrillIdx = null;
+  let _seDrillAnswered = false;
+  let _seDrillItems = [];
+
+  function renderSerEstar() {
+    const t = document.getElementById("tool");
+    const exHtml = SER_ESTAR_DATA.examples.map(ex => `
+      <div class="se-example${ex.type === "ser" ? " ser-ex" : ex.type === "estar" ? " estar-ex" : " contrast-ex"}">
+        <div class="se-ex-left">
+          <div class="se-ex-pt">${ex.pt}</div>
+          <div class="se-ex-en">${ex.en}</div>
+          ${ex.note ? `<div class="se-ex-note">${ex.note}</div>` : ""}
+        </div>
+        <span class="se-badge ${ex.type}">${ex.type === "contrast" ? "≠" : ex.type}</span>
+        ${ex.type !== "contrast" ? `<button class="se-speak" data-speak-se="${ex.pt.replace(/"/g, "&quot;")}">🔊</button>` : ""}
+      </div>
+    `).join("");
+
+    t.innerHTML = `
+      <button class="tool-back" id="se-back-btn">← Voltar</button>
+      <div class="tool-name">Ser vs Estar</div>
+      <div class="se-rules-card">
+        <div class="se-rules-title">Regras</div>
+        <div class="se-cols">
+          <div>
+            <div class="se-col-head se-ser-head">SER (identidade / essência)</div>
+            ${SER_ESTAR_DATA.rules.ser.map(r => `<div class="se-rule-item">· ${r}</div>`).join("")}
+          </div>
+          <div>
+            <div class="se-col-head se-estar-head">ESTAR (estado / local / temporário)</div>
+            ${SER_ESTAR_DATA.rules.estar.map(r => `<div class="se-rule-item">· ${r}</div>`).join("")}
+          </div>
+        </div>
+      </div>
+      <div class="se-list">${exHtml}</div>
+      <div class="se-drill-area">
+        <button class="se-drill-btn" id="se-start-drill-btn">▶ Treino rápido (20 perguntas)</button>
+        <div id="se-drill-container"></div>
+      </div>
+    `;
+    t.querySelector("#se-back-btn").onclick = goHome;
+    t.querySelectorAll("[data-speak-se]").forEach(btn => {
+      btn.onclick = () => speak(btn.dataset.speakSe);
+    });
+    document.getElementById("se-start-drill-btn").onclick = _startSeDrill;
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function _startSeDrill() {
+    _seDrillItems = [...SER_ESTAR_DATA.drill].sort(() => Math.random() - 0.5);
+    _seDrillIdx = 0;
+    _seDrillAnswered = false;
+    _renderSeDrillCard();
+  }
+
+  function _renderSeDrillCard() {
+    const container = document.getElementById("se-drill-container");
+    if (_seDrillIdx >= _seDrillItems.length) {
+      container.innerHTML = `<div style="text-align:center;padding:24px;color:var(--verde3);font-size:18px;font-weight:700;">Treino completo! 🎉</div>`;
+      return;
+    }
+    const item = _seDrillItems[_seDrillIdx];
+    container.innerHTML = `
+      <div class="se-drill-card">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:8px;">${_seDrillIdx + 1} / ${_seDrillItems.length}</div>
+        <div class="se-drill-prompt">${item.prompt}</div>
+        <div class="se-drill-choices">
+          <button class="se-drill-choice" data-se-answer="ser">ser</button>
+          <button class="se-drill-choice" data-se-answer="estar">estar</button>
+        </div>
+        <div class="se-drill-expl" id="se-drill-expl" style="display:none"></div>
+        <button class="se-drill-next" id="se-drill-next-btn" style="display:none">Próximo →</button>
+      </div>
+    `;
+    _seDrillAnswered = false;
+    container.querySelectorAll("[data-se-answer]").forEach(btn => {
+      btn.onclick = () => {
+        if (_seDrillAnswered) return;
+        _seDrillAnswered = true;
+        const chosen = btn.dataset.seAnswer;
+        container.querySelectorAll("[data-se-answer]").forEach(b => {
+          b.disabled = true;
+          if (b.dataset.seAnswer === item.correct) b.classList.add("correct");
+          else if (b === btn) b.classList.add("wrong");
+        });
+        const expl = document.getElementById("se-drill-expl");
+        expl.textContent = item.explanation;
+        expl.style.display = "block";
+        const next = document.getElementById("se-drill-next-btn");
+        next.style.display = "block";
+        next.onclick = () => { _seDrillIdx++; _seDrillAnswered = false; _renderSeDrillCard(); };
+      };
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     CONJUNTIVO — Task 2.7
+     Presente + Futuro do Conjuntivo triggers and examples
+     ══════════════════════════════════════════════════════════════ */
+
+  const SUBJ_DATA = {
+    intro: `O Conjuntivo (subjuntivo) é essencial em português europeu — mais vivo aqui do que em espanhol. Divide-se em dois tempos principais:<br><br>
+<strong>Presente do Conjuntivo</strong> — após expressões de vontade, emoção, dúvida, recomendação, impessoalidade (família WEIRDO). Estrutura: <code>verbo principal + que + verbo no conjuntivo</code>.<br><br>
+<strong>Futuro do Conjuntivo</strong> — <em>único em português</em>, morto em espanhol. Aparece obrigatoriamente após <code>quando, se, enquanto, assim que, logo que</code> quando a ação é futura ou hipotética. Não é opcional — usá-lo corretamente soa nativo instantaneamente.`,
+    examples: [
+      // Presente do Conjuntivo
+      { trigger: "espero que", sentence_pt: "Espero que fales português em breve.", sentence_en: "I hope you speak Portuguese soon.", tense: "presente" },
+      { trigger: "quero que", sentence_pt: "Quero que venhas à festa.", sentence_en: "I want you to come to the party.", tense: "presente" },
+      { trigger: "é bom que", sentence_pt: "É bom que ele descanse.", sentence_en: "It's good that he rests.", tense: "presente" },
+      { trigger: "é importante que", sentence_pt: "É importante que estudes todos os dias.", sentence_en: "It's important that you study every day.", tense: "presente" },
+      { trigger: "sugiro que", sentence_pt: "Sugiro que peças a conta.", sentence_en: "I suggest you ask for the bill.", tense: "presente" },
+      { trigger: "duvido que", sentence_pt: "Duvido que ele saiba a resposta.", sentence_en: "I doubt he knows the answer.", tense: "presente" },
+      { trigger: "oxalá", sentence_pt: "Oxalá que corra tudo bem!", sentence_en: "I really hope everything goes well!", tense: "presente" },
+      { trigger: "é possível que", sentence_pt: "É possível que esteja atrasado.", sentence_en: "It's possible that he's late.", tense: "presente" },
+      { trigger: "tenho medo que", sentence_pt: "Tenho medo que não chegues a tempo.", sentence_en: "I'm afraid you won't arrive in time.", tense: "presente" },
+      { trigger: "proíbo que", sentence_pt: "Proíbo que entres sem bater.", sentence_en: "I forbid you to enter without knocking.", tense: "presente" },
+      // Futuro do Conjuntivo
+      { trigger: "quando", sentence_pt: "Quando fores a Lisboa, avisa-me.", sentence_en: "When you go to Lisbon, let me know.", tense: "futuro" },
+      { trigger: "se", sentence_pt: "Se puderes, liga-me mais tarde.", sentence_en: "If you can, call me later.", tense: "futuro" },
+      { trigger: "enquanto", sentence_pt: "Enquanto estiveres aqui, aproveita.", sentence_en: "While you're here, make the most of it.", tense: "futuro" },
+      { trigger: "assim que", sentence_pt: "Assim que chegares, manda mensagem.", sentence_en: "As soon as you arrive, send a message.", tense: "futuro" },
+      { trigger: "logo que", sentence_pt: "Logo que terminar, vou dormir.", sentence_en: "As soon as I finish, I'll sleep.", tense: "futuro" },
+      { trigger: "quando", sentence_pt: "Quando tiver dinheiro, compro um carro.", sentence_en: "When I have money, I'll buy a car.", tense: "futuro" },
+      { trigger: "se", sentence_pt: "Se tiveres tempo, vem jantar.", sentence_en: "If you have time, come for dinner.", tense: "futuro" },
+      { trigger: "enquanto", sentence_pt: "Enquanto não houver resposta, espera.", sentence_en: "While there's no answer, wait.", tense: "futuro" },
+      { trigger: "assim que", sentence_pt: "Assim que ele vier, começamos.", sentence_en: "As soon as he comes, we'll start.", tense: "futuro" },
+      { trigger: "onde quer que", sentence_pt: "Onde quer que vás, eu estarei aqui.", sentence_en: "Wherever you go, I'll be here.", tense: "futuro" },
+    ],
+  };
+
+  let _conjTab = "presente";
+
+  function renderConjuntivo() {
+    const t = document.getElementById("tool");
+    t.innerHTML = `
+      <button class="tool-back" id="conj-back-btn">← Voltar</button>
+      <div class="tool-name">Conjuntivo</div>
+      <div class="conj-intro">${SUBJ_DATA.intro}</div>
+      <div class="conj-tabs">
+        <button class="conj-tab${_conjTab === "presente" ? " active" : ""}" data-conj-tab="presente">Presente do Conjuntivo</button>
+        <button class="conj-tab${_conjTab === "futuro" ? " active" : ""}" data-conj-tab="futuro">Futuro do Conjuntivo</button>
+      </div>
+      <div id="conj-content"></div>
+    `;
+    t.querySelector("#conj-back-btn").onclick = goHome;
+    _renderConjContent(t);
+
+    t.querySelector(".conj-tabs").addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-conj-tab]");
+      if (!btn) return;
+      _conjTab = btn.dataset.conjTab;
+      t.querySelectorAll(".conj-tab").forEach(b => b.classList.toggle("active", b.dataset.conjTab === _conjTab));
+      _renderConjContent(t);
+    });
+
+    t.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-speak-conj]");
+      if (btn) speak(btn.dataset.speakConj);
+    });
+
+    t.scrollTop = 0; window.scrollTo(0, 0);
+  }
+
+  function _renderConjContent(t) {
+    const el = t.querySelector("#conj-content");
+    const items = SUBJ_DATA.examples.filter(ex => ex.tense === _conjTab);
+    el.innerHTML = items.map(ex => `
+      <div class="conj-example-card">
+        <div class="conj-ex-left">
+          <span class="conj-trigger-word">${ex.trigger}</span>
+          <div class="conj-ex-pt">${ex.sentence_pt}</div>
+          <div class="conj-ex-en">${ex.sentence_en}</div>
+        </div>
+        <button class="conj-speak" data-speak-conj="${ex.sentence_pt.replace(/"/g, "&quot;")}">🔊</button>
+      </div>
+    `).join("");
+  }
+
   /* ── openTool('estudo') handler — note: this redefines openTool (hoisted last, wins) ── */
   function openTool(name) {
     document.getElementById('home').hidden = true;
@@ -5549,6 +6204,14 @@
       renderOuvido();
     } else if (name === 'situacao') {
       renderSituacao();
+    } else if (name === 'calao') {
+      renderCalao();
+    } else if (name === 'ditados') {
+      renderDitados();
+    } else if (name === 'ser-estar') {
+      renderSerEstar();
+    } else if (name === 'conjuntivo') {
+      renderConjuntivo();
     } else {
       t.innerHTML = `
         <button class="tool-back" onclick="goHome()">← Voltar</button>
@@ -5583,6 +6246,19 @@
       && v.minimal_pairs.every(p => p.a && p.b && p.hint),
     SITUACAO_DATA: v => Array.isArray(v) && v.length >= 6
       && v.every(sc => sc.id && sc.title && sc.icon && Array.isArray(sc.turns) && sc.turns.length >= 4),
+    SLANG_DATA: v => Array.isArray(v) && v.length >= 50
+      && v.every(i => i.term && i.gloss && i.register && i.category),
+    CULTURAL_DATA: v => v && Array.isArray(v.ditados) && v.ditados.length >= 12
+      && Array.isArray(v.cultura) && v.cultura.length >= 20
+      && v.ditados.every(d => d.pt && d.en && d.meaning)
+      && v.cultura.every(c => c.term && c.description && c.category),
+    SER_ESTAR_DATA: v => v && Array.isArray(v.examples) && v.examples.length >= 25
+      && Array.isArray(v.drill) && v.drill.length >= 18
+      && v.examples.every(e => e.pt && e.type)
+      && v.drill.every(d => d.prompt && d.correct && d.explanation),
+    SUBJ_DATA: v => v && typeof v.intro === "string"
+      && Array.isArray(v.examples) && v.examples.length >= 18
+      && v.examples.every(e => e.trigger && e.sentence_pt && e.tense),
   };
   function validateAll() {
     const failed = [];
@@ -5605,9 +6281,11 @@
   function hideToolFor(dataBlockName) {
     // Map from data-block name to tool tile[data-tool] to hide.
     const toolFromBlock = {
-      LESSONS: 'estudo', VERBS: 'verbos', OBJETOS_DATA: 'objetos', SLANG_DATA: 'calao',
+      LESSONS: 'estudo', VERBS: 'verbos', OBJETOS_DATA: 'objetos',
       FALSE_FRIENDS_DATA: 'falsos', PHRASES_DATA: 'frases', OUVIDO_DATA: 'ouvido',
-      SITUACAO_DATA: 'situacao', /* etc */
+      SITUACAO_DATA: 'situacao',
+      SLANG_DATA: 'calao', CULTURAL_DATA: 'ditados',
+      SER_ESTAR_DATA: 'ser-estar', SUBJ_DATA: 'conjuntivo', /* etc */
     };
     const tool = toolFromBlock[dataBlockName];
     if (tool) document.querySelectorAll(`[data-tool="${tool}"]`).forEach(b => b.hidden = true);
