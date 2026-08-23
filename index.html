@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
   <meta name="theme-color" content="#046a38">
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Dezasseis">
   <title>Dezasseis — Português europeu</title>
@@ -374,8 +375,9 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
-    #toast.success { border-color: var(--verde); color: var(--verde3); }
-    #toast.error   { border-color: var(--vermelho); color: #f87171; }
+    #toast.success  { border-color: var(--verde); color: var(--verde3); }
+    #toast.error    { border-color: var(--vermelho); color: #f87171; }
+    #toast.warning  { border-color: #f0c040; color: #f0c040; }
 
     /* ── Verb Machine ── */
 
@@ -1509,33 +1511,142 @@
     .conj-ex-en { font-size: 12px; color: var(--muted); margin-top: 3px; }
     .conj-speak { font-size: 14px; padding: 3px 7px; border-radius: 7px; background: var(--bg3); border: 1px solid var(--line); cursor: pointer; flex-shrink: 0; }
     .conj-speak:hover { background: var(--verde); border-color: var(--verde2); }
+
+    /* ── About modal ── */
+    #about-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(4px);
+      padding: 16px;
+    }
+    #about-modal[hidden] { display: none; }
+    #about-modal-panel {
+      width: 100%;
+      max-width: 480px;
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 20px 20px 16px 16px;
+      padding: 24px 20px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    #about-modal-panel h3 {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--verde3);
+      margin-bottom: 8px;
+    }
+    .about-version {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'Courier New', monospace;
+    }
+    .about-body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .about-body strong { color: var(--chalk); }
+    .about-attrib-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .about-attrib-item {
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 7px 12px;
+    }
+    .about-attrib-item strong { color: var(--chalk); font-size: 13px; }
+    .about-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .about-link {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg3);
+      color: var(--verde3);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .15s;
+    }
+    .about-link:hover { background: var(--bg); }
+
+    /* ── Info (ℹ) header button ── */
+    #info-btn {
+      font-size: 18px;
+      line-height: 1;
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--bg2);
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .15s, color .15s;
+      flex-shrink: 0;
+    }
+    #info-btn:hover { background: var(--bg3); color: var(--chalk); }
+
+    /* ── header right group ── */
+    .header-right { display: flex; align-items: center; gap: 8px; }
+
+    /* ── Usage counter on home ── */
+    #usage-banner {
+      font-size: 12px;
+      color: var(--muted);
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 9px 14px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    #usage-banner strong { color: var(--chalk); }
+    #usage-banner .recomendado { color: var(--verde3); font-weight: 600; }
   </style>
 </head>
 <body>
 <div id="app">
   <header>
     <h1>Dezasseis <span class="badge">🇵🇹 pt-PT</span></h1>
-    <div id="audio-chip" role="button" tabindex="0" aria-haspopup="dialog">🔊 Áudio</div>
+    <div class="header-right">
+      <div id="audio-chip" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Configuração de Áudio">🔊 Áudio</div>
+      <button id="info-btn" aria-label="Sobre esta aplicação" aria-haspopup="dialog">ℹ</button>
+    </div>
   </header>
 
   <main id="home">
+    <div id="usage-banner" hidden></div>
     <section data-section="start">
       <h2>🚀 Começar aqui</h2>
       <span class="section-en">start here</span>
       <div class="grid">
-        <button data-tool="do-espanhol">
+        <button data-tool="do-espanhol" aria-label="Abrir Do Espanhol — ponte do espanhol">
           <span class="pt">Do Espanhol</span>
           <span class="en">from spanish</span>
         </button>
-        <button data-tool="ouvido">
+        <button data-tool="ouvido" aria-label="Abrir Ouvido — treino de escuta">
           <span class="pt">Ouvido</span>
           <span class="en">ear · listening</span>
         </button>
-        <button data-tool="situacao">
+        <button data-tool="situacao" aria-label="Abrir Situação — diálogos situacionais">
           <span class="pt">Situação</span>
           <span class="en">situation · dialogues</span>
         </button>
-        <button data-tool="frases">
+        <button data-tool="frases" aria-label="Abrir Frases Essenciais">
           <span class="pt">Frases Essenciais</span>
           <span class="en">essential phrases</span>
         </button>
@@ -1546,11 +1657,11 @@
       <h2>📚 Estudo</h2>
       <span class="section-en">study</span>
       <div class="grid">
-        <button data-tool="estudo">
+        <button data-tool="estudo" aria-label="Abrir Estudo — 16 lições de português">
           <span class="pt">Estudo (16 lições)</span>
           <span class="en">study · 16 lessons</span>
         </button>
-        <button data-tool="verbos">
+        <button data-tool="verbos" aria-label="Abrir Máquina de Verbos">
           <span class="pt">Máquina de Verbos</span>
           <span class="en">verb machine</span>
         </button>
@@ -1561,23 +1672,23 @@
       <h2>🧠 Gramática</h2>
       <span class="section-en">grammar</span>
       <div class="grid">
-        <button data-tool="cola">
+        <button data-tool="cola" aria-label="Abrir Cola Gramatical — referência de gramática">
           <span class="pt">Cola Gramatical</span>
           <span class="en">grammar glue</span>
         </button>
-        <button data-tool="por-para">
+        <button data-tool="por-para" aria-label="Abrir Por vs Para">
           <span class="pt">Por vs Para</span>
           <span class="en">por vs para</span>
         </button>
-        <button data-tool="ser-estar">
+        <button data-tool="ser-estar" aria-label="Abrir Ser vs Estar">
           <span class="pt">Ser vs Estar</span>
           <span class="en">ser vs estar</span>
         </button>
-        <button data-tool="conjuntivo">
+        <button data-tool="conjuntivo" aria-label="Abrir Conjuntivo — modo conjuntivo">
           <span class="pt">Conjuntivo</span>
           <span class="en">subjunctive</span>
         </button>
-        <button data-tool="falsos">
+        <button data-tool="falsos" aria-label="Abrir Falsos Amigos — armadilhas de vocabulário">
           <span class="pt">Falsos Amigos</span>
           <span class="en">false friends</span>
         </button>
@@ -1588,15 +1699,15 @@
       <h2>📖 Referência</h2>
       <span class="section-en">reference</span>
       <div class="grid">
-        <button data-tool="objetos">
+        <button data-tool="objetos" aria-label="Abrir Objetos — substantivos com artigos">
           <span class="pt">Objetos</span>
           <span class="en">objects · nouns</span>
         </button>
-        <button data-tool="numeros">
+        <button data-tool="numeros" aria-label="Abrir Números">
           <span class="pt">Números</span>
           <span class="en">numbers</span>
         </button>
-        <button data-tool="tempo">
+        <button data-tool="tempo" aria-label="Abrir Tempo e Datas">
           <span class="pt">Tempo e Datas</span>
           <span class="en">time &amp; dates</span>
         </button>
@@ -1607,11 +1718,11 @@
       <h2>🎭 Português Vivo</h2>
       <span class="section-en">living portuguese</span>
       <div class="grid">
-        <button data-tool="calao">
+        <button data-tool="calao" aria-label="Abrir Calão de Portugal — calão português">
           <span class="pt">Calão de Portugal</span>
           <span class="en">portuguese slang</span>
         </button>
-        <button data-tool="ditados">
+        <button data-tool="ditados" aria-label="Abrir Ditados e Cultura — provérbios e cultura">
           <span class="pt">Ditados e Cultura</span>
           <span class="en">sayings &amp; culture</span>
         </button>
@@ -1659,17 +1770,59 @@
   </div>
 </div>
 
+<!-- ── About Modal ── -->
+<div id="about-modal" hidden role="dialog" aria-modal="true" aria-labelledby="about-modal-title">
+  <div id="about-modal-panel">
+    <div class="modal-header">
+      <h2 id="about-modal-title">ℹ Dezasseis</h2>
+      <button class="modal-close" id="about-modal-close" aria-label="Fechar">✕</button>
+    </div>
+
+    <div class="about-body">
+      <strong>Dezasseis — pt-PT · Português europeu</strong><br>
+      Este app ensina português europeu (Portugal), não brasileiro. Palavras, ortografias, pronomes e tempos verbais refletem o uso em Lisboa.
+    </div>
+
+    <div>
+      <div class="about-version" id="about-version-line">v1.0.0 · 16 ferramentas</div>
+    </div>
+
+    <div>
+      <h3>Dados por verificar</h3>
+      <div class="about-body" id="about-verify-count">A carregar…</div>
+    </div>
+
+    <div>
+      <h3>Atribuições — Ouvido (CC BY-SA)</h3>
+      <div class="about-attrib-list">
+        <div class="about-attrib-item"><strong>Nelson Ricardo 2500</strong> — Bom dia, Bem obrigado, Não compreendo, Não falo bem português, É uma emergência, Aceita libras esterlinas?, Onde tem bastante, pão, professor, trabalhar · CC BY-SA 4.0 / Wikimedia Lingua Libre</div>
+        <div class="about-attrib-item"><strong>Santamarcanda</strong> — informação, café · CC BY-SA 4.0 / Wikimedia Lingua Libre</div>
+        <div class="about-attrib-item"><strong>Malafaya</strong> — coração, maçã, água · CC BY-SA 3.0 / Wikimedia Commons</div>
+      </div>
+    </div>
+
+    <div>
+      <h3>Ligações</h3>
+      <div class="about-links">
+        <a class="about-link" href="https://github.com/ohmyseas/dezasseis" target="_blank" rel="noopener">GitHub</a>
+        <a class="about-link" href="https://dezasseis.vercel.app" target="_blank" rel="noopener">Vercel</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
   /* ── Toast ── */
   let _toastTimer;
-  function showToast(msg, duration = 3500) {
+  function showToast(msg, type = '', duration = 3500) {
     const el = document.getElementById('toast');
     el.textContent = msg;
-    el.classList.add('show');
+    el.className = 'show';
+    if (type) el.classList.add(type); // 'error' or 'success' or 'warning'
     clearTimeout(_toastTimer);
-    _toastTimer = setTimeout(() => el.classList.remove('show'), duration);
+    _toastTimer = setTimeout(() => { el.className = ''; }, duration);
   }
 
   /* ── TTS helper ── */
@@ -1683,27 +1836,61 @@
       diag.textContent = `A enviar… voz=${voice}`;
     }
     let r;
-    try {
-      r = await fetch('/api/speak', {
+    // Inner fetch with optional retry
+    async function doFetch() {
+      return fetch('/api/speak', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text, voice }),
       });
+    }
+    try {
+      r = await doFetch();
     } catch (e) {
       const msg = `Erro de rede: ${e.message}`;
-      showToast(`🔇 ${msg}`);
+      showToast(`🔇 ${msg}`, 'error');
       if (diag) { diag.className = 'err'; diag.textContent = msg; }
       return;
     }
+    // Handle specific HTTP error codes
     if (!r.ok) {
-      const msg = `TTS erro: ${r.status} ${r.statusText}`;
-      showToast(`🔇 ${msg}`);
-      if (diag) { diag.className = 'err'; diag.textContent = msg; }
-      return;
+      if (r.status === 401 || r.status === 403) {
+        showToast('Chave TTS inválida — verifica em Áudio Setup', 'error');
+        if (diag) { diag.className = 'err'; diag.textContent = `TTS erro ${r.status}: chave inválida`; }
+        return;
+      }
+      if (r.status === 429) {
+        showToast('Quota TTS excedida — espera ou muda de conta', 'warning', 5000);
+        if (diag) { diag.className = 'err'; diag.textContent = `TTS erro 429: quota excedida`; }
+        return;
+      }
+      if (r.status >= 500) {
+        // Retry once silently
+        try {
+          r = await doFetch();
+        } catch (e2) {
+          const msg2 = `Erro de rede na repetição: ${e2.message}`;
+          showToast(`🔇 ${msg2}`, 'error');
+          if (diag) { diag.className = 'err'; diag.textContent = msg2; }
+          return;
+        }
+        if (!r.ok) {
+          showToast('Serviço TTS indisponível temporariamente', 'warning', 4000);
+          if (diag) { diag.className = 'err'; diag.textContent = `TTS erro ${r.status} após repetição`; }
+          return;
+        }
+      } else {
+        const msg = `TTS erro: ${r.status} ${r.statusText}`;
+        showToast(`🔇 ${msg}`, 'error');
+        if (diag) { diag.className = 'err'; diag.textContent = msg; }
+        return;
+      }
     }
-    if (r.headers.get('X-Voice-Fallback') === 'sarah') {
-      showToast('Voz principal indisponível — a usar Sarah');
-      if (diag) diag.textContent = 'Fallback para Sarah (voz principal indisponível)';
+    const fallbackVoice = r.headers.get('X-Voice-Fallback');
+    if (fallbackVoice === 'sarah') {
+      const vName = voice === 'paulo' ? 'Paulo' : 'Joana';
+      showToast(`Voz ${vName} indisponível — a usar Sarah`, 'warning');
+      if (diag) { diag.textContent = `Fallback para Sarah (voz ${vName} indisponível)`; }
     } else if (diag) {
       diag.className = 'ok';
       diag.textContent = `OK — voz=${voice}, ${r.headers.get('Content-Length') || '?'} bytes`;
@@ -1713,8 +1900,79 @@
     audio.play();
   }
 
+  /* Boot-time voice ping — runs once after page load */
+  async function pingVoice() {
+    try {
+      const voice = localStorage.getItem('dezasseis:voice') || 'joana';
+      const r = await fetch('/api/speak?ping=1', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: '', voice, ping: true }),
+      });
+      if (r.ok) {
+        const fb = r.headers.get('X-Voice-Fallback');
+        if (fb === 'sarah') {
+          const diag = document.getElementById('audio-diag');
+          if (diag) {
+            diag.className = 'err';
+            const vName = voice === 'paulo' ? 'Paulo' : 'Joana';
+            diag.textContent = `⚠ Voz ${vName} indisponível — a usar Sarah como fallback`;
+          }
+        }
+      }
+    } catch (_) { /* silent on boot ping failure */ }
+  }
+  window.addEventListener('load', pingVoice);
+
+  /* ── Tool open counter ── */
+  function trackToolOpen(name) {
+    const store = loadStoreEarly();
+    if (!store.tool_opens) store.tool_opens = {};
+    store.tool_opens[name] = (store.tool_opens[name] || 0) + 1;
+    saveStoreEarly(store);
+  }
+
+  /* loadStore/saveStore defined later — stub early versions for trackToolOpen */
+  const _LS_KEY_EARLY = 'dezasseis:v1';
+  function loadStoreEarly() {
+    try { return JSON.parse(localStorage.getItem(_LS_KEY_EARLY) || '{}'); }
+    catch(e) { return {}; }
+  }
+  function saveStoreEarly(store) {
+    try { localStorage.setItem(_LS_KEY_EARLY, JSON.stringify(store)); } catch(e) {}
+  }
+
+  function renderUsageBanner() {
+    const store = loadStoreEarly();
+    const opens = store.tool_opens || {};
+    const entries = Object.entries(opens).sort((a, b) => b[1] - a[1]);
+    const banner = document.getElementById('usage-banner');
+    if (!banner) return;
+    if (entries.length === 0) { banner.hidden = true; return; }
+
+    // Check if this week has any opens (simple: if any data exists, show)
+    const top3 = entries.slice(0, 3);
+    const TOOL_LABELS = {
+      'verbos': 'Verbos', 'frases': 'Frases', 'situacao': 'Situação',
+      'ouvido': 'Ouvido', 'estudo': 'Estudo', 'do-espanhol': 'Do Espanhol',
+      'falsos': 'Falsos', 'objetos': 'Objetos', 'ser-estar': 'Ser/Estar',
+      'conjuntivo': 'Conjuntivo', 'calao': 'Calão', 'ditados': 'Ditados',
+      'numeros': 'Números', 'tempo': 'Tempo', 'cola': 'Cola', 'por-para': 'Por/Para',
+    };
+    const opensList = top3.map(([k, v]) => `<strong>${TOOL_LABELS[k] || k}</strong> (${v}×)`).join(', ');
+
+    // Recommendation: highest-count tool not in top3, or a rotating suggestion
+    const RECS = ['frases', 'ouvido', 'situacao', 'verbos', 'estudo'];
+    const recTool = RECS.find(r => !top3.find(([k]) => k === r)) || RECS[0];
+    const recLabel = TOOL_LABELS[recTool] || recTool;
+
+    banner.hidden = false;
+    banner.innerHTML = `Abriste recentemente: ${opensList}. <span class="recomendado">Recomendado: ${recLabel}</span>`;
+  }
+
   /* ── Navigation ── */
   function openTool(name) {
+    trackToolOpen(name);
     document.getElementById('home').hidden = true;
     const t = document.getElementById('tool');
     t.hidden = false;
@@ -1731,10 +1989,20 @@
   function goHome() {
     document.getElementById('home').hidden = false;
     document.getElementById('tool').hidden = true;
+    renderUsageBanner();
   }
   document.querySelectorAll('[data-tool]').forEach(b => {
     b.onclick = () => openTool(b.dataset.tool);
+    // Keyboard a11y for non-button elements (all are <button> here, but belt-and-suspenders)
+    if (b.tagName !== 'BUTTON') {
+      b.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openTool(b.dataset.tool); }
+      });
+    }
   });
+
+  // Show banner on initial load
+  renderUsageBanner();
 
   /* ══════════════════════════════════════════════════════════════
      MÁQUINA DE VERBOS — Task 1.4
@@ -2241,6 +2509,38 @@
   document.getElementById('audio-test-btn').onclick = () => {
     speak('os pães são bons');
   };
+
+  /* ── About Modal ── */
+  const VERIFY_COUNT = 107; // grep verify:true in data blocks; update on data expansion
+  function openAboutModal() {
+    // Populate verify count
+    const vc = document.getElementById('about-verify-count');
+    if (vc) vc.textContent = `${VERIFY_COUNT} itens marcados verify:true aguardam revisão de falante nativo (Falsos Amigos, Calão).`;
+    document.getElementById('about-modal').hidden = false;
+    document.getElementById('about-modal-close').focus();
+  }
+  function closeAboutModal() {
+    document.getElementById('about-modal').hidden = true;
+  }
+
+  document.getElementById('info-btn').onclick = openAboutModal;
+  document.getElementById('about-modal-close').onclick = closeAboutModal;
+  document.getElementById('about-modal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('about-modal')) closeAboutModal();
+  });
+  // Keyboard: info button activates on Enter/Space
+  document.getElementById('info-btn').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAboutModal(); }
+  });
+  // Expand Escape to close about modal too
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !document.getElementById('about-modal').hidden) closeAboutModal();
+  });
+
+  // Wire keyboard on audio-chip (role=button)
+  document.getElementById('audio-chip').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAudioModal(); }
+  });
 
   /* ────────────────────────────────────────────────────────────
      VERBS — 182 pt-PT verbs × 9 tenses × 6 person-forms
@@ -7483,6 +7783,7 @@
 
   /* ── openTool('estudo') handler — note: this redefines openTool (hoisted last, wins) ── */
   function openTool(name) {
+    trackToolOpen(name);
     document.getElementById('home').hidden = true;
     const t = document.getElementById('tool');
     t.hidden = false;
