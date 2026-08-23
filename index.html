@@ -1038,6 +1038,15 @@
     .obj-tile:hover .obj-tooltip { display: block; }
 
     /* ── Falsos Amigos ── */
+    .falsos-filter-bar { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+    .falsos-filter-tab {
+      padding: 6px 16px; border-radius: 20px; border: 1px solid var(--line);
+      background: var(--bg2); color: var(--muted); font-size: 13px; font-weight: 600; cursor: pointer;
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .falsos-filter-tab.active { background: var(--verde); border-color: var(--verde2); color: #fff; }
+    .falsos-filter-tab:hover:not(.active) { background: var(--bg3); border-color: var(--verde2); color: var(--chalk); }
+
     .falsos-group { margin-bottom: 24px; }
     .falsos-group-h {
       font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
@@ -3586,15 +3595,538 @@
       ],
     },
 
-    // Lessons 9-16: locked stubs (Em breve — Phase 3)
-    { id: 9, title: 'Futuro: Perifrástico e Simples', en: 'Future Tense (periphrastic + simple)', locked: true },
-    { id: 10, title: 'Conjuntivo: Presente e Futuro', en: 'Subjunctive: Present & Future', locked: true },
-    { id: 11, title: 'Frases Relativas', en: 'Relative Clauses', locked: true },
-    { id: 12, title: 'Voz Passiva', en: 'Passive Voice', locked: true },
-    { id: 13, title: 'Condicional e Hipótese', en: 'Conditional & Hypothesis', locked: true },
-    { id: 14, title: 'Preposições: a, em, de, por, para', en: 'Prepositions Deep Dive', locked: true },
-    { id: 15, title: 'Discurso Indireto', en: 'Reported Speech', locked: true },
-    { id: 16, title: 'Síntese Final', en: 'Final Synthesis', locked: true },
+    // Lessons 9-16: authored Phase 3
+    {
+      id: 9,
+      title: 'Futuro: Perifrástico e Simples',
+      en: 'Future Tense: Periphrastic & Simple',
+      notes: `<p>Em português europeu, o futuro usa-se quase sempre de forma <b>perifrástica</b>: <em>ir</em> no presente + infinitivo. <b>Vou falar</b> (I'm going to speak), <b>vais comer</b> (you're going to eat). Esta forma cobre ~90% de toda a fala quotidiana — aprende-a primeiro.</p>
+      <p>O <b>futuro simples</b> (<em>falarei, comerás, viverá</em>) forma-se com o infinitivo + terminações <b>-ei, -ás, -á, -emos, -eis, -ão</b>. É mais formal e escrito: jornais, contratos, promessas solenes. <em>Voltarei em breve.</em> (I will return soon.) Em conversa, os portugueses dizem quase sempre <em>vou voltar</em>.</p>
+      <p>Exceção importante: <b>fazer, dizer, trazer</b> têm futuros irregulares — <em>farei, direi, trarei</em> (não "fazerrei"). Para os negócios e a escrita, vale a pena reconhecê-los.</p>`,
+      tables: [
+        { title: 'Futuro Perifrástico — ir + infinitivo', rows: [
+          ['eu',         'vou falar / vou comer / vou viver'],
+          ['tu',         'vais falar / vais comer / vais viver'],
+          ['ele/ela',    'vai falar / vai comer / vai viver'],
+          ['nós',        'vamos falar / vamos comer / vamos viver'],
+          ['vós',        'ides falar / ides comer / ides viver'],
+          ['eles/elas',  'vão falar / vão comer / vão viver'],
+        ]},
+        { title: 'Futuro Simples — terminações regulares', rows: [
+          ['eu',         '-ei → falarei, comerei, viverei'],
+          ['tu',         '-ás → falarás, comerás, viverás'],
+          ['ele/ela',    '-á → falará, comerá, viverá'],
+          ['nós',        '-emos → falaremos, comeremos, viveremos'],
+          ['vós',        '-eis → falareis, comereis, vivereis'],
+          ['eles/elas',  '-ão → falarão, comerão, viverão'],
+        ]},
+        { title: 'Futuros irregulares (raiz muda)', rows: [
+          ['fazer',   'farei, farás, fará, faremos, fareis, farão'],
+          ['dizer',   'direi, dirás, dirá, diremos, direis, dirão'],
+          ['trazer',  'trarei, trarás, trará, traremos, trareis, trarão'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'amanhã', en: 'tomorrow' },
+        { pt: 'próxima semana', en: 'next week' },
+        { pt: 'em breve', en: 'soon' },
+        { pt: 'logo', en: 'later / soon' },
+        { pt: 'depois', en: 'afterwards' },
+        { pt: 'nunca mais', en: 'never again' },
+        { pt: 'daqui a pouco', en: 'in a little while' },
+        { pt: 'provavelmente', en: 'probably' },
+        { pt: 'certamente', en: 'certainly' },
+        { pt: 'talvez', en: 'maybe / perhaps' },
+        { pt: 'plano', en: 'plan' },
+        { pt: 'promessa', en: 'promise' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"I\'m going to eat" — futuro perifrástico?', answer: 'Vou comer.', options: ['Vou comer.', 'Comerei.', 'Comi.', 'Comia.'] },
+          { prompt: '"She will speak" — futuro simples?', answer: 'Falará.', options: ['Falará.', 'Vai falar.', 'Fala.', 'Falaria.'] },
+          { prompt: '"We will do" — futuro simples de fazer (irregular)?', answer: 'Faremos.', options: ['Faremos.', 'Fazeremos.', 'Fazemos.', 'Fariam.'] },
+          { prompt: 'Qual forma é mais comum no dia-a-dia?', answer: 'vou falar (perifrástico)', options: ['vou falar (perifrástico)', 'falarei (simples)', 'falaria (condicional)', 'falasse (conjuntivo)'] },
+          { prompt: '"You (tu) are going to travel" — forma correta?', answer: 'Vais viajar.', options: ['Vais viajar.', 'Vai viajar.', 'Irás viajar.', 'Viajaste.'] },
+          { prompt: '"They will say" — futuro simples de dizer (irregular)?', answer: 'Dirão.', options: ['Dirão.', 'Dizerão.', 'Dizem.', 'Diriam.'] },
+        ],
+      },
+      quiz: [
+        { q: 'Em fala quotidiana, o futuro em PT usa principalmente…', choices: ['ir + infinitivo (perifrástico)', 'futuro simples (-ei/-ás/-á)', 'condicional (-ia)', 'presente do conjuntivo'], correct: 0 },
+        { q: '"Farei" é o futuro simples de…', choices: ['fazer', 'falar', 'ir', 'ser'], correct: 0 },
+        { q: 'Qual frase é futuro perifrástico?', choices: ['"Vou estudar amanhã."', '"Estudarei amanhã."', '"Estudei ontem."', '"Estudava sempre."'], correct: 0 },
+        { q: '"Trarei" é o futuro de…', choices: ['trazer', 'ter', 'tratar', 'trabalhar'], correct: 0 },
+        { q: 'O futuro simples é mais comum em…', choices: ['Escrita formal / jornais', 'Conversa do dia-a-dia', 'Pedidos educados', 'Passado habitual'], correct: 0 },
+        { q: '"Eles vão chegar tarde." — isto é…', choices: ['Futuro perifrástico', 'Futuro simples', 'Pretérito perfeito', 'Presente'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 10,
+      title: 'Presente do Conjuntivo',
+      en: 'Present Subjunctive',
+      notes: `<p>O <b>conjuntivo</b> em português usa-se depois de verbos de desejo, dúvida, emoção e negação — exactamente como o subjuntivo espanhol. Palavra-chave: <b>que</b> + conjuntivo. <em>Espero que fales português</em> (I hope you speak Portuguese). <em>É importante que compreendas</em> (It's important that you understand).</p>
+      <p>Grupos-gatilho (WEIRDO em inglês, DIED em português): <b>Desejo</b> (querer, desejar, preferir), <b>Intervenção</b> (pedir, permitir, proibir), <b>Emoção</b> (esperar, temer, alegrar-se), <b>Dúvida/Negação</b> (duvidar, negar, não acreditar). Mais: <b>expressões impessoais</b> — <em>é necessário que, é bom que, é pena que</em>.</p>
+      <p>A formação: parte da 1ª pessoa do singular do presente do indicativo, retira o <em>-o</em> e adiciona as terminações. Para <em>-ar</em>: <b>-e/-es/-e/-emos/-eis/-em</b>. Para <em>-er/-ir</em>: <b>-a/-as/-a/-amos/-ais/-am</b>. Irregulares notáveis: <em>ser→seja, estar→esteja, ir→vá, ter→tenha, haver→haja</em>.</p>`,
+      tables: [
+        { title: 'Formação: falar / comer / partir — Presente do Conjuntivo', rows: [
+          ['eu',         'fale / coma / parta'],
+          ['tu',         'fales / comas / partas'],
+          ['ele/ela',    'fale / coma / parta'],
+          ['nós',        'falemos / comamos / partamos'],
+          ['vós',        'faleis / comais / partais'],
+          ['eles/elas',  'falem / comam / partam'],
+        ]},
+        { title: 'Irregulares obrigatórios', rows: [
+          ['ser',   'seja, sejas, seja, sejamos, sejais, sejam'],
+          ['estar', 'esteja, estejas, esteja, estejamos, estejais, estejam'],
+          ['ir',    'vá, vás, vá, vamos, vades, vão'],
+          ['ter',   'tenha, tenhas, tenha, tenhamos, tenhais, tenham'],
+          ['saber', 'saiba, saibas, saiba, saibamos, saibais, saibam'],
+        ]},
+        { title: 'Gatilhos comuns', rows: [
+          ['querer que',   'Quero que venhas. (I want you to come.)'],
+          ['esperar que',  'Espero que corras bem. (I hope you run well.)'],
+          ['é importante que', 'É importante que durmas. (It\'s important you sleep.)'],
+          ['embora',       'Embora seja difícil… (Although it\'s difficult…)'],
+          ['para que',     'Fiz isto para que percebas. (I did this so you understand.)'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'esperar', en: 'to hope / to wait' },
+        { pt: 'querer', en: 'to want' },
+        { pt: 'permitir', en: 'to allow' },
+        { pt: 'proibir', en: 'to prohibit' },
+        { pt: 'duvidar', en: 'to doubt' },
+        { pt: 'embora', en: 'although' },
+        { pt: 'para que', en: 'so that' },
+        { pt: 'é pena que', en: 'it\'s a pity that' },
+        { pt: 'talvez', en: 'maybe (+ conjuntivo)' },
+        { pt: 'tomara que', en: 'I wish that / hopefully' },
+        { pt: 'duvidar', en: 'to doubt' },
+        { pt: 'temer', en: 'to fear' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"I hope you speak" — conjuntivo correto de "falar" (tu)?', answer: 'Espero que fales.', options: ['Espero que fales.', 'Espero que falas.', 'Espero que falarás.', 'Espero que fala.'] },
+          { prompt: '"It\'s important that he understands" — forma correta?', answer: 'É importante que compreenda.', options: ['É importante que compreenda.', 'É importante que compreende.', 'É importante compreender.', 'É importante que compreendeu.'] },
+          { prompt: '"I want her to be (ser) here" — conjuntivo de ser?', answer: 'Quero que ela seja aqui.', options: ['Quero que ela seja aqui.', 'Quero que ela é aqui.', 'Quero que ela será aqui.', 'Quero que ela está aqui.'] },
+          { prompt: 'Qual palavra NÃO é gatilho do conjuntivo?', answer: 'porque (causa — usa indicativo)', options: ['porque (causa — usa indicativo)', 'embora (concessão)', 'para que (finalidade)', 'quero que (desejo)'] },
+          { prompt: '"Maybe they come" — com "talvez" + conjuntivo?', answer: 'Talvez venham.', options: ['Talvez venham.', 'Talvez vêm.', 'Talvez vieram.', 'Talvez virão.'] },
+          { prompt: 'Conjuntivo de "ter" (eu)?', answer: 'tenha', options: ['tenha', 'terei', 'tenho', 'tinha'] },
+        ],
+      },
+      quiz: [
+        { q: 'Qual frase usa o conjuntivo correctamente?', choices: ['"Espero que venhas."', '"Espero que vens."', '"Espero que virás."', '"Espero que vieste."'], correct: 0 },
+        { q: '"Embora" introduz o quê?', choices: ['Uma oração concessiva (conjuntivo)', 'Uma causa (indicativo)', 'Uma condição futura', 'Um desejo directo'], correct: 0 },
+        { q: 'O conjuntivo de "estar" (eles) é…', choices: ['estejam', 'estão', 'estarão', 'estiveram'], correct: 0 },
+        { q: 'Qual das seguintes NÃO desencadeia conjuntivo?', choices: ['"porque" (razão)', '"quero que"', '"é pena que"', '"duvido que"'], correct: 0 },
+        { q: '"Talvez" em PT usa…', choices: ['Conjuntivo', 'Indicativo', 'Condicional', 'Futuro simples'], correct: 0 },
+        { q: 'Para formar o conjuntivo de -ar, parte-se de…', choices: ['1ª pessoa singular do presente do indicativo, sem o -o', 'O infinitivo sem -ar', '3ª pessoa plural do pretérito', 'O particípio passado'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 11,
+      title: 'Futuro do Conjuntivo',
+      en: 'Future Subjunctive (PT-unique)',
+      notes: `<p>O <b>futuro do conjuntivo</b> está vivo em português e quase morto em espanhol — é uma das maiores diferenças gramaticais entre as duas línguas. Usa-se depois de <b>quando, se, enquanto, assim que, logo que, onde quer que</b> quando a ação é futura ou hipotética.</p>
+      <p>Exemplos: <em><b>Quando fores</b> a Lisboa, avisa-me</em> (When you go to Lisbon, tell me). <em><b>Se vier</b> mais tarde, ligo</em> (If he comes later, I'll call). <em><b>Enquanto trabalhares</b> aqui, ficas bem</em> (As long as you work here, you'll be fine). O erro típico do hispanófono: usar o presente do indicativo — em português fica errado.</p>
+      <p>Formação: parte da 3ª pessoa do plural do pretérito perfeito simples, retira <em>-am</em>, e adiciona: <b>-er/-er/-er/-ermos/-erdes/-erem</b> (para -ar: <em>falar → falaram → falar, falares, falar, falarmos, falardes, falarem</em>). Irregulares: <em>ser/ir → for, fores, for, formos, fordes, forem</em>; <em>ter → tiver</em>; <em>estar → estiver</em>.</p>`,
+      tables: [
+        { title: 'Futuro do Conjuntivo — falar / comer / partir', rows: [
+          ['eu',         'falar / comer / partir'],
+          ['tu',         'falares / comeres / partires'],
+          ['ele/ela',    'falar / comer / partir'],
+          ['nós',        'falarmos / comermos / partirmos'],
+          ['vós',        'falardes / comerdes / partirdes'],
+          ['eles/elas',  'falarem / comerem / partirem'],
+        ]},
+        { title: 'Irregulares-chave', rows: [
+          ['ser / ir', 'for, fores, for, formos, fordes, forem'],
+          ['ter',      'tiver, tiveres, tiver, tivermos, tiverdes, tiverem'],
+          ['estar',    'estiver, estiveres, estiver, estivermos, estiverdes, estiverem'],
+          ['fazer',    'fizer, fizeres, fizer, fizermos, fizerdes, fizerem'],
+          ['vir',      'vier, vieres, vier, viermos, vierdes, vierem'],
+        ]},
+        { title: 'Gatilhos do futuro do conjuntivo', rows: [
+          ['quando',    'Quando chegares, liga. (When you arrive, call.)'],
+          ['se',        'Se tiveres tempo, vem. (If you have time, come.)'],
+          ['enquanto',  'Enquanto estiveres aqui, aproveita. (While you\'re here, make the most of it.)'],
+          ['assim que', 'Assim que souberes, diz-me. (As soon as you know, tell me.)'],
+          ['onde quer que', 'Onde quer que vás… (Wherever you go…)'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'quando', en: 'when (future)' },
+        { pt: 'enquanto', en: 'while / as long as' },
+        { pt: 'assim que', en: 'as soon as' },
+        { pt: 'logo que', en: 'as soon as' },
+        { pt: 'se', en: 'if (conditional)' },
+        { pt: 'onde quer que', en: 'wherever' },
+        { pt: 'quem quer que', en: 'whoever' },
+        { pt: 'o que quer que', en: 'whatever' },
+        { pt: 'até que', en: 'until' },
+        { pt: 'antes que', en: 'before (that)' },
+        { pt: 'avisa-me', en: 'let me know / warn me' },
+        { pt: 'aproveitar', en: 'to make the most of' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"When you go" — futuro do conjuntivo de ir (tu)?', answer: 'quando fores', options: ['quando fores', 'quando vais', 'quando irás', 'quando foras'] },
+          { prompt: '"If he comes" — futuro do conjuntivo de vir (ele)?', answer: 'se vier', options: ['se vier', 'se vem', 'se virá', 'se venha'] },
+          { prompt: '"As soon as we know" — saber (nós)?', answer: 'assim que soubermos', options: ['assim que soubermos', 'assim que sabemos', 'assim que saberemos', 'assim que soubemos'] },
+          { prompt: '"While you (tu) are here" — estar?', answer: 'enquanto estiveres aqui', options: ['enquanto estiveres aqui', 'enquanto estás aqui', 'enquanto estarás aqui', 'enquanto estejas aqui'] },
+          { prompt: 'Futuro do conjuntivo de "fazer" (ele)?', answer: 'fizer', options: ['fizer', 'faça', 'fará', 'fez'] },
+          { prompt: 'Qual frase usa CORRECTAMENTE o futuro do conjuntivo?', answer: '"Quando chegares, liga."', options: ['"Quando chegares, liga."', '"Quando chegas, liga."', '"Quando chegarás, liga."', '"Quando chegues, liga."'] },
+        ],
+      },
+      quiz: [
+        { q: 'O futuro do conjuntivo é único porque…', choices: ['Está vivo em PT mas morto em ES', 'Só existe em português europeu, não em brasileiro', 'É igual ao infinitivo pessoal', 'Usa as mesmas formas do presente'], correct: 0 },
+        { q: '"Quando fores a Lisboa" — "fores" é…', choices: ['Futuro do conjuntivo de ir', 'Infinitivo pessoal de ir', 'Presente do conjuntivo de ir', 'Futuro simples de ir'], correct: 0 },
+        { q: '"Se tiveres tempo" — "tiveres" é…', choices: ['Futuro do conjuntivo de ter', 'Pretérito imperfeito de ter', 'Presente do conjuntivo de ter', 'Infinitivo pessoal de ter'], correct: 0 },
+        { q: 'Qual gatilho NÃO usa futuro do conjuntivo?', choices: ['"porque" (causa — indicativo)', '"quando" (futuro)', '"se" (hipótese futura)', '"assim que" (futura)'], correct: 0 },
+        { q: '"Fizer" é o futuro do conjuntivo de…', choices: ['fazer', 'ir', 'ser', 'ficar'], correct: 0 },
+        { q: 'A formação do futuro do conjuntivo parte de…', choices: ['3ª pessoa plural do pretérito perfeito, sem -am', '1ª pessoa singular do presente', 'O infinitivo', 'O particípio passado'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 12,
+      title: 'Ter como auxiliar',
+      en: 'Ter as Auxiliary — Compound Tenses',
+      notes: `<p>Em português europeu, <b>ter</b> funciona como auxiliar para formar tempos compostos — mas com um significado diferente do espanhol. <em>Tenho comido</em> NÃO é "I ate" (que em PT é <b>comi</b> — pretérito perfeito simples). <em>Tenho comido</em> significa "I've been eating (recently, repeatedly)" — uma ação que se repete ou continua no presente recente.</p>
+      <p>Formas compostas: <b>ter + particípio passado</b>. O particípio de verbos regulares: <em>-ar → -ado</em> (falado), <em>-er → -ido</em> (comido), <em>-ir → -ido</em> (vivido). Particípios irregulares frequentes: <em>fazer→feito, dizer→dito, vir→vindo, pôr→posto, ver→visto, abrir→aberto, escrever→escrito</em>.</p>
+      <p><b>Regra de ouro</b>: para "I ate / I went / I said" — usa sempre o <b>perfeito simples</b> (comi, fui, disse). <em>Tenho comido</em> implica repetição recente — "I've been eating a lot lately." Confundir estes dois é o erro mais comum dos hispanófonos.</p>`,
+      tables: [
+        { title: 'Pretérito Perfeito Composto — ter + particípio', rows: [
+          ['eu',         'tenho falado / tenho comido / tenho vivido'],
+          ['tu',         'tens falado / tens comido / tens vivido'],
+          ['ele/ela',    'tem falado / tem comido / tem vivido'],
+          ['nós',        'temos falado / temos comido / temos vivido'],
+          ['vós',        'tendes falado / tendes comido / tendes vivido'],
+          ['eles/elas',  'têm falado / têm comido / têm vivido'],
+        ]},
+        { title: 'Particípios irregulares obrigatórios', rows: [
+          ['fazer',    'feito'],
+          ['dizer',    'dito'],
+          ['vir',      'vindo'],
+          ['pôr',      'posto'],
+          ['ver',      'visto'],
+          ['abrir',    'aberto'],
+          ['escrever', 'escrito'],
+          ['cobrir',   'coberto'],
+        ]},
+        { title: 'Tenho comido vs Comi — comparação', rows: [
+          ['Comi muito ontem.', 'I ate a lot yesterday. (evento único, passado simples)'],
+          ['Tenho comido bem.', 'I\'ve been eating well (lately). (repetição recente)'],
+          ['Fui a Lisboa.', 'I went to Lisbon. (evento único)'],
+          ['Tenho ido a Lisboa.', 'I\'ve been going to Lisbon (repeatedly).'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'particípio', en: 'past participle' },
+        { pt: 'recentemente', en: 'recently' },
+        { pt: 'ultimamente', en: 'lately' },
+        { pt: 'já', en: 'already' },
+        { pt: 'ainda não', en: 'not yet' },
+        { pt: 'tem feito', en: 'has been doing' },
+        { pt: 'tenho visto', en: 'I\'ve been seeing' },
+        { pt: 'feito', en: 'done / made (particípio de fazer)' },
+        { pt: 'dito', en: 'said (particípio de dizer)' },
+        { pt: 'visto', en: 'seen (particípio de ver)' },
+        { pt: 'escrito', en: 'written (particípio de escrever)' },
+        { pt: 'posto', en: 'put / placed (particípio de pôr)' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"I ate yesterday" — forma correta em PT?', answer: 'Comi ontem. (perfeito simples)', options: ['Comi ontem. (perfeito simples)', 'Tenho comido ontem.', 'Tinha comido ontem.', 'Comia ontem.'] },
+          { prompt: '"I\'ve been eating well lately" — forma correta?', answer: 'Tenho comido bem ultimamente.', options: ['Tenho comido bem ultimamente.', 'Comi bem ultimamente.', 'Vou comer bem.', 'Comia bem.'] },
+          { prompt: 'Particípio de "fazer"?', answer: 'feito', options: ['feito', 'fazido', 'fazendo', 'fez'] },
+          { prompt: 'Particípio de "dizer"?', answer: 'dito', options: ['dito', 'dizido', 'dizendo', 'disse'] },
+          { prompt: '"She has been writing a lot" — forma correta?', answer: 'Ela tem escrito muito.', options: ['Ela tem escrito muito.', 'Ela escreveu muito.', 'Ela tem escrevido muito.', 'Ela tinha escrito muito.'] },
+          { prompt: 'O composto "tenho comido" implica…', choices: undefined, answer: 'Ação repetida ou contínua no presente recente', options: ['Ação repetida ou contínua no presente recente', 'Evento único no passado', 'Futuro planeado', 'Condição hipotética'] },
+        ],
+      },
+      quiz: [
+        { q: '"Tenho comido" em PT significa…', choices: ['"I\'ve been eating (recently/repeatedly)"', '"I ate"', '"I used to eat"', '"I will eat"'], correct: 0 },
+        { q: 'Para "I went to Lisbon" em PT, usa-se…', choices: ['fui a Lisboa (perfeito simples)', 'tenho ido a Lisboa', 'ia a Lisboa', 'vou a Lisboa'], correct: 0 },
+        { q: 'O particípio de "ver" é…', choices: ['visto', 'vido', 'vendo', 'viu'], correct: 0 },
+        { q: 'O particípio de "pôr" é…', choices: ['posto', 'pôsto', 'pondo', 'pôs'], correct: 0 },
+        { q: '"Ele tem feito muito trabalho." — Isto implica…', choices: ['Repetição recente e contínua', 'Evento único no passado', 'Plano futuro', 'Condição se…'], correct: 0 },
+        { q: 'O auxiliar do composto em PT-PT é…', choices: ['ter', 'haver', 'ser', 'estar'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 13,
+      title: 'Preposições e Contrações',
+      en: 'Prepositions & Contractions',
+      notes: `<p>Em português, as preposições contraem-se obrigatoriamente com artigos e pronomes — não são opcionais como noutras línguas. As contrações mais importantes: <b>de + o = do, de + a = da, de + os = dos, de + as = das</b>. Também: <b>em + o = no, em + a = na, em + os = nos, em + as = nas</b>.</p>
+      <p>Para <em>a</em> + artigo definido feminino ocorre a <b>crase</b> (acento grave): <b>a + a = à, a + as = às</b>. <em>Vou à farmácia</em> (I'm going to the pharmacy). E para <em>por</em>: <b>por + o = pelo, por + a = pela, por + os = pelos, por + as = pelas</b>.</p>
+      <p>As preposições mais usadas têm significados múltiplos — não traduzem sempre pela mesma palavra inglesa. <b>Em</b> = in/at/on. <b>A</b> = to/at/by. <b>De</b> = of/from/by. <b>Para</b> = for/to/in order to. <b>Por</b> = by/through/for/per. Aprende-as em contexto, não isoladas.</p>`,
+      tables: [
+        { title: 'Contrações com "de"', rows: [
+          ['de + o',  'do — do Porto, do livro'],
+          ['de + a',  'da — da cidade, da Ana'],
+          ['de + os', 'dos — dos filhos'],
+          ['de + as', 'das — das casas'],
+          ['de + um', 'dum — dum amigo (informal)'],
+        ]},
+        { title: 'Contrações com "em"', rows: [
+          ['em + o',  'no — no café, no banco'],
+          ['em + a',  'na — na escola, na mesa'],
+          ['em + os', 'nos — nos livros'],
+          ['em + as', 'nas — nas ruas'],
+          ['em + um', 'num — num momento'],
+        ]},
+        { title: 'Contrações com "por" e crase com "a"', rows: [
+          ['por + o',  'pelo — pelo parque'],
+          ['por + a',  'pela — pela manhã'],
+          ['por + os', 'pelos — pelos alunos'],
+          ['por + as', 'pelas — pelas ruas'],
+          ['a + a',    'à — à farmácia, à esquerda'],
+          ['a + as',   'às — às três horas'],
+        ]},
+        { title: 'Preposições-chave e usos', rows: [
+          ['a',    'a Lisboa (direction), ao lado (position), às 10h (time)'],
+          ['em',   'em casa (in), no cinema (at), em 2025 (in year)'],
+          ['de',   'de Portugal (from), copo de água (of), de manhã (in the morning)'],
+          ['para', 'para ti (for you), para Lisboa (towards), para estudar (in order to)'],
+          ['por',  'pelo caminho (through), por isso (because of that), por hora (per hour)'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'do lado de', en: 'beside / next to' },
+        { pt: 'em frente de', en: 'in front of' },
+        { pt: 'atrás de', en: 'behind' },
+        { pt: 'perto de', en: 'near' },
+        { pt: 'longe de', en: 'far from' },
+        { pt: 'à esquerda', en: 'on the left' },
+        { pt: 'à direita', en: 'on the right' },
+        { pt: 'em cima de', en: 'on top of' },
+        { pt: 'debaixo de', en: 'under / below' },
+        { pt: 'entre', en: 'between' },
+        { pt: 'através de', en: 'through / via' },
+        { pt: 'desde', en: 'since / from (time)' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"I\'m going to the pharmacy" — com contração de a+a?', answer: 'Vou à farmácia.', options: ['Vou à farmácia.', 'Vou a a farmácia.', 'Vou na farmácia.', 'Vou em farmácia.'] },
+          { prompt: '"He lives in the city" — contração em+a?', answer: 'Ele vive na cidade.', options: ['Ele vive na cidade.', 'Ele vive em a cidade.', 'Ele vive da cidade.', 'Ele vive à cidade.'] },
+          { prompt: '"The wine from Portugal" — contração de+o?', answer: 'o vinho do Portugal', options: ['o vinho do Portugal', 'o vinho de o Portugal', 'o vinho ao Portugal', 'o vinho pelo Portugal'] },
+          { prompt: '"Through the park" — contração por+o?', answer: 'pelo parque', options: ['pelo parque', 'por o parque', 'no parque', 'ao parque'] },
+          { prompt: '"At 3 o\'clock" — a+as?', answer: 'às três horas', options: ['às três horas', 'a as três horas', 'nas três horas', 'pelas três horas'] },
+          { prompt: '"In a moment" — em+um?', answer: 'num momento', options: ['num momento', 'em um momento', 'no momento', 'por um momento'] },
+        ],
+      },
+      quiz: [
+        { q: '"Vou ___ farmácia." — contração de "a + a"?', choices: ['à (crase)', 'na', 'da', 'pela'], correct: 0 },
+        { q: '"Ele mora ___ Lisboa." — contração correta?', choices: ['em Lisboa (sem artigo — cidade)', 'na Lisboa', 'à Lisboa', 'de Lisboa'], correct: 0 },
+        { q: '"de + os" contrai em…', choices: ['dos', 'des', 'deos', 'dos/das'], correct: 0 },
+        { q: '"por + a" contrai em…', choices: ['pela', 'pola', 'por a', 'pela/pelos'], correct: 0 },
+        { q: '"Venho ___ Porto." — de onde vienes?', choices: ['do Porto (de + o)', 'no Porto', 'ao Porto', 'pelo Porto'], correct: 0 },
+        { q: '"em + a" contrai em…', choices: ['na', 'ena', 'ema', 'em a'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 14,
+      title: 'Comparativos, Superlativos e Diminutivos',
+      en: 'Comparatives, Superlatives & Diminutives',
+      notes: `<p>Os <b>comparativos</b> em português: <em>mais … do que</em> (more … than), <em>menos … do que</em> (less … than), <em>tão … como</em> (as … as). Exemplos: <b>mais rápido do que</b> (faster than), <b>tão bom como</b> (as good as). Nota: usa-se <em>do que</em>, não só <em>que</em> — é um erro comum dos anglófonos.</p>
+      <p>Os <b>superlativos</b>: relativo — <em>o/a mais … de</em> (the most … of/in). <em>É o melhor restaurante da cidade.</em> Absoluto — sufixo <em>-íssimo/-íssima</em>: <em>lentíssimo</em> (extremely slow), <em>lindíssima</em> (most beautiful). Irregulares: <em>bom→melhor, mau→pior, grande→maior, pequeno→menor</em>.</p>
+      <p>Os <b>diminutivos</b> com <em>-inho/-inha</em> têm um peso cultural enorme em português europeu — exprimem carinho, tamanho pequeno e polidez. <em>Um cafezinho</em> (a small/nice coffee), <em>um momentinho</em> (just a moment), <em>amiguinha</em> (little friend/dear friend). Aprende a usa-los — os portugueses usam-nos constantemente.</p>`,
+      tables: [
+        { title: 'Comparativos', rows: [
+          ['mais … do que',   'mais rápido do que tu (faster than you)'],
+          ['menos … do que',  'menos caro do que isso (cheaper than that)'],
+          ['tão … como',      'tão bom como o meu (as good as mine)'],
+          ['tanto … como',    'tanto dinheiro como precisas (as much money as you need)'],
+        ]},
+        { title: 'Superlativos irregulares', rows: [
+          ['bom',      'melhor — o melhor vinho'],
+          ['mau',      'pior — a pior ideia'],
+          ['grande',   'maior — o maior erro'],
+          ['pequeno',  'menor — o menor problema'],
+          ['muito',    'mais — o mais trabalhador'],
+          ['pouco',    'menos — o menos provável'],
+        ]},
+        { title: 'Diminutivos -inho/-inha (exemplos)', rows: [
+          ['café → cafezinho',       'a small/nice coffee (affectionate)'],
+          ['momento → momentinho',   'just a sec (polite softening)'],
+          ['carro → carrinho',       'little car / toy car'],
+          ['amor → amorzinho',       'sweetie / darling'],
+          ['obrigado → obrigadinho', 'thanks a bunch (warm, casual)'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'melhor', en: 'better / best' },
+        { pt: 'pior', en: 'worse / worst' },
+        { pt: 'maior', en: 'bigger / biggest' },
+        { pt: 'menor', en: 'smaller / smallest' },
+        { pt: 'mais', en: 'more' },
+        { pt: 'menos', en: 'less / fewer' },
+        { pt: 'do que', en: 'than (comparison)' },
+        { pt: 'tão … como', en: 'as … as' },
+        { pt: '-íssimo', en: 'absolute superlative suffix' },
+        { pt: '-inho/-inha', en: 'diminutive suffix (affection + size)' },
+        { pt: 'lindíssimo', en: 'extremely beautiful' },
+        { pt: 'rapidíssimo', en: 'extremely fast' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: '"This is better than that" — comparativo correto?', answer: 'Isto é melhor do que isso.', options: ['Isto é melhor do que isso.', 'Isto é mais bom que isso.', 'Isto é melhor que isso.', 'Isto é mais bom do que isso.'] },
+          { prompt: '"She is the best in the class" — superlativo relativo?', answer: 'Ela é a melhor da turma.', options: ['Ela é a melhor da turma.', 'Ela é a mais boa da turma.', 'Ela é melhor da turma.', 'Ela é a melhor em turma.'] },
+          { prompt: '"Extremely slow" — superlativo absoluto?', answer: 'lentíssimo', options: ['lentíssimo', 'muito lento', 'mais lento', 'o mais lento'] },
+          { prompt: 'Superlativo irregular de "mau"?', answer: 'pior', options: ['pior', 'mais mau', 'mauíssimo', 'malor'] },
+          { prompt: '"Um cafezinho" implica…', answer: 'Tamanho pequeno e/ou afeto (diminutivo)', options: ['Tamanho pequeno e/ou afeto (diminutivo)', 'Um café grande', 'Um café especial', 'Um café sem açúcar'] },
+          { prompt: '"As fast as you" — tão … como?', answer: 'tão rápido como tu', options: ['tão rápido como tu', 'mais rápido do que tu', 'tão rápido do que tu', 'muito rápido que tu'] },
+        ],
+      },
+      quiz: [
+        { q: '"Mais rápido ___ tu" — preposição correta?', choices: ['do que', 'que', 'como', 'de'], correct: 0 },
+        { q: 'Superlativo irregular de "bom" é…', choices: ['melhor', 'boníssimo', 'mais bom', 'bómimo'], correct: 0 },
+        { q: 'Os diminutivos -inho/-inha em PT expressam…', choices: ['Tamanho pequeno e/ou afeto', 'Apenas tamanho físico', 'Superioridade', 'Negação'], correct: 0 },
+        { q: '"O maior erro" usa o superlativo de…', choices: ['grande', 'muito', 'bom', 'mau'], correct: 0 },
+        { q: '"Belíssimo" é superlativo absoluto de…', choices: ['belo', 'bom', 'bonito', 'baixo'], correct: 0 },
+        { q: '"Tão bom como" significa…', choices: ['as good as', 'better than', 'much better', 'so good'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 15,
+      title: 'Marcadores do Discurso',
+      en: 'Discourse Markers & Filler Words',
+      notes: `<p>Para soares natural em português europeu, precisas de conhecer os <b>marcadores do discurso</b> — as palavras que os falantes nativos usam para organizar o pensamento, ganhar tempo e criar fluxo na conversa. Sem eles, o discurso soa rígido e traduzido.</p>
+      <p>Os fillers mais comuns: <b>pois</b> (yes / indeed / I see — resposta afirmativa e pensativa), <b>tipo</b> (like — marcador de exemplo juvenil), <b>epá / pá</b> (hey / man / oh — interjeições informais muito portuguesas). <em>Epá, não sabia!</em> (Wow, I didn't know!). <b>Pronto</b> (right / OK / done — encerra um assunto). <b>Portanto</b> (therefore / so — conector lógico). <b>Então</b> (so / then — muito usado para iniciar respostas).</p>
+      <p>Em registo informal, <b>tipo</b> e <b>pá</b> são tão comuns em PT quanto "like" e "man" em inglês americano. Não os uses em contexto formal — mas reconhece-os para entenderes a fala real.</p>`,
+      tables: [
+        { title: 'Marcadores de tempo e sequência', rows: [
+          ['primeiro',    'first / firstly'],
+          ['depois',      'then / afterwards'],
+          ['a seguir',    'next / following that'],
+          ['finalmente',  'finally'],
+          ['entretanto',  'meanwhile'],
+          ['de repente',  'suddenly'],
+        ]},
+        { title: 'Marcadores de discurso e fillers', rows: [
+          ['pois',       'yes / I see / indeed (afirmativo pensativo)'],
+          ['pronto',     'right / OK / done (encerramento)'],
+          ['portanto',   'therefore / so'],
+          ['então',      'so / then (início de frase)'],
+          ['tipo',       '"like" — marcador de exemplo (informal)'],
+          ['pá / epá',   '"man / hey" — interjeição informal PT'],
+          ['olha',       '"look" — chamar atenção'],
+          ['sabes?',     '"you know?" — busca de confirmação'],
+          ['ou seja',    '"that is / in other words"'],
+          ['quer dizer', '"that is to say"'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'pois', en: 'yes / indeed / I see' },
+        { pt: 'pronto', en: 'right / OK / done' },
+        { pt: 'portanto', en: 'therefore / so' },
+        { pt: 'então', en: 'so / then' },
+        { pt: 'tipo', en: 'like (filler, informal)' },
+        { pt: 'epá', en: 'wow / hey (interjeição PT)' },
+        { pt: 'pá', en: 'man / dude (informal PT)' },
+        { pt: 'olha', en: 'look / listen (to get attention)' },
+        { pt: 'ou seja', en: 'that is / in other words' },
+        { pt: 'enfim', en: 'anyway / in short' },
+        { pt: 'aliás', en: 'besides / in fact / actually' },
+        { pt: 'de facto', en: 'in fact / actually (pt-PT formal)' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: 'Qual palavra portuguesa corresponde a "like" como filler informal?', answer: 'tipo', options: ['tipo', 'pois', 'pronto', 'então'] },
+          { prompt: '"Pois" numa conversa indica…', answer: 'Concordância pensativa / "I see"', options: ['Concordância pensativa / "I see"', 'Uma pergunta', 'Negação educada', 'Surpresa'] },
+          { prompt: '"Pronto" no final de uma frase serve para…', answer: 'Encerrar o assunto / "right, done"', options: ['Encerrar o assunto / "right, done"', 'Iniciar uma explicação', 'Pedir confirmação', 'Expressar dúvida'] },
+          { prompt: '"Epá" é usado principalmente em…', answer: 'Português europeu informal', options: ['Português europeu informal', 'Linguagem formal', 'Escrita académica', 'Português do Brasil'] },
+          { prompt: '"Ou seja" equivale a…', answer: '"that is / in other words"', options: ['"that is / in other words"', '"because"', '"however"', '"finally"'] },
+          { prompt: '"Portanto" funciona como…', answer: 'Conector lógico: "therefore / so"', options: ['Conector lógico: "therefore / so"', 'Filler neutro', 'Marcador de surpresa', 'Negação'] },
+        ],
+      },
+      quiz: [
+        { q: '"Pois" numa resposta curta equivale a…', choices: ['"Yes / I see / indeed"', '"No / I disagree"', '"Maybe / perhaps"', '"Go ahead / please"'], correct: 0 },
+        { q: '"Tipo" como filler corresponde ao inglês…', choices: ['"like"', '"so"', '"anyway"', '"right"'], correct: 0 },
+        { q: '"Epá" é uma interjeição típica de…', choices: ['Português europeu informal', 'Português do Brasil', 'Linguagem académica', 'Correspondência formal'], correct: 0 },
+        { q: '"Pronto" no final de conversa indica…', choices: ['Encerramento / "OK done"', 'Pedido de desculpa', 'Confirmação de pergunta', 'Concordância entusiástica'], correct: 0 },
+        { q: '"Portanto" equivale a…', choices: ['"therefore / so"', '"however"', '"besides"', '"in fact"'], correct: 0 },
+        { q: 'Qual marcador usa-se para chamar atenção informalmente?', choices: ['olha', 'pois', 'pronto', 'portanto'], correct: 0 },
+      ],
+    },
+
+    {
+      id: 16,
+      title: 'Registo: tu, você, o senhor',
+      en: 'Register: Addressing People in PT',
+      notes: `<p>Em português europeu, a forma de tratar as pessoas é um campo minado. Há três registos principais: <b>tu</b> (informal, entre amigos, família, jovens), <b>você</b> (em Portugal é considerado distante ou mesmo rude — evita-o com desconhecidos), e <b>o senhor / a senhora</b> (forma respeitosa para adultos desconhecidos, funcionários, contextos formais).</p>
+      <p>A estratégia de Lisboa para evitar problemas: <b>usa o nome + 3ª pessoa do singular</b>. Em vez de "o que quer?" (você = distante), diz <em>"O João quer café?"</em> ou simplesmente <em>"Quer café?"</em> (sem pronome — completamente natural). Esta última é a mais segura em qualquer contexto.</p>
+      <p>Com desconhecidos em lojas, restaurantes, transportes: usa <b>o senhor / a senhora</b> se forem visivelmente mais velhos, ou simplesmente evita o pronome. <em>"Tem mesa para dois?"</em> (sem pronome), não "você tem mesa". O <b>vós</b> é arcaico — esquece-o para uso diário (aparece em textos religiosos e literatura).</p>`,
+      tables: [
+        { title: 'Sistema de tratamento em Portugal', rows: [
+          ['tu',           'Informal — amigos, família, jovens. Verbo 2ª p.sg.'],
+          ['você',         'Distante em PT-PT. Evitar com desconhecidos. Mais natural no Brasil.'],
+          ['o senhor',     'Respeito — homens desconhecidos, formais, mais velhos.'],
+          ['a senhora',    'Respeito — mulheres desconhecidas, formais, mais velhas.'],
+          ['sem pronome',  'O mais seguro — "Quer ajuda?" (3ª p.sg. sem pronome)'],
+        ]},
+        { title: 'Estratégia: nome + 3ª pessoa singular', rows: [
+          ['O João quer?',       'João wants? (informal by name, warm)'],
+          ['A Ana tem?',         'Does Ana have? (same strategy)'],
+          ['O senhor quer?',     'Would you like? (respectful, stranger)'],
+          ['Quer café?',         'Would you like coffee? (no pronoun — always safe)'],
+          ['Tu queres café?',    'Do you want coffee? (informal, friend)'],
+        ]},
+        { title: 'Verbos: tu vs o senhor / sem pronome', rows: [
+          ['tu falas',        'o senhor fala / fala? (você fala)'],
+          ['tu tens',         'o senhor tem / tem?'],
+          ['tu és',           'o senhor é / é?'],
+          ['tu vais',         'o senhor vai / vai?'],
+          ['tu queres',       'o senhor quer / quer?'],
+        ]},
+      ],
+      vocab: [
+        { pt: 'tratar por tu', en: 'to address informally (using tu)' },
+        { pt: 'tratar por você', en: 'to address using você (tricky in PT)' },
+        { pt: 'o senhor', en: 'sir / you (respectful male)' },
+        { pt: 'a senhora', en: 'ma\'am / you (respectful female)' },
+        { pt: 'desconhecido', en: 'stranger / unknown person' },
+        { pt: 'formal', en: 'formal' },
+        { pt: 'informal', en: 'informal' },
+        { pt: 'com licença', en: 'excuse me (to get attention)' },
+        { pt: 'se faz favor', en: 'please (to address someone)' },
+        { pt: 'quer ajuda?', en: 'can I help you? (no pronoun)' },
+        { pt: 'tem mesa?', en: 'do you have a table? (no pronoun, safe)' },
+        { pt: 'como prefere?', en: 'how do you prefer it? (no pronoun)' },
+      ],
+      drill: {
+        type: 'multi',
+        items: [
+          { prompt: 'Em Lisboa, ao perguntar a um estranho, é mais seguro…', answer: 'Evitar o pronome: "Quer ajuda?"', options: ['Evitar o pronome: "Quer ajuda?"', 'Usar "você": "Você quer ajuda?"', 'Usar "tu": "Tu queres ajuda?"', 'Usar "vós": "Vós quereis ajuda?"'] },
+          { prompt: '"O João quer café?" — esta estratégia usa…', answer: 'Nome + 3ª pessoa do singular', options: ['Nome + 3ª pessoa do singular', '"você" implícito', '"tu" formal', '"vós" arcaico'] },
+          { prompt: '"Você" em Portugal (PT-PT) é geralmente…', answer: 'Distante ou ligeiramente rude', options: ['Distante ou ligeiramente rude', 'A forma mais educada', 'Sinónimo perfeito de "tu"', 'Idêntico ao uso no Brasil'] },
+          { prompt: 'Com um senhor mais velho desconhecido, usa-se…', answer: '"O senhor quer?" ou sem pronome', options: ['"O senhor quer?" ou sem pronome', '"Tu queres?"', '"Você quer?"', '"Vós quereis?"'] },
+          { prompt: '"Tu" usa a ___ª pessoa do singular do verbo.', answer: '2ª (falas, tens, és, queres)', options: ['2ª (falas, tens, és, queres)', '3ª (fala, tem, é, quer)', '1ª (falo, tenho, sou)', 'Invariável'] },
+          { prompt: 'A forma mais universal e segura em PT-PT é…', answer: 'Verbo sem pronome (3ª p.sg.)', options: ['Verbo sem pronome (3ª p.sg.)', 'você + verbo', 'tu + verbo', 'vós + verbo'] },
+        ],
+      },
+      quiz: [
+        { q: '"Você" em Portugal continental é frequentemente…', choices: ['Distante ou até rude', 'A forma mais polida', 'Idêntico ao uso no Brasil', 'Equivalente a "o senhor"'], correct: 0 },
+        { q: 'A estratégia mais segura ao falar com desconhecidos é…', choices: ['Usar verbo sem pronome: "Quer?"', 'Usar "você"', 'Usar "tu"', 'Usar "vós"'], correct: 0 },
+        { q: '"O senhor tem mesa para dois?" usa…', choices: ['"o senhor" (tratamento respeitoso)', '"você" formal', '"tu" informal', 'Sem pronome'], correct: 0 },
+        { q: '"Tu" corresponde ao ___ª pessoa do verbo.', choices: ['2ª — tu falas, tu tens', '3ª — ele fala, ele tem', '1ª — eu falo', 'Invariável'], correct: 0 },
+        { q: '"O João quer café?" é um exemplo de…', choices: ['Nome + 3ª pessoa singular (estratégia Lisboa)', '"você" implícito', '"tu" informal', 'Impessoal'], correct: 0 },
+        { q: '"Vós" no português europeu diário é…', choices: ['Arcaico — não se usa em conversa', 'A forma padrão plural informal', 'Equivalente a "vocês"', 'Mais educado que "o senhor"'], correct: 0 },
+      ],
+    },
   ];
 
   // Expose for schema validator
@@ -3645,7 +4177,8 @@
   function renderEstudo() {
     const scores = getLessonScores();
     const passed = Object.values(scores).filter(v => v >= 0.75).length;
-    const pct = Math.round(passed / 8 * 100);
+    const total = LESSONS.filter(l => !l.locked).length;
+    const pct = Math.round(passed / total * 100);
 
     const tiles = LESSONS.map(L => {
       if (L.locked) {
@@ -3688,7 +4221,7 @@
       <div class="tool-name">Estudo <span style="font-size:16px;font-weight:400;color:var(--muted)">16 lições</span></div>
       <div class="estudo-progress">
         <div class="estudo-progress-bar"><div class="estudo-progress-fill" style="width:${pct}%"></div></div>
-        <div class="estudo-progress-text">${passed} / 8 lições concluídas · Lições 9-16 em breve</div>
+        <div class="estudo-progress-text">${passed} / ${total} lições concluídas</div>
       </div>
       <div class="estudo-list">${tiles}</div>
     `;
@@ -4547,52 +5080,99 @@
     { pt: 'actual',     gloss: 'current / present (not actual!)', esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
     { pt: 'particular', gloss: 'private (escola particular = private school)', esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
     { pt: 'simpático',  gloss: 'nice / kind (not sympathetic!)', esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    // PT→EN additional traps
+    { pt: 'educado',    gloss: 'well-mannered / polite (not educated!)', esWord: null, esGloss: null, hot: true,  showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'livraria',   gloss: 'bookshop (library = biblioteca)',         esWord: null, esGloss: null, hot: true,  showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'injúria',    gloss: 'insult / slander (injury = ferimento)',   esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'ordinário',  gloss: 'vulgar / crude (not orderly!)',           esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'morar',      gloss: 'to reside / to live (not to die!)',       esWord: null, esGloss: null, hot: true,  showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'discutir',   gloss: 'to argue (not just discuss!)',            esWord: null, esGloss: null, hot: true,  showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'suceder',    gloss: 'to happen / to follow (not succeed!)',    esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'leitura',    gloss: 'reading (lectura is Spanish, not PT)',    esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'exigente',   gloss: 'demanding / strict (not exciting!)',      esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    { pt: 'comprido',   gloss: 'long (in length) — not compromised',     esWord: null, esGloss: null, hot: false, showInBridge: false, category: 'PT→EN', verify: true },
+    // PT↔ES additional traps
+    { pt: 'rato',       gloss: 'mouse (animal)',                          esWord: 'rato',       esGloss: 'a while / a moment',  hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'pele',       gloss: 'skin',                                    esWord: 'piel',       esGloss: 'skin (same!) — but pelo=hair in ES; PT pêlo=hair/fur', hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'taxa',       gloss: 'fee / rate / tax',                        esWord: 'taza',       esGloss: 'cup / mug',            hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'engraçado',  gloss: 'funny / amusing',                        esWord: 'gracioso',   esGloss: 'funny (ES prefers gracioso)', hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'passagem',   gloss: 'passage / ticket (bus/train)',            esWord: 'pasaje',     esGloss: 'passage / ticket — different form', hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'fechado',    gloss: 'closed',                                  esWord: 'cerrado',    esGloss: 'closed — PT uses fechado, ES uses cerrado', hot: true,  showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'peito',      gloss: 'chest (body part)',                       esWord: 'pecho',      esGloss: 'chest — same meaning, word shape differs', hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
+    { pt: 'rapaz',      gloss: 'boy / lad',                               esWord: 'rapaz',      esGloss: '(rare in ES — chico/muchacho preferred)', hot: false, showInBridge: true, category: 'PT↔ES', verify: true },
   ];
 
   window.FALSE_FRIENDS_DATA = FALSE_FRIENDS_DATA;
 
-  function renderFalsos() {
+  /* Falsos Amigos filter state */
+  let _falsosActiveFilter = 'all';
+
+  function _buildFalsosItemHtml(item) {
+    const badges = `
+      <span class="falsos-badges">
+        ${item.hot ? '<span class="falsos-badge-hot" title="Armadilha frequente">🔥</span>' : ''}
+        ${item.verify ? '<span class="falsos-badge-verify">⚠</span>' : ''}
+      </span>`;
+    const row2 = item.esWord
+      ? `<div class="falsos-row2">🇪🇸 <span class="falsos-es-word">${item.esWord}</span> <span class="falsos-arrow">=</span> <span class="falsos-es-gloss">"${item.esGloss}"</span></div>`
+      : '';
+    return `<div class="falsos-item${item.hot ? ' hot' : ''}">
+      <div class="falsos-row1">
+        <span class="falsos-pt" data-speak-falso="${item.pt.replace(/"/g,'&quot;')}" style="cursor:pointer">🔊 ${item.pt}</span>
+        <span class="falsos-pt-gloss">"${item.gloss}"</span>
+        ${badges}
+      </div>
+      ${row2}
+    </div>`;
+  }
+
+  function renderFalsos(filter) {
+    if (filter !== undefined) _falsosActiveFilter = filter;
     const t = document.getElementById('tool');
 
-    // Group by category
-    const groups = {};
-    FALSE_FRIENDS_DATA.forEach(item => {
-      if (!groups[item.category]) groups[item.category] = [];
-      groups[item.category].push(item);
-    });
+    const cats = ['all', 'PT→EN', 'PT↔ES'];
+    const catLabels = { all: 'Todos', 'PT→EN': 'PT → EN', 'PT↔ES': 'PT ↔ ES' };
 
-    const groupsHtml = Object.entries(groups).map(([cat, items]) => {
-      const itemsHtml = items.map(item => {
-        const badges = `
-          <span class="falsos-badges">
-            ${item.hot ? '<span class="falsos-badge-hot" title="Armadilha frequente">🔥</span>' : ''}
-            ${item.verify ? '<span class="falsos-badge-verify">⚠ verificado</span>' : ''}
-          </span>`;
-        const row2 = item.esWord
-          ? `<div class="falsos-row2">ES: <span class="falsos-es-word">${item.esWord}</span> <span class="falsos-arrow">→</span> <span class="falsos-es-gloss">"${item.esGloss}"</span></div>`
-          : '';
-        return `<div class="falsos-item${item.hot ? ' hot' : ''}">
-          <div class="falsos-row1">
-            <span class="falsos-pt" data-speak-falso="${item.pt.replace(/"/g,'&quot;')}" style="cursor:pointer">${item.pt}</span>
-            <span class="falsos-pt-gloss">"${item.gloss}"</span>
-            ${badges}
-          </div>
-          ${row2}
-        </div>`;
-      }).join('');
-      return `<div class="falsos-group">
-        <div class="falsos-group-h">${cat}</div>
-        <div class="falsos-list">${itemsHtml}</div>
-      </div>`;
-    }).join('');
+    const filterTabs = cats.map(c =>
+      `<button class="falsos-filter-tab${_falsosActiveFilter === c ? ' active' : ''}" data-falsos-filter="${c}">${catLabels[c]}</button>`
+    ).join('');
+
+    // Filter + sort: hot first, then alphabetical within category
+    const filtered = FALSE_FRIENDS_DATA
+      .filter(item => _falsosActiveFilter === 'all' || item.category === _falsosActiveFilter)
+      .sort((a, b) => {
+        if (a.hot !== b.hot) return b.hot ? 1 : -1;
+        return a.pt.localeCompare(b.pt, 'pt');
+      });
+
+    // Group by category for display (unless a specific category is chosen — then flat)
+    let bodyHtml;
+    if (_falsosActiveFilter !== 'all') {
+      bodyHtml = `<div class="falsos-list">${filtered.map(_buildFalsosItemHtml).join('')}</div>`;
+    } else {
+      const groups = {};
+      filtered.forEach(item => {
+        if (!groups[item.category]) groups[item.category] = [];
+        groups[item.category].push(item);
+      });
+      bodyHtml = Object.entries(groups).map(([cat, items]) => `
+        <div class="falsos-group">
+          <div class="falsos-group-h">${cat}</div>
+          <div class="falsos-list">${items.map(_buildFalsosItemHtml).join('')}</div>
+        </div>`).join('');
+    }
 
     t.innerHTML = `
       <button class="tool-back" id="falsos-back-btn">← Voltar</button>
       <div class="tool-name">Falsos Amigos</div>
-      <div style="font-size:14px;color:var(--muted);margin-bottom:20px;">🔥 = armadilha frequente · ⚠ = verificado por nativo</div>
-      ${groupsHtml}
+      <div style="font-size:13px;color:var(--muted);margin-bottom:14px;">🔥 = armadilha frequente · ⚠ = verificado · ${FALSE_FRIENDS_DATA.length} entradas</div>
+      <div class="falsos-filter-bar">${filterTabs}</div>
+      ${bodyHtml}
     `;
     t.querySelector('#falsos-back-btn').onclick = goHome;
+    t.querySelectorAll('[data-falsos-filter]').forEach(btn => {
+      btn.onclick = () => renderFalsos(btn.dataset.falsosFilter);
+    });
     t.querySelectorAll('[data-speak-falso]').forEach(el => {
       el.onclick = (e) => { e.stopPropagation(); speak(el.dataset.speakFalso); };
     });
@@ -6950,8 +7530,8 @@
   /* ── Schema validation stub ── */
   const SCHEMAS = {
     // Blocks register their schemas here as they get authored.
-    LESSONS: v => Array.isArray(v) && v.length >= 8
-      && v.slice(0, 8).every(l => l.id && l.title && l.notes && Array.isArray(l.vocab) && l.vocab.length >= 8),
+    LESSONS: v => Array.isArray(v) && v.length >= 16
+      && v.filter(l => !l.locked).every(l => l.id && l.title && l.notes && Array.isArray(l.vocab) && l.vocab.length >= 8),
     VERBS: v => Array.isArray(v) && v.length >= 150
       && v.every(x => x.infinitive && x.category && x.conjugations
         && Object.keys(x.conjugations).length === 9
