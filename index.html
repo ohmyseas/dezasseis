@@ -1280,9 +1280,6 @@
      PRATICAR — Drill mode (Task 1.5)
      ══════════════════════════════════════════════════════════════ */
 
-  /* Drilled tense keys (only tenses where TENSE_META[k].drilled === true) */
-  const DRILLED_TENSES = Object.keys(TENSE_META).filter(k => TENSE_META[k].drilled);
-
   /* Accent-strip helper: lowercase + NFD decompose + strip combining diacritics */
   function stripAccents(s) {
     return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
@@ -1316,7 +1313,6 @@
   /* Weighted random draw from VERBS × DRILLED_TENSES × 6 persons
      Weight = 1 + (wrong * 2) for combos with mistakes, 1 for fresh ones.
      personIdx 4 (vós) is excluded from drill (archaic). */
-  const DRILL_PERSON_IDXS = [0, 1, 2, 3, 5]; // skip vós (4)
 
   function drawDrillItem(pinVerb) {
     const store = loadStore();
@@ -2378,6 +2374,12 @@
   window.PRONOUNS_PT = PRONOUNS_PT;
   window.TENSE_META = TENSE_META;
   window.VERB_CATEGORIES_PT = VERB_CATEGORIES_PT;
+
+  /* Drill constants — must live AFTER TENSE_META and VERBS are initialized */
+  /* Drilled tense keys (only tenses where TENSE_META[k].drilled === true) */
+  const DRILLED_TENSES = Object.keys(TENSE_META).filter(k => TENSE_META[k].drilled);
+  /* personIdx 4 (vós) is excluded from drill (archaic) */
+  const DRILL_PERSON_IDXS = [0, 1, 2, 3, 5]; // skip vós (4)
 
 
   /* ── Schema validation stub ── */
