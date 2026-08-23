@@ -683,6 +683,143 @@
     }
     .form-speak-btn:hover { background: var(--bg2); color: var(--verde3); border-color: var(--line); }
     .form-speak-btn:active { transform: scale(.92); }
+
+    /* ── Praticar button ── */
+    .btn-praticar {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 20px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      background: var(--verde);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background .15s, transform .12s;
+      letter-spacing: .02em;
+    }
+    .btn-praticar:hover { background: var(--verde2); }
+    .btn-praticar:active { transform: scale(.96); }
+
+    /* ── Drill screen ── */
+    .drill-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .drill-score {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 6px 14px;
+      letter-spacing: .04em;
+    }
+    .drill-score .drill-correct { color: var(--verde3); }
+    .drill-score .drill-wrong   { color: #f87171; }
+    .drill-card {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px 20px 20px;
+      margin-bottom: 16px;
+    }
+    .drill-tense-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--verde3);
+      margin-bottom: 10px;
+    }
+    .drill-verb-en {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--chalk);
+      margin-bottom: 4px;
+    }
+    .drill-infinitive {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+    .drill-pronoun {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--chalk);
+      margin-bottom: 16px;
+    }
+    .drill-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+    .drill-input {
+      width: 100%;
+      background: var(--bg3);
+      border: 2px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 18px;
+      font-family: inherit;
+      color: var(--chalk);
+      outline: none;
+      transition: border-color .15s;
+    }
+    .drill-input:focus { border-color: var(--verde2); }
+    .drill-input.correct { border-color: var(--verde2); background: rgba(5,136,63,.1); }
+    .drill-input.wrong   { border-color: var(--vermelho); background: rgba(218,41,28,.07); }
+    .drill-feedback {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 20px;
+    }
+    .drill-feedback.ok     { color: var(--verde3); }
+    .drill-feedback.err    { color: #f87171; }
+    .drill-feedback.accent { color: #f0c040; }
+    .drill-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+    .btn-proximo {
+      flex: 1;
+      padding: 13px 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      background: var(--verde);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-proximo:hover { background: var(--verde2); }
+    .btn-proximo:active { transform: scale(.97); }
+    .btn-sair {
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--bg3);
+      color: var(--chalk);
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn-sair:hover { background: var(--bg); }
   </style>
 </head>
 <body>
@@ -1011,7 +1148,10 @@
 
     const t = document.getElementById('tool');
     t.innerHTML = `
-      <button class="tool-back" onclick="renderVerbMachine()">← Máquina de Verbos</button>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+        <button class="tool-back" style="margin-bottom:0" id="verb-back-btn">← Máquina de Verbos</button>
+        <button class="btn-praticar" id="verb-praticar-btn">▶ Praticar este verbo</button>
+      </div>
       <div class="vm-verb-header">
         <div class="vm-verb-inf">
           ${verb.infinitive}
@@ -1036,7 +1176,8 @@
     t.querySelectorAll('.tense-listen-btn[data-speak-all]').forEach(btn => {
       btn.onclick = (e) => { e.stopPropagation(); speakAllForms(JSON.parse(btn.dataset.speakAll)); };
     });
-    t.querySelector('.tool-back').onclick = renderVerbMachine;
+    t.querySelector('#verb-back-btn').onclick = renderVerbMachine;
+    t.querySelector('#verb-praticar-btn').onclick = () => renderVerbDrill(infinitive);
   }
 
   /* Verb list view */
@@ -1108,7 +1249,10 @@
     const t = document.getElementById('tool');
     t.innerHTML = `
       <button class="tool-back" onclick="goHome()">← Voltar</button>
-      <div class="tool-name">Máquina de Verbos</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;">
+        <div class="tool-name" style="margin-bottom:0">Máquina de Verbos</div>
+        <button class="btn-praticar" id="vm-praticar-btn">▶ Praticar</button>
+      </div>
       <div class="vm-search-bar">
         <input type="search" class="vm-search-input" id="vm-search"
           placeholder="Procurar… falar, to speak, …"
@@ -1124,9 +1268,223 @@
     t.querySelectorAll('.vm-card[data-verb-inf]').forEach(btn => {
       btn.onclick = () => renderVerb(btn.dataset.verbInf);
     });
+    // Wire Praticar button
+    const pratBtn = document.getElementById('vm-praticar-btn');
+    if (pratBtn) pratBtn.onclick = () => renderVerbDrill(null);
     // Focus search box
     const s = document.getElementById('vm-search');
     if (s && !_vmFilter.query) s.focus();
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     PRATICAR — Drill mode (Task 1.5)
+     ══════════════════════════════════════════════════════════════ */
+
+  /* Drilled tense keys (only tenses where TENSE_META[k].drilled === true) */
+  const DRILLED_TENSES = Object.keys(TENSE_META).filter(k => TENSE_META[k].drilled);
+
+  /* Accent-strip helper: lowercase + NFD decompose + strip combining diacritics */
+  function stripAccents(s) {
+    return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  }
+
+  /* localStorage key */
+  const LS_KEY = 'dezasseis:v1';
+
+  function loadStore() {
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); }
+    catch (e) { return {}; }
+  }
+  function saveStore(store) {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch (e) {}
+  }
+
+  /* verb_weights: { "falar|presente|0": { correct: N, wrong: N }, … } */
+  function weightKey(infinitive, tenseKey, personIdx) {
+    return `${infinitive}|${tenseKey}|${personIdx}`;
+  }
+  function updateWeight(infinitive, tenseKey, personIdx, wasCorrect) {
+    const store = loadStore();
+    if (!store.verb_weights) store.verb_weights = {};
+    const k = weightKey(infinitive, tenseKey, personIdx);
+    if (!store.verb_weights[k]) store.verb_weights[k] = { correct: 0, wrong: 0 };
+    if (wasCorrect) store.verb_weights[k].correct++;
+    else store.verb_weights[k].wrong++;
+    saveStore(store);
+  }
+
+  /* Weighted random draw from VERBS × DRILLED_TENSES × 6 persons
+     Weight = 1 + (wrong * 2) for combos with mistakes, 1 for fresh ones.
+     personIdx 4 (vós) is excluded from drill (archaic). */
+  const DRILL_PERSON_IDXS = [0, 1, 2, 3, 5]; // skip vós (4)
+
+  function drawDrillItem(pinVerb) {
+    const store = loadStore();
+    const weights = store.verb_weights || {};
+
+    // Build candidate pool
+    const pool = [];
+    const source = pinVerb ? VERBS.filter(v => v.infinitive === pinVerb) : VERBS;
+
+    source.forEach(verb => {
+      DRILLED_TENSES.forEach(tenseKey => {
+        DRILL_PERSON_IDXS.forEach(personIdx => {
+          const k = weightKey(verb.infinitive, tenseKey, personIdx);
+          const w = weights[k] || { correct: 0, wrong: 0 };
+          const weight = 1 + (w.wrong * 2);
+          pool.push({ verb, tenseKey, personIdx, weight });
+        });
+      });
+    });
+
+    // Weighted random selection
+    const total = pool.reduce((sum, c) => sum + c.weight, 0);
+    let rand = Math.random() * total;
+    for (const candidate of pool) {
+      rand -= candidate.weight;
+      if (rand <= 0) return candidate;
+    }
+    return pool[pool.length - 1];
+  }
+
+  /* Drill state */
+  let _drillState = {
+    pinVerb: null,      // null = any verb, string = locked infinitive
+    sessionCorrect: 0,
+    sessionWrong: 0,
+    current: null,      // { verb, tenseKey, personIdx }
+    answered: false,
+  };
+
+  function renderVerbDrill(pinVerb) {
+    _drillState.pinVerb = pinVerb || null;
+    _drillState.sessionCorrect = 0;
+    _drillState.sessionWrong = 0;
+    _drillState.answered = false;
+    _drillState.current = drawDrillItem(_drillState.pinVerb);
+    _renderDrillScreen();
+  }
+
+  function _renderDrillScreen() {
+    const { verb, tenseKey, personIdx } = _drillState.current;
+    const tenseLabel = TENSE_META[tenseKey].label;
+    const pronoun = PRONOUNS_PT[personIdx];
+    const { sessionCorrect, sessionWrong } = _drillState;
+    const total = sessionCorrect + sessionWrong;
+
+    const t = document.getElementById('tool');
+    t.innerHTML = `
+      <div class="drill-header">
+        <button class="btn-sair" id="drill-sair-btn">← Sair</button>
+        <div class="drill-score">
+          <span class="drill-correct">${sessionCorrect}✓</span>
+          &nbsp;/&nbsp;
+          <span class="drill-wrong">${sessionWrong}✗</span>
+          ${total > 0 ? `&nbsp;·&nbsp;${Math.round(sessionCorrect/total*100)}%` : ''}
+        </div>
+      </div>
+      <div class="drill-card">
+        <div class="drill-tense-label">${tenseLabel}</div>
+        <div class="drill-verb-en">${verb.en}</div>
+        <div class="drill-infinitive">${verb.infinitive}</div>
+        <div class="drill-pronoun">${pronoun}</div>
+        <div class="drill-label">Escreve a forma:</div>
+        <input class="drill-input" id="drill-input" type="text"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+          placeholder="…" aria-label="Resposta">
+        <div class="drill-feedback" id="drill-feedback"></div>
+      </div>
+      <div class="drill-actions">
+        <button class="btn-proximo" id="drill-check-btn">Verificar</button>
+      </div>
+    `;
+    t.scrollTop = 0;
+    window.scrollTo(0, 0);
+
+    const input = document.getElementById('drill-input');
+    const checkBtn = document.getElementById('drill-check-btn');
+    const sairBtn = document.getElementById('drill-sair-btn');
+
+    input.focus();
+
+    // Allow Enter to submit / advance
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkBtn.click();
+    });
+
+    checkBtn.onclick = () => {
+      if (_drillState.answered) {
+        // Advance to next
+        _drillState.answered = false;
+        _drillState.current = drawDrillItem(_drillState.pinVerb);
+        _renderDrillScreen();
+        return;
+      }
+      _checkDrillAnswer();
+    };
+
+    sairBtn.onclick = () => renderVerbMachine();
+  }
+
+  function _checkDrillAnswer() {
+    const { verb, tenseKey, personIdx } = _drillState.current;
+    const correct = verb.conjugations[tenseKey][personIdx];
+    const userRaw = document.getElementById('drill-input').value.trim();
+    const feedback = document.getElementById('drill-feedback');
+    const input = document.getElementById('drill-input');
+    const checkBtn = document.getElementById('drill-check-btn');
+
+    if (!userRaw) return; // do nothing on empty
+
+    const userNorm = stripAccents(userRaw);
+    const correctNorm = stripAccents(correct);
+    const exactMatch = userRaw.toLowerCase() === correct.toLowerCase();
+    const accentMatch = !exactMatch && userNorm === correctNorm;
+
+    let wasCorrect;
+
+    if (exactMatch || accentMatch) {
+      wasCorrect = true;
+      _drillState.sessionCorrect++;
+      if (accentMatch) {
+        input.classList.add('correct');
+        feedback.className = 'drill-feedback accent';
+        feedback.textContent = `atenção ao acento: correto = ${correct}, escreveste = ${userRaw}`;
+      } else {
+        input.classList.add('correct');
+        feedback.className = 'drill-feedback ok';
+        feedback.textContent = `Correto! ✓`;
+      }
+    } else {
+      wasCorrect = false;
+      _drillState.sessionWrong++;
+      input.classList.add('wrong');
+      feedback.className = 'drill-feedback err';
+      feedback.textContent = `Errado. Correto: ${correct}`;
+    }
+
+    updateWeight(verb.infinitive, tenseKey, personIdx, wasCorrect);
+    _drillState.answered = true;
+
+    // Update score display
+    const { sessionCorrect, sessionWrong } = _drillState;
+    const total = sessionCorrect + sessionWrong;
+    const scoreEl = document.querySelector('.drill-score');
+    if (scoreEl) {
+      scoreEl.innerHTML = `
+        <span class="drill-correct">${sessionCorrect}✓</span>
+        &nbsp;/&nbsp;
+        <span class="drill-wrong">${sessionWrong}✗</span>
+        ${total > 0 ? `&nbsp;·&nbsp;${Math.round(sessionCorrect/total*100)}%` : ''}
+      `;
+    }
+
+    // Swap button label to "Próximo"
+    checkBtn.textContent = 'Próximo →';
+    checkBtn.focus();
+
+    // Disable input
+    input.disabled = true;
   }
 
   function vmSetQuery(val) {
